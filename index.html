@@ -7,10 +7,23 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0a0a14;
+      background: #0a0a14 url('https://raw.githubusercontent.com/AwihEwih/barter-history/main/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #cccccc;
       font-family: 'Segoe UI', Arial, sans-serif;
       padding: 30px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 15, 0.55);
+      pointer-events: none;
+      z-index: 0;
+    }
+    h1, .subtitle, table, .footer {
+      position: relative;
+      z-index: 1;
     }
     h1 {
       text-align: center;
@@ -19,10 +32,11 @@
       letter-spacing: 3px;
       margin-bottom: 6px;
       text-transform: uppercase;
+      text-shadow: 0 0 18px #00f5d488;
     }
     .subtitle {
       text-align: center;
-      color: #555577;
+      color: #aaaacc;
       font-size: 0.85em;
       margin-bottom: 30px;
     }
@@ -32,7 +46,7 @@
       font-size: 0.95em;
     }
     thead tr {
-      background: #0d1f1b;
+      background: rgba(13, 31, 27, 0.85);
       border-bottom: 2px solid #00f5d4;
     }
     thead th {
@@ -45,12 +59,12 @@
       text-transform: none;
       font-weight: bold;
     }
-    tr.even { background: #0f0f1e; }
-    tr.odd  { background: #0a0a17; }
-    tbody tr:hover { background: #1a1a2e; }
+    tr.even { background: rgba(15, 15, 30, 0.80); }
+    tr.odd  { background: rgba(10, 10, 23, 0.75); }
+    tbody tr:hover { background: rgba(26, 26, 46, 0.90); }
     td {
       padding: 10px 16px;
-      border-bottom: 1px solid #1a1a2e;
+      border-bottom: 1px solid rgba(26, 26, 46, 0.7);
       vertical-align: top;
       text-align: left;
     }
@@ -60,7 +74,7 @@
     td:nth-child(5) { color: #aaffaa; font-size: 0.88em; }
     .footer {
       text-align: center;
-      color: #333355;
+      color: #555577;
       font-size: 0.78em;
       margin-top: 24px;
     }
@@ -68,7 +82,7 @@
 </head>
 <body>
   <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: 29/06/2026 12:16:19</p>
+  <p class="subtitle">Last updated: 29/06/2026 12:57:17</p>
   <table>
     <thead>
       <tr>
@@ -119,7 +133,7 @@
           <td>[24/06 11:48 PM]</td>
           <td>2490 Crow Coins</td>
           <td>Mariveno Island</td>
-          <td></td>
+          <td>Iliyaa</td>
           <td>0</td>
         </tr>
     </tbody>
