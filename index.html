@@ -7,7 +7,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0a0a14 url('bg.JPG') no-repeat center center fixed;
+      background: #0a0a14 url('./bg.jpg') no-repeat center center fixed !important;
       background-size: cover;
       color: #cccccc;
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -17,7 +17,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 15, 0.55);
+      background: rgba(5, 5, 15, 0.6);
       pointer-events: none;
       z-index: 0;
     }
@@ -28,61 +28,52 @@
     h1 {
       text-align: center;
       color: #00f5d4;
-      font-size: 2em;
-      letter-spacing: 3px;
-      margin-bottom: 6px;
+      font-size: 2.3em;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
       text-transform: uppercase;
-      text-shadow: 0 0 18px #00f5d488;
+      text-shadow: 0 0 25px #00f5d4aa;
     }
     .subtitle {
       text-align: center;
       color: #aaaacc;
-      font-size: 0.85em;
-      margin-bottom: 30px;
+      font-size: 0.95em;
+      margin-bottom: 35px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95em;
+      font-size: 0.98em;
     }
     thead tr {
-      background: rgba(13, 31, 27, 0.85);
-      border-bottom: 2px solid #00f5d4;
+      background: rgba(13, 31, 27, 0.9);
+      border-bottom: 3px solid #00f5d4;
     }
     thead th {
       color: #00f5d4;
-      padding: 10px 16px;
+      padding: 14px 16px;
       text-align: left;
-      vertical-align: middle;
-      font-size: 0.95em;
-      letter-spacing: 0px;
-      text-transform: none;
-      font-weight: bold;
     }
-    tr.even { background: rgba(15, 15, 30, 0.80); }
-    tr.odd  { background: rgba(10, 10, 23, 0.75); }
-    tbody tr:hover { background: rgba(26, 26, 46, 0.90); }
+    tr.even { background: rgba(15, 15, 30, 0.85); }
+    tr.odd  { background: rgba(10, 10, 23, 0.82); }
+    tbody tr:hover { background: rgba(30, 30, 55, 0.95); }
     td {
-      padding: 10px 16px;
-      border-bottom: 1px solid rgba(26, 26, 46, 0.7);
-      vertical-align: top;
-      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(50, 50, 70, 0.5);
     }
-    td:first-child { color: #7777aa; font-size: 0.85em; white-space: nowrap; }
-    td:nth-child(2) { color: #ffcc66; font-weight: bold; }
-    td:nth-child(3), td:nth-child(4) { color: #aaaacc; }
-    td:nth-child(5) { color: #aaffaa; font-size: 0.88em; }
+    td:first-child { color: #8899ff; white-space: nowrap; }
+    td:nth-child(2) { color: #ffdd88; font-weight: bold; }
     .footer {
       text-align: center;
-      color: #555577;
-      font-size: 0.78em;
-      margin-top: 24px;
+      color: #666688;
+      font-size: 0.82em;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
   <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: 29/06/2026 16:32:36</p>
+  <p class="subtitle">Last updated: 29/06/2026 16:36</p>
   <table>
     <thead>
       <tr>
@@ -94,48 +85,12 @@
       </tr>
     </thead>
     <tbody>
-        <tr class="even">
-          <td>[29/06 09:49 AM]</td>
-          <td>3015 Crow Coins</td>
-          <td>Rameda Island</td>
-          <td>Epheria</td>
-          <td>0</td>
-        </tr>
-        <tr class="odd">
-          <td>[27/06 06:13 PM]</td>
-          <td>2538 Crow Coins</td>
-          <td>Delinghart Island</td>
-          <td>Iliya</td>
-          <td>0</td>
-        </tr>
-        <tr class="even">
-          <td>[26/06 08:51 PM]</td>
-          <td>TRI MANOS BELT</td>
-          <td>Tulu Island</td>
-          <td>Lema</td>
-          <td>0</td>
-        </tr>
-        <tr class="odd">
-          <td>[26/06 09:16 AM]</td>
-          <td>3518 Crow Coins</td>
-          <td>Albresser Island</td>
-          <td>Epheria</td>
-          <td>0</td>
-        </tr>
-        <tr class="even">
-          <td>[24/06 07:53 PM]</td>
-          <td>1338 Crow Coins</td>
-          <td>Orffs Island</td>
-          <td>Iliya</td>
-          <td>0</td>
-        </tr>
-        <tr class="odd">
-          <td>[24/06 11:48 PM]</td>
-          <td>2490 Crow Coins</td>
-          <td>Mariveno Island</td>
-          <td>Iliya</td>
-          <td>0</td>
-        </tr>
+        <tr class="even"><td>[29/06 09:49 AM]</td><td>3015 Crow Coins</td><td>Rameda Island</td><td>Epheria</td><td>0</td></tr>
+        <tr class="odd"><td>[27/06 06:13 PM]</td><td>2538 Crow Coins</td><td>Delinghart Island</td><td>Iliya</td><td>0</td></tr>
+        <tr class="even"><td>[26/06 08:51 PM]</td><td>TRI MANOS BELT</td><td>Tulu Island</td><td>Lema</td><td>0</td></tr>
+        <tr class="odd"><td>[26/06 09:16 AM]</td><td>3518 Crow Coins</td><td>Albresser Island</td><td>Epheria</td><td>0</td></tr>
+        <tr class="even"><td>[24/06 07:53 PM]</td><td>1338 Crow Coins</td><td>Orffs Island</td><td>Iliya</td><td>0</td></tr>
+        <tr class="odd"><td>[24/06 11:48 PM]</td><td>2490 Crow Coins</td><td>Mariveno Island</td><td>Iliya</td><td>0</td></tr>
     </tbody>
   </table>
   <p class="footer">Generated by Barter Updater</p>
