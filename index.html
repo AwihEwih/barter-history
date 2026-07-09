@@ -32,10 +32,14 @@
       padding: 32px;
     }
     .page {
-      max-width: 1460px;
+      max-width: 1100px;
       margin: 0 auto;
+      transition: max-width 0.15s ease;
     }
-    .page-columns {
+    .page.panel-open {
+      max-width: 1460px;
+    }
+    .page.panel-open .page-columns {
       display: grid;
       grid-template-columns: minmax(0, 1100px) 320px;
       gap: 32px;
@@ -384,7 +388,10 @@
       font-size: 0.88em;
     }
     @media (max-width: 1500px) {
-      .page-columns {
+      .page.panel-open {
+        max-width: 1100px;
+      }
+      .page.panel-open .page-columns {
         display: block;
       }
       .detail-panel {
@@ -406,7 +413,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783587277786">09/07/2026 10:54:37</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783587771792">09/07/2026 11:02:51</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -627,6 +634,7 @@
     });
 
     // ---- Details panel (opens in the fixed side panel instead of inline) ----
+    const pageEl = document.querySelector('.page');
     const detailPanel = document.getElementById('detailPanel');
     const detailPanelTitle = document.getElementById('detailPanelTitle');
     const detailPanelBody = document.getElementById('detailPanelBody');
@@ -634,6 +642,7 @@
 
     function closeDetailPanel() {
       detailPanel.classList.remove('open');
+      pageEl.classList.remove('panel-open');
       if (activeDetailsBtn) {
         activeDetailsBtn.classList.remove('active');
         activeDetailsBtn = null;
@@ -652,6 +661,7 @@
         detailPanelTitle.textContent = '# ' + (btn.dataset.itemName || 'Details');
         detailPanelBody.innerHTML = source ? source.innerHTML : '';
         detailPanel.classList.add('open');
+        pageEl.classList.add('panel-open');
         btn.classList.add('active');
         activeDetailsBtn = btn;
       });
