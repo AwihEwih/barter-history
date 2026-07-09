@@ -398,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783588328378">09/07/2026 11:12:08</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783588651247">09/07/2026 11:17:31</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -623,19 +623,28 @@
     const detailPanel = document.getElementById('detailPanel');
     const detailPanelTitle = document.getElementById('detailPanelTitle');
     const detailPanelBody = document.getElementById('detailPanelBody');
+    const alignAnchorEl = document.querySelector('.stats-grid') || pageEl;
     let activeDetailsBtn = null;
 
     function positionDetailPanel() {
       if (window.matchMedia('(max-width: 1500px)').matches) {
         detailPanel.style.left = '';
+        detailPanel.style.top = '';
         return;
       }
-      const rect = pageEl.getBoundingClientRect();
-      detailPanel.style.left = (rect.right + 32) + 'px';
+      const pageRect = pageEl.getBoundingClientRect();
+      const anchorRect = alignAnchorEl.getBoundingClientRect();
+      const maxTop = window.innerHeight - 80;
+      const top = Math.min(Math.max(anchorRect.top, 16), maxTop);
+      detailPanel.style.left = (pageRect.right + 32) + 'px';
+      detailPanel.style.top = top + 'px';
     }
     window.addEventListener('resize', () => {
       if (detailPanel.classList.contains('open')) positionDetailPanel();
     });
+    window.addEventListener('scroll', () => {
+      if (detailPanel.classList.contains('open')) positionDetailPanel();
+    }, { passive: true });
 
     function closeDetailPanel() {
       detailPanel.classList.remove('open');
