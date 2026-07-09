@@ -13,9 +13,9 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0a0a14 url('bg.png') no-repeat center center fixed;
+      background: #14141c url('bg.png') no-repeat center center fixed;
       background-size: cover;
-      color: #c7c4ba;
+      color: #eae7e0;
       font-family: Verdana, Geneva, sans-serif;
       padding: 30px;
     }
@@ -23,7 +23,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(9, 10, 13, 0.62);
+      background: rgba(10, 10, 14, 0.38);
       pointer-events: none;
       z-index: 0;
     }
@@ -33,7 +33,7 @@
     }
     h1 {
       text-align: center;
-      color: #b8935a;
+      color: #d9ab6e;
       font-size: 1.7em;
       font-weight: bold;
       letter-spacing: 3px;
@@ -42,51 +42,51 @@
     }
     .subtitle {
       text-align: center;
-      color: #6b6862;
+      color: #a19c92;
       font-size: 0.78em;
       margin-bottom: 22px;
     }
-    .subtitle span { cursor: default; border-bottom: 1px dotted #4a4844; }
+    .subtitle span { cursor: default; border-bottom: 1px dotted #7a746a; }
     .divider {
       border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
       margin: 24px 0;
     }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
     .stat-card {
-      background: rgba(16, 17, 22, 0.88);
+      background: rgba(26, 27, 34, 0.80);
       padding: 16px 18px;
     }
     .stat-label {
-      color: #6b6862;
+      color: #a19c92;
       font-size: 0.68em;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 8px;
     }
     .stat-value {
-      color: #c7c4ba;
+      color: #eae7e0;
       font-size: 1.5em;
       font-weight: bold;
     }
     .stat-value-small {
-      color: #b8935a;
+      color: #d9ab6e;
       font-size: 1em;
       font-weight: bold;
     }
     .route-finder {
-      background: rgba(16, 17, 22, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(26, 27, 34, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 20px 24px;
     }
     .route-finder h2 {
-      color: #c7c4ba;
+      color: #eae7e0;
       font-size: 1.05em;
       letter-spacing: 1px;
       margin-bottom: 14px;
@@ -95,7 +95,7 @@
     }
     .route-note {
       text-align: center;
-      color: #6b6862;
+      color: #a19c92;
       font-size: 0.76em;
       margin-top: -8px;
       margin-bottom: 16px;
@@ -115,40 +115,40 @@
       min-width: 220px;
     }
     .route-field label {
-      color: #6b6862;
+      color: #a19c92;
       font-size: 0.76em;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
     .route-field select {
-      background: #16171e;
-      color: #c7c4ba;
+      background: #20212b;
+      color: #eae7e0;
       border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 8px 10px;
       font-family: Verdana, Geneva, sans-serif;
       font-size: 0.9em;
     }
     #swapBtn {
-      background: #16171e;
-      color: #b8935a;
+      background: #20212b;
+      color: #d9ab6e;
       border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 8px 12px;
       font-size: 1.05em;
       cursor: pointer;
       align-self: center;
     }
-    #swapBtn:hover { background: #1c1d26; }
+    #swapBtn:hover { background: #2a2b36; }
     .route-result {
       text-align: center;
       font-size: 0.95em;
-      color: #918e86;
+      color: #c4c0b7;
       padding: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.10);
     }
-    .route-result-found { color: #918e86; }
-    .route-result-found b { color: #b8935a; }
-    .route-result-empty { color: #a56a6a; }
+    .route-result-found { color: #c4c0b7; }
+    .route-result-found b { color: #d9ab6e; }
+    .route-result-empty { color: #d68a8a; }
     .table-toolbar {
       display: flex;
       align-items: center;
@@ -160,7 +160,7 @@
     .tabs { display: flex; gap: 0; }
     .tab-btn {
       background: transparent;
-      color: #6b6862;
+      color: #a19c92;
       border: none;
       border-bottom: 2px solid transparent;
       padding: 8px 18px;
@@ -170,12 +170,12 @@
       cursor: pointer;
     }
     .tab-btn.active {
-      color: #c7c4ba;
-      border-bottom-color: #b8935a;
+      color: #eae7e0;
+      border-bottom-color: #d9ab6e;
     }
     .search-box {
-      background: #16171e;
-      color: #c7c4ba;
+      background: #20212b;
+      color: #eae7e0;
       border: 1px solid rgba(255, 255, 255, 0.14);
       padding: 8px 12px;
       font-size: 0.85em;
@@ -183,8 +183,8 @@
       font-family: Verdana, Geneva, sans-serif;
     }
     .table-wrap {
-      background: rgba(16, 17, 22, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(26, 27, 34, 0.80);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       max-height: 70vh;
       overflow: auto;
     }
@@ -195,14 +195,14 @@
       font-size: 0.9em;
     }
     thead tr {
-      background: #16171e;
+      background: #20212b;
       border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     }
     thead th {
       position: sticky;
       top: 0;
-      background: #16171e;
-      color: #918e86;
+      background: #20212b;
+      color: #c4c0b7;
       padding: 10px 16px;
       text-align: left;
       vertical-align: middle;
@@ -214,22 +214,22 @@
       user-select: none;
       white-space: nowrap;
     }
-    thead th:hover { color: #b8935a; }
+    thead th:hover { color: #d9ab6e; }
     thead th.sort-asc::after { content: ' \25B2'; font-size: 0.8em; }
     thead th.sort-desc::after { content: ' \25BC'; font-size: 0.8em; }
     tbody tr { transition: background 0.1s ease; }
-    tr.even { background: rgba(255, 255, 255, 0.015); }
+    tr.even { background: rgba(255, 255, 255, 0.03); }
     tr.odd  { background: transparent; }
-    tbody tr:hover { background: rgba(255, 255, 255, 0.045); }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.07); }
     td {
       padding: 9px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       vertical-align: top;
       text-align: left;
     }
-    td:first-child { color: #6b6862; font-size: 0.85em; white-space: nowrap; }
-    td:nth-child(2) { color: #b8935a; font-weight: bold; }
-    td:nth-child(3), td:nth-child(4) { color: #918e86; }
+    td:first-child { color: #a19c92; font-size: 0.85em; white-space: nowrap; }
+    td:nth-child(2) { color: #d9ab6e; font-weight: bold; }
+    td:nth-child(3), td:nth-child(4) { color: #c4c0b7; }
     .badge {
       display: inline-block;
       padding: 2px 8px;
@@ -238,11 +238,11 @@
       text-transform: uppercase;
       border: 1px solid currentColor;
     }
-    .badge-accurate { color: #6f8f7c; }
-    .badge-inaccurate { color: #a56a6a; }
+    .badge-accurate { color: #8fbf9f; }
+    .badge-inaccurate { color: #d68a8a; }
     .footer {
       text-align: center;
-      color: #4a4844;
+      color: #7a746a;
       font-size: 0.75em;
       margin-top: 24px;
     }
@@ -250,7 +250,7 @@
 </head>
 <body>
   <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783577009819">09/07/2026 08:03:29</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783582260123">09/07/2026 09:31:00</span></p>
 
   <div class="stats-grid">
     <div class="stat-card">
@@ -329,50 +329,57 @@
         <tr>
           <th data-type="order">Date</th>
           <th data-type="text">Pair</th>
-          <th data-type="text">Place</th>
+          <th data-type="text">From</th>
+          <th data-type="text">To</th>
           <th data-type="number">Parley deducted</th>
           <th data-type="text">Accuracy</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 iliya island">
+        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 lema island iliya island iliya island">
           <td>[8/07 02:54:07 PM]</td>
           <td>5 T6 → 5 T7</td>
+          <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">≈ Auto-path</span></td>
         </tr>
-        <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 lema island">
+        <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 starry midnight port lema island lema island">
           <td>[8/07 02:51:35 PM]</td>
           <td>5 T6 → 5 T7</td>
+          <td>Starry Midnight Port</td>
           <td>Lema Island</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">accurate</span></td>
         </tr>
-        <tr class="even" data-order="2" data-search="5 t5 → 5 t6 starry midnight port">
+        <tr class="even" data-order="2" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port">
           <td>[8/07 02:40:50 PM]</td>
           <td>5 T5 → 5 T6</td>
+          <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">accurate</span></td>
         </tr>
-        <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 grándiha">
+        <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 rameda island grándiha grándiha">
           <td>[8/07 02:38:15 PM]</td>
           <td>5 T5 → 5 T6</td>
+          <td>Rameda Island</td>
           <td>Grándiha</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">accurate</span></td>
         </tr>
-        <tr class="even" data-order="4" data-search="5 t4 → 5 t5 rameda island">
+        <tr class="even" data-order="4" data-search="5 t4 → 5 t5 marka island rameda island rameda island">
           <td>[8/07 02:34:21 PM]</td>
           <td>5 T4 → 5 T5</td>
+          <td>Marka Island</td>
           <td>Rameda Island</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">≈ Autre</span></td>
         </tr>
-        <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingot(s) marka island">
+        <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingot(s)  marka island marka island">
           <td>[8/07 02:31:33 PM]</td>
           <td>2 T5 → 2 Brilliant Rock Salt Ingot(s)</td>
+          <td></td>
           <td>Marka Island</td>
           <td data-sort="16608.0">16608.0</td>
           <td><span class="badge badge-inaccurate">≈ Autre</span></td>
