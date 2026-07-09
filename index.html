@@ -398,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783614726876">09/07/2026 18:32:06</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783631297443">09/07/2026 23:08:17</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -522,7 +522,7 @@
           <td>Iliya Island</td>
           <td>Ancado</td>
           <td data-sort="0">0.0</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
         <tr class="odd" data-order="3" data-search="5 t6 → 5 t7 iliya island iliya island iliya island">
           <td>[9/07 03:39:15 PM]</td>
@@ -602,7 +602,7 @@
   </div>
 
   <script>
-    const ROUTES_DATA = [{"from": "Rameda Island", "to": "Grándiha", "seconds": 234.0, "display": "3m 54s", "count": 1, "date": "[8/07 02:38:15 PM]"}, {"from": "Grándiha", "to": "Starry Midnight Port", "seconds": 155.0, "display": "2m 35s", "count": 1, "date": "[8/07 02:40:50 PM]"}, {"from": "Starry Midnight Port", "to": "Lema Island", "seconds": 645.0, "display": "10m 45s", "count": 1, "date": "[8/07 02:51:35 PM]"}, {"from": "Iliya Island", "to": "Ancado", "seconds": 9072.0, "display": "2h 31m 12s", "count": 1, "date": "[9/07 06:16:20 PM]"}];
+    const ROUTES_DATA = [{"from": "Rameda Island", "to": "Grándiha", "seconds": 234.0, "display": "3m 54s", "count": 1, "date": "[8/07 02:38:15 PM]"}, {"from": "Grándiha", "to": "Starry Midnight Port", "seconds": 155.0, "display": "2m 35s", "count": 1, "date": "[8/07 02:40:50 PM]"}, {"from": "Starry Midnight Port", "to": "Lema Island", "seconds": 645.0, "display": "10m 45s", "count": 1, "date": "[8/07 02:51:35 PM]"}];
     const placesSet = new Set();
     ROUTES_DATA.forEach(r => { placesSet.add(r.from); placesSet.add(r.to); });
     const places = Array.from(placesSet).sort();
