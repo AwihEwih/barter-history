@@ -66,39 +66,36 @@
       margin: 22px 0;
     }
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      display: block;
       border: 1px solid var(--line);
     }
     .stat-card {
       padding: 10px 16px;
       border-bottom: 1px solid var(--line);
-      border-right: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
+      gap: 16px;
     }
+    .stat-card:last-child { border-bottom: none; }
     .stat-label {
       color: var(--fg-dim);
       font-size: 0.82em;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .stat-label::after { content: ' ......................................'; letter-spacing: -1px; }
     .stat-value {
       color: var(--fg);
       font-weight: bold;
       font-size: 0.95em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      text-align: right;
     }
     .stat-value-small {
       color: var(--amber);
       font-weight: bold;
       font-size: 0.9em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      text-align: right;
     }
     .route-finder {
       border: 1px solid var(--line);
@@ -257,7 +254,7 @@
 </head>
 <body>
   <h1>barter_history --view</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783583171057">09/07/2026 09:46:11</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783583442149">09/07/2026 09:50:42</span></p>
 
   <div class="stats-grid">
     <div class="stat-card">
