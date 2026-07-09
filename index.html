@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barter History</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9A%93</text></svg>">
+  <meta property="og:title" content="Barter History">
+  <meta property="og:description" content="Barter trade log, special barter history, and fastest-route finder.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://AwihEwih.github.io/barter-history/">
+  <meta property="og:image" content="https://AwihEwih.github.io/barter-history/bg.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -21,7 +27,7 @@
       pointer-events: none;
       z-index: 0;
     }
-    h1, .subtitle, table, .footer, .route-finder {
+    h1, .subtitle, .stats-grid, table, .footer, .route-finder, .table-toolbar, .table-wrap {
       position: relative;
       z-index: 1;
     }
@@ -38,7 +44,40 @@
       text-align: center;
       color: #aaaacc;
       font-size: 0.85em;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
+    }
+    .subtitle span { cursor: default; border-bottom: 1px dotted #555577; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: rgba(13, 31, 27, 0.65);
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      border-radius: 0;
+      padding: 14px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: center;
+    }
+    .stat-label {
+      color: #7777aa;
+      font-size: 0.72em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      color: #00f5d4;
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+    .stat-value-small {
+      color: #ffcc66;
+      font-size: 1.05em;
+      font-weight: bold;
     }
     .route-finder {
       background: rgba(13, 31, 27, 0.75);
@@ -46,6 +85,8 @@
       border-radius: 0;
       padding: 20px 24px;
       margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .route-finder h2 {
       color: #00f5d4;
@@ -111,16 +152,60 @@
     .route-result-found { color: #ffcc66; }
     .route-result-found b { color: #00f5d4; }
     .route-result-empty { color: #ff9999; }
+    .table-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .tabs { display: flex; gap: 8px; }
+    .tab-btn {
+      background: rgba(13, 31, 27, 0.75);
+      color: #aaaacc;
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      padding: 8px 16px;
+      font-size: 0.85em;
+      cursor: pointer;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+    .tab-btn.active {
+      color: #00f5d4;
+      border-color: #00f5d4;
+      background: rgba(0, 245, 212, 0.1);
+    }
+    .search-box {
+      background: #14142a;
+      color: #ffffff;
+      border: 1px solid rgba(0, 245, 212, 0.35);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.9em;
+      min-width: 220px;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+    .table-wrap {
+      background: rgba(10, 10, 20, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-height: 70vh;
+      overflow: auto;
+    }
+    .table-wrap.hidden { display: none; }
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.95em;
     }
     thead tr {
-      background: rgba(13, 31, 27, 0.85);
+      background: rgba(13, 31, 27, 0.95);
       border-bottom: 2px solid #00f5d4;
     }
     thead th {
+      position: sticky;
+      top: 0;
+      background: rgba(13, 31, 27, 0.95);
       color: #00f5d4;
       padding: 10px 16px;
       text-align: left;
@@ -129,7 +214,18 @@
       letter-spacing: 0px;
       text-transform: none;
       font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
     }
+    thead th:hover { color: #ffcc66; }
+    thead th.sort-asc::after { content: ' ▲'; font-size: 0.8em; }
+    thead th.sort-desc::after { content: ' ▼'; font-size: 0.8em; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: none; }
+    }
+    tbody tr { animation: fadeIn 0.35s ease both; transition: background 0.15s ease; }
     tr.even { background: rgba(15, 15, 30, 0.80); }
     tr.odd  { background: rgba(10, 10, 23, 0.75); }
     tbody tr:hover { background: rgba(26, 26, 46, 0.90); }
@@ -143,6 +239,15 @@
     td:nth-child(2) { color: #ffcc66; font-weight: bold; }
     td:nth-child(3), td:nth-child(4) { color: #aaaacc; }
     td:nth-child(5) { color: #aaffaa; font-size: 0.88em; }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 10px;
+      font-size: 0.82em;
+      font-weight: bold;
+    }
+    .badge-accurate { background: rgba(0, 245, 212, 0.15); color: #00f5d4; }
+    .badge-inaccurate { background: rgba(255, 153, 153, 0.15); color: #ff9999; }
     .footer {
       text-align: center;
       color: #555577;
@@ -153,7 +258,27 @@
 </head>
 <body>
   <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: 09/07/2026 07:21:05</p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783576025489">09/07/2026 07:47:05</span></p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Special barters</div>
+      <div class="stat-value">1</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pair trades logged</div>
+      <div class="stat-value">6</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Most visited place</div>
+      <div class="stat-value stat-value-small">Haemo Island</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Fastest route overall</div>
+      <div class="stat-value stat-value-small">Grándiha → Starry Midnight Port (2m 35s)</div>
+    </div>
+  </div>
+
 
   <div class="route-finder">
     <h2>🧭 Route Finder — Fastest recorded time</h2>
@@ -172,26 +297,96 @@
     <div id="routeResult" class="route-result">Select a From and a To place.</div>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Item</th>
-        <th>Place</th>
-        <th>Main Place</th>
-        <th>Trades until this special barter</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="even">
+
+  <div class="table-toolbar">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="special">Special barters</button>
+      <button class="tab-btn" data-tab="pairs">Pair trades</button>
+    </div>
+    <input type="text" id="searchBox" class="search-box" placeholder="Search item or place...">
+  </div>
+
+  <div class="table-wrap" id="tab-special">
+    <table>
+      <thead>
+        <tr>
+          <th data-type="order">Date</th>
+          <th data-type="text">Item</th>
+          <th data-type="text">Place</th>
+          <th data-type="text">Main Place</th>
+          <th data-type="number">Trades until this special barter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even" data-order="0" data-search="bave ricksa's quest voucher haemo island loml">
           <td>[8/07 02:25 PM]</td>
           <td>Bave Ricksa's Quest Voucher</td>
           <td>Haemo Island</td>
           <td>LOML</td>
-          <td>0</td>
+          <td data-sort="0">0</td>
         </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap hidden" id="tab-pairs">
+    <table>
+      <thead>
+        <tr>
+          <th data-type="order">Date</th>
+          <th data-type="text">Pair</th>
+          <th data-type="text">Place</th>
+          <th data-type="number">Parley deducted</th>
+          <th data-type="text">Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 iliya island">
+          <td>[8/07 02:54:07 PM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Iliya Island</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-inaccurate">≈ Auto-path</span></td>
+        </tr>
+        <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 lema island">
+          <td>[8/07 02:51:35 PM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Lema Island</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-accurate">accurate</span></td>
+        </tr>
+        <tr class="even" data-order="2" data-search="5 t5 → 5 t6 starry midnight port">
+          <td>[8/07 02:40:50 PM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Starry Midnight Port</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-accurate">accurate</span></td>
+        </tr>
+        <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 grándiha">
+          <td>[8/07 02:38:15 PM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Grándiha</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-accurate">accurate</span></td>
+        </tr>
+        <tr class="even" data-order="4" data-search="5 t4 → 5 t5 rameda island">
+          <td>[8/07 02:34:21 PM]</td>
+          <td>5 T4 → 5 T5</td>
+          <td>Rameda Island</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-inaccurate">≈ Autre</span></td>
+        </tr>
+        <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingot(s) marka island">
+          <td>[8/07 02:31:33 PM]</td>
+          <td>2 T5 → 2 Brilliant Rock Salt Ingot(s)</td>
+          <td>Marka Island</td>
+          <td data-sort="16608.0">16608.0</td>
+          <td><span class="badge badge-inaccurate">≈ Autre</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <p class="footer">Generated by Barter Updater</p>
 
   <script>
@@ -234,7 +429,7 @@
         resultEl.className = 'route-result route-result-empty';
         return;
       }
-      resultEl.innerHTML = '⚡ Fastest: <b>' + match.display + '</b> &nbsp;·&nbsp; ' +
+      resultEl.innerHTML = '🏆 Fastest: <b>' + match.display + '</b> &nbsp;·&nbsp; ' +
         match.count + ' trip(s) logged &nbsp;·&nbsp; record set ' + match.date;
       resultEl.className = 'route-result route-result-found';
     }
@@ -247,6 +442,71 @@
       toSelect.value = f;
       updateRouteResult();
     });
+
+    // ---- Tabs ----
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = { special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs') };
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.values(tabPanels).forEach(p => p.classList.add('hidden'));
+        tabPanels[btn.dataset.tab].classList.remove('hidden');
+        document.getElementById('searchBox').value = '';
+        applySearch();
+      });
+    });
+
+    // ---- Search ----
+    const searchBox = document.getElementById('searchBox');
+    function applySearch() {
+      const q = searchBox.value.trim().toLowerCase();
+      const activePanel = document.querySelector('.table-wrap:not(.hidden)');
+      activePanel.querySelectorAll('tbody tr').forEach(tr => {
+        tr.style.display = (!q || (tr.dataset.search || '').includes(q)) ? '' : 'none';
+      });
+    }
+    searchBox.addEventListener('input', applySearch);
+
+    // ---- Sortable columns ----
+    document.querySelectorAll('table').forEach(table => {
+      const headers = table.querySelectorAll('th');
+      headers.forEach((th, colIndex) => {
+        th.addEventListener('click', () => {
+          const tbody = table.querySelector('tbody');
+          const rows = Array.from(tbody.querySelectorAll('tr'));
+          const type = th.dataset.type;
+          const asc = th.dataset.asc = th.dataset.asc === '1' ? '0' : '1';
+          headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+          th.classList.add(asc === '1' ? 'sort-asc' : 'sort-desc');
+          rows.sort((a, b) => {
+            const cellA = a.children[colIndex], cellB = b.children[colIndex];
+            let va, vb;
+            if (type === 'order') { va = +a.dataset.order; vb = +b.dataset.order; }
+            else if (type === 'number') { va = +(cellA.dataset.sort || 0); vb = +(cellB.dataset.sort || 0); }
+            else { va = cellA.textContent.trim().toLowerCase(); vb = cellB.textContent.trim().toLowerCase(); }
+            if (va < vb) return asc === '1' ? -1 : 1;
+            if (va > vb) return asc === '1' ? 1 : -1;
+            return 0;
+          });
+          rows.forEach(r => tbody.appendChild(r));
+        });
+      });
+    });
+
+    // ---- Relative "last updated" ----
+    const luEl = document.getElementById('lastUpdated');
+    if (luEl) {
+      const epoch = +luEl.dataset.epoch;
+      const diffMin = Math.round((Date.now() - epoch) / 60000);
+      let rel;
+      if (diffMin < 1) rel = 'just now';
+      else if (diffMin < 60) rel = diffMin + ' minute' + (diffMin === 1 ? '' : 's') + ' ago';
+      else if (diffMin < 1440) { const h = Math.round(diffMin / 60); rel = h + ' hour' + (h === 1 ? '' : 's') + ' ago'; }
+      else { const d = Math.round(diffMin / 1440); rel = d + ' day' + (d === 1 ? '' : 's') + ' ago'; }
+      luEl.title = luEl.textContent;
+      luEl.textContent = rel;
+    }
   </script>
 
 </body>
