@@ -266,6 +266,27 @@
     td:first-child { color: var(--fg-dim); font-size: 0.9em; white-space: nowrap; }
     td:nth-child(2) { color: var(--amber); font-weight: bold; }
     td:nth-child(3), td:nth-child(4) { color: var(--fg); }
+    details {
+      font-size: 0.9em;
+    }
+    summary {
+      color: var(--accent);
+      cursor: pointer;
+      list-style: none;
+      white-space: nowrap;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '[+] '; }
+    details[open] summary::before { content: '[-] '; }
+    details[open] summary { color: var(--amber); }
+    .detail-list {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      color: var(--fg);
+      line-height: 1.6;
+      white-space: normal;
+    }
     .badge {
       font-size: 0.85em;
     }
@@ -281,7 +302,7 @@
 </head>
 <body>
   <h1>barter_history --view</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783584758670">09/07/2026 10:12:38</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783586004960">09/07/2026 10:33:24</span></p>
 
   <div class="stats-grid">
     <div class="stat-card">
@@ -344,6 +365,7 @@
           <th data-type="text">Place</th>
           <th data-type="text">Main Place</th>
           <th data-type="number">Trades until this special barter</th>
+          <th data-type="text">Details</th>
         </tr>
       </thead>
       <tbody>
@@ -353,6 +375,7 @@
           <td>Haemo Island</td>
           <td>LOML</td>
           <td data-sort="0">0</td>
+          <td><details><summary>Click for details</summary><div class="detail-list">0</div></details></td>
         </tr>
       </tbody>
     </table>
@@ -409,7 +432,7 @@
           <td>Marka Island</td>
           <td>Rameda Island</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-inaccurate">[~ Autre]</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
         <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingot(s)  marka island marka island">
           <td>[8/07 02:31:33 PM]</td>
@@ -417,7 +440,7 @@
           <td></td>
           <td>Marka Island</td>
           <td data-sort="16608.0">16608.0</td>
-          <td><span class="badge badge-inaccurate">[~ Autre]</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
       </tbody>
     </table>
