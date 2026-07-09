@@ -398,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783614214716">09/07/2026 18:23:34</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783614726876">09/07/2026 18:32:06</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -411,7 +411,7 @@
     <div class="stat-card">
       <div class="stat-label">Pair trades logged</div>
       <div class="stat-leader"></div>
-      <div class="stat-value">9</div>
+      <div class="stat-value">10</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Most visited place</div>
@@ -419,9 +419,14 @@
       <div class="stat-value stat-value-small">Iliya Island</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Fastest route overall</div>
+      <div class="stat-label">Fastest route overall (actively)</div>
       <div class="stat-leader"></div>
       <div class="stat-value stat-value-small">Grándiha → Starry Midnight Port (2m 35s)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Fastest route overall (auto-path)</div>
+      <div class="stat-leader"></div>
+      <div class="stat-value stat-value-small">Hakoven Island → Arehaza (3m 37s)</div>
     </div>
   </div>
 
@@ -495,7 +500,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="5 t5 → 5 t6 ancado hakoven island hakoven island">
+        <tr class="even" data-order="0" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza">
+          <td>[9/07 06:25:27 PM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Hakoven Island</td>
+          <td>Arehaza</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
+        </tr>
+        <tr class="odd" data-order="1" data-search="5 t5 → 5 t6 ancado hakoven island hakoven island">
           <td>[9/07 06:21:50 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Ancado</td>
@@ -503,7 +516,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
-        <tr class="odd" data-order="1" data-search="🏝 stop at ancado (daily, 0 trade) iliya island ancado ancado">
+        <tr class="even" data-order="2" data-search="🏝 stop at ancado (daily, 0 trade) iliya island ancado ancado">
           <td>[9/07 06:16:20 PM]</td>
           <td>🏝 STOP AT ANCADO (Daily, 0 trade)</td>
           <td>Iliya Island</td>
@@ -511,7 +524,7 @@
           <td data-sort="0">0.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
         </tr>
-        <tr class="even" data-order="2" data-search="5 t6 → 5 t7 iliya island iliya island iliya island">
+        <tr class="odd" data-order="3" data-search="5 t6 → 5 t7 iliya island iliya island iliya island">
           <td>[9/07 03:39:15 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Iliya Island</td>
@@ -519,7 +532,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
-        <tr class="odd" data-order="3" data-search="5 t6 → 5 t7 lema island iliya island iliya island">
+        <tr class="even" data-order="4" data-search="5 t6 → 5 t7 lema island iliya island iliya island">
           <td>[8/07 02:54:07 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Lema Island</td>
@@ -527,7 +540,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
         </tr>
-        <tr class="even" data-order="4" data-search="5 t6 → 5 t7 starry midnight port lema island lema island">
+        <tr class="odd" data-order="5" data-search="5 t6 → 5 t7 starry midnight port lema island lema island">
           <td>[8/07 02:51:35 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Starry Midnight Port</td>
@@ -535,7 +548,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
         </tr>
-        <tr class="odd" data-order="5" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port">
+        <tr class="even" data-order="6" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port">
           <td>[8/07 02:40:50 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Grándiha</td>
@@ -543,7 +556,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
         </tr>
-        <tr class="even" data-order="6" data-search="5 t5 → 5 t6 rameda island grándiha grándiha">
+        <tr class="odd" data-order="7" data-search="5 t5 → 5 t6 rameda island grándiha grándiha">
           <td>[8/07 02:38:15 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Rameda Island</td>
@@ -551,7 +564,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
         </tr>
-        <tr class="odd" data-order="7" data-search="5 t4 → 5 t5 marka island rameda island rameda island">
+        <tr class="even" data-order="8" data-search="5 t4 → 5 t5 marka island rameda island rameda island">
           <td>[8/07 02:34:21 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Marka Island</td>
@@ -559,7 +572,7 @@
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-inaccurate">[~ Other]</span></td>
         </tr>
-        <tr class="even" data-order="8" data-search="2 t5 → 2 brilliant rock salt ingot(s)  marka island marka island">
+        <tr class="odd" data-order="9" data-search="2 t5 → 2 brilliant rock salt ingot(s)  marka island marka island">
           <td>[8/07 02:31:33 PM]</td>
           <td>2 T5 → 2 Brilliant Rock Salt Ingot(s)</td>
           <td></td>
