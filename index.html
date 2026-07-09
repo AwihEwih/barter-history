@@ -10,6 +10,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://AwihEwih.github.io/barter-history/">
   <meta property="og:image" content="https://AwihEwih.github.io/barter-history/bg.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Special+Elite&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -23,84 +26,98 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 15, 0.55);
+      background: rgba(10, 8, 6, 0.72);
       pointer-events: none;
       z-index: 0;
     }
-    h1, .subtitle, .stats-grid, table, .footer, .route-finder, .table-toolbar, .table-wrap {
+    h1, .subtitle, .stats-grid, table, .footer, .route-finder, .table-toolbar, .table-wrap, .wave {
       position: relative;
       z-index: 1;
     }
     h1 {
       text-align: center;
-      color: #00f5d4;
-      font-size: 2em;
-      letter-spacing: 3px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      text-shadow: 0 0 18px #00f5d488;
+      color: #c9a24b;
+      font-family: 'Pirata One', cursive;
+      font-size: 3.2em;
+      letter-spacing: 2px;
+      margin-bottom: 2px;
+      text-shadow: 0 2px 0 #000, 0 0 24px rgba(201, 162, 75, 0.35);
     }
     .subtitle {
       text-align: center;
-      color: #aaaacc;
-      font-size: 0.85em;
-      margin-bottom: 24px;
+      color: #9a8f78;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.8em;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
-    .subtitle span { cursor: default; border-bottom: 1px dotted #555577; }
+    .subtitle span { cursor: default; border-bottom: 1px dotted #6b5c46; }
+    .wave {
+      width: 100%;
+      height: 18px;
+      margin: 18px 0 26px;
+      opacity: 0.55;
+    }
+    .plate {
+      background-color: #ece0c4;
+      background-image:
+        radial-gradient(circle at 12px 12px, #6b4e23 2.6px, transparent 3px),
+        radial-gradient(circle at calc(100% - 12px) 12px, #6b4e23 2.6px, transparent 3px),
+        radial-gradient(circle at 12px calc(100% - 12px), #6b4e23 2.6px, transparent 3px),
+        radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #6b4e23 2.6px, transparent 3px);
+      border: 1px solid #a9895a;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 14px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
     .stat-card {
-      background: rgba(13, 31, 27, 0.65);
-      border: 1px solid rgba(0, 245, 212, 0.25);
-      border-radius: 0;
-      padding: 14px 16px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 16px 16px;
       text-align: center;
     }
     .stat-label {
-      color: #7777aa;
-      font-size: 0.72em;
+      color: #6b5c46;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.68em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
     }
     .stat-value {
-      color: #00f5d4;
-      font-size: 1.6em;
-      font-weight: bold;
+      color: #7a3226;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 1.5em;
+      font-weight: normal;
     }
     .stat-value-small {
-      color: #ffcc66;
-      font-size: 1.05em;
-      font-weight: bold;
+      color: #3f5c4e;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 1em;
+      font-weight: normal;
     }
     .route-finder {
-      background: rgba(13, 31, 27, 0.75);
-      border: 1px solid rgba(0, 245, 212, 0.35);
-      border-radius: 0;
-      padding: 20px 24px;
-      margin-bottom: 30px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 22px 26px;
+      margin-bottom: 12px;
     }
     .route-finder h2 {
-      color: #00f5d4;
-      font-size: 1.15em;
+      color: #2b2015;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 1.1em;
       letter-spacing: 1px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       text-align: center;
+      text-transform: uppercase;
     }
     .route-note {
       text-align: center;
-      color: #7777aa;
-      font-size: 0.78em;
-      margin-top: -8px;
-      margin-bottom: 14px;
+      color: #6b5c46;
+      font-size: 0.76em;
+      margin-top: -6px;
+      margin-bottom: 16px;
+      font-style: italic;
     }
     .route-controls {
       display: flex;
@@ -117,170 +134,186 @@
       min-width: 220px;
     }
     .route-field label {
-      color: #7777aa;
-      font-size: 0.78em;
+      color: #6b5c46;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.72em;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
     .route-field select {
-      background: #14142a;
-      color: #ffffff;
-      border: 1px solid rgba(0, 245, 212, 0.35);
-      border-radius: 6px;
+      background: #f5ecd8;
+      color: #2b2015;
+      border: 1px solid #a9895a;
+      border-radius: 2px;
       padding: 8px 10px;
-      font-size: 0.95em;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 0.9em;
     }
     #swapBtn {
-      background: #14142a;
-      color: #00f5d4;
-      border: 1px solid rgba(0, 245, 212, 0.35);
-      border-radius: 6px;
-      padding: 8px 12px;
+      background: #a9895a;
+      color: #2b2015;
+      border: 1px solid #6b4e23;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
       font-size: 1.1em;
       cursor: pointer;
       align-self: center;
     }
-    #swapBtn:hover { background: #1c1c38; }
+    #swapBtn:hover { background: #c9a24b; }
     .route-result {
       text-align: center;
-      font-size: 1em;
-      color: #aaaacc;
-      padding: 10px;
-      border-radius: 6px;
-      background: rgba(10, 10, 23, 0.6);
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.95em;
+      color: #2b2015;
+      padding: 12px;
+      border-radius: 2px;
+      background: rgba(0,0,0,0.06);
+      border-top: 1px dashed #a9895a;
     }
-    .route-result-found { color: #ffcc66; }
-    .route-result-found b { color: #00f5d4; }
-    .route-result-empty { color: #ff9999; }
+    .route-result-found { color: #2b2015; }
+    .route-result-found b { color: #7a3226; }
+    .route-result-empty { color: #7a3226; font-style: italic; }
     .table-toolbar {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-top: 22px;
     }
-    .tabs { display: flex; gap: 8px; }
+    .tabs { display: flex; gap: 6px; }
     .tab-btn {
-      background: rgba(13, 31, 27, 0.75);
-      color: #aaaacc;
-      border: 1px solid rgba(0, 245, 212, 0.25);
-      padding: 8px 16px;
-      font-size: 0.85em;
+      background: rgba(20, 15, 10, 0.55);
+      color: #9a8f78;
+      border: 1px solid #6b5c46;
+      border-bottom: none;
+      padding: 9px 18px 12px;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.78em;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       cursor: pointer;
-      font-family: Verdana, Geneva, sans-serif;
+      border-radius: 6px 6px 0 0;
+      transform: translateY(4px);
     }
     .tab-btn.active {
-      color: #00f5d4;
-      border-color: #00f5d4;
-      background: rgba(0, 245, 212, 0.1);
+      background: #ece0c4;
+      color: #2b2015;
+      border-color: #a9895a;
+      transform: translateY(0);
     }
     .search-box {
-      background: #14142a;
-      color: #ffffff;
-      border: 1px solid rgba(0, 245, 212, 0.35);
-      border-radius: 6px;
+      background: #f5ecd8;
+      color: #2b2015;
+      border: 1px solid #a9895a;
+      border-radius: 2px;
       padding: 8px 12px;
-      font-size: 0.9em;
+      font-size: 0.85em;
       min-width: 220px;
       font-family: Verdana, Geneva, sans-serif;
     }
     .table-wrap {
-      background: rgba(10, 10, 20, 0.45);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       max-height: 70vh;
       overflow: auto;
+      border-radius: 0 4px 4px 4px;
     }
     .table-wrap.hidden { display: none; }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95em;
+      font-size: 0.9em;
     }
     thead tr {
-      background: rgba(13, 31, 27, 0.95);
-      border-bottom: 2px solid #00f5d4;
+      background: #d8c89f;
+      border-bottom: 2px solid #6b4e23;
     }
     thead th {
       position: sticky;
       top: 0;
-      background: rgba(13, 31, 27, 0.95);
-      color: #00f5d4;
+      background: #d8c89f;
+      color: #2b2015;
       padding: 10px 16px;
       text-align: left;
       vertical-align: middle;
-      font-size: 0.95em;
-      letter-spacing: 0px;
-      text-transform: none;
-      font-weight: bold;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.82em;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }
-    thead th:hover { color: #ffcc66; }
-    thead th.sort-asc::after { content: ' ▲'; font-size: 0.8em; }
-    thead th.sort-desc::after { content: ' ▼'; font-size: 0.8em; }
+    thead th:hover { color: #7a3226; }
+    thead th.sort-asc::after { content: ' \25B2'; font-size: 0.8em; }
+    thead th.sort-desc::after { content: ' \25BC'; font-size: 0.8em; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: none; }
     }
-    tbody tr { animation: fadeIn 0.35s ease both; transition: background 0.15s ease; }
-    tr.even { background: rgba(15, 15, 30, 0.80); }
-    tr.odd  { background: rgba(10, 10, 23, 0.75); }
-    tbody tr:hover { background: rgba(26, 26, 46, 0.90); }
+    tbody tr { animation: fadeIn 0.3s ease both; transition: background 0.15s ease; }
+    tr.even { background: #ece0c4; }
+    tr.odd  { background: #e2d3ac; }
+    tbody tr:hover { background: #f5ecd8; }
     td {
-      padding: 10px 16px;
-      border-bottom: 1px solid rgba(26, 26, 46, 0.7);
+      padding: 9px 16px;
+      border-bottom: 1px solid #c9b385;
       vertical-align: top;
       text-align: left;
+      color: #2b2015;
     }
-    td:first-child { color: #7777aa; font-size: 0.85em; white-space: nowrap; }
-    td:nth-child(2) { color: #ffcc66; font-weight: bold; }
-    td:nth-child(3), td:nth-child(4) { color: #aaaacc; }
-    td:nth-child(5) { color: #aaffaa; font-size: 0.88em; }
+    td:first-child { color: #6b5c46; font-size: 0.82em; white-space: nowrap; font-style: italic; }
+    td:nth-child(2) { color: #7a3226; font-weight: bold; }
+    td:nth-child(3), td:nth-child(4) { color: #4a3d2a; }
     .badge {
       display: inline-block;
-      padding: 2px 10px;
-      border-radius: 10px;
-      font-size: 0.82em;
-      font-weight: bold;
+      padding: 2px 12px;
+      border: 2px solid currentColor;
+      border-radius: 999px;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.72em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transform: rotate(-3deg);
     }
-    .badge-accurate { background: rgba(0, 245, 212, 0.15); color: #00f5d4; }
-    .badge-inaccurate { background: rgba(255, 153, 153, 0.15); color: #ff9999; }
+    .badge-accurate { color: #3f5c4e; }
+    .badge-inaccurate { color: #7a3226; }
     .footer {
       text-align: center;
-      color: #555577;
-      font-size: 0.78em;
-      margin-top: 24px;
+      color: #6b5c46;
+      font-family: 'Special Elite', 'Courier New', monospace;
+      font-size: 0.72em;
+      letter-spacing: 1px;
+      margin-top: 26px;
     }
   </style>
 </head>
 <body>
   <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783576123354">09/07/2026 07:48:43</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783576651149">09/07/2026 07:57:31</span></p>
 
   <div class="stats-grid">
-    <div class="stat-card">
+    <div class="plate stat-card">
       <div class="stat-label">Special barters</div>
       <div class="stat-value">1</div>
     </div>
-    <div class="stat-card">
+    <div class="plate stat-card">
       <div class="stat-label">Pair trades logged</div>
       <div class="stat-value">6</div>
     </div>
-    <div class="stat-card">
+    <div class="plate stat-card">
       <div class="stat-label">Most visited place</div>
       <div class="stat-value stat-value-small">Haemo Island</div>
     </div>
-    <div class="stat-card">
+    <div class="plate stat-card">
       <div class="stat-label">Fastest route overall</div>
       <div class="stat-value stat-value-small">Grándiha → Starry Midnight Port (2m 35s)</div>
     </div>
   </div>
 
+<svg class="wave" viewBox="0 0 600 20" preserveAspectRatio="none"><path d="M0 10 C 20 0, 40 20, 60 10 S 100 0, 120 10 S 160 20, 180 10 S 220 0, 240 10 S 280 20, 300 10 S 340 0, 360 10 S 400 20, 420 10 S 460 0, 480 10 S 520 20, 540 10 S 580 0, 600 10" fill="none" stroke="#c9a24b" stroke-width="2"/></svg>
 
-  <div class="route-finder">
+  <div class="plate route-finder">
     <h2>🧭 Route Finder — Fastest recorded time</h2>
     <p class="route-note">Based on accurate-time trips only — entries marked "≈ not accurate" are excluded.</p>
     <div class="route-controls">
@@ -297,6 +330,7 @@
     <div id="routeResult" class="route-result">Select a From and a To place.</div>
   </div>
 
+<svg class="wave" viewBox="0 0 600 20" preserveAspectRatio="none"><path d="M0 10 C 20 0, 40 20, 60 10 S 100 0, 120 10 S 160 20, 180 10 S 220 0, 240 10 S 280 20, 300 10 S 340 0, 360 10 S 400 20, 420 10 S 460 0, 480 10 S 520 20, 540 10 S 580 0, 600 10" fill="none" stroke="#c9a24b" stroke-width="2"/></svg>
 
   <div class="table-toolbar">
     <div class="tabs">
@@ -306,7 +340,7 @@
     <input type="text" id="searchBox" class="search-box" placeholder="Search item or place...">
   </div>
 
-  <div class="table-wrap" id="tab-special">
+  <div class="plate table-wrap" id="tab-special">
     <table>
       <thead>
         <tr>
@@ -329,7 +363,7 @@
     </table>
   </div>
 
-  <div class="table-wrap hidden" id="tab-pairs">
+  <div class="plate table-wrap hidden" id="tab-pairs">
     <table>
       <thead>
         <tr>
@@ -429,7 +463,7 @@
         resultEl.className = 'route-result route-result-empty';
         return;
       }
-      resultEl.innerHTML = '🏆 Fastest: <b>' + match.display + '</b> &nbsp;·&nbsp; ' +
+      resultEl.innerHTML = '⚓ Fastest: <b>' + match.display + '</b> &nbsp;&middot;&nbsp; ' +
         match.count + ' trip(s) logged &nbsp;·&nbsp; record set ' + match.date;
       resultEl.className = 'route-result route-result-found';
     }
