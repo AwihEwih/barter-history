@@ -23,7 +23,8 @@
       --panel:   #10140d;
     }
     body {
-      background: var(--bg);
+      background: var(--bg) url('bg.png') no-repeat center center fixed;
+      background-size: cover;
       color: var(--fg);
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
       font-size: 14px;
@@ -31,6 +32,18 @@
       padding: 32px;
       max-width: 1100px;
       margin: 0 auto;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 14, 10, 0.86);
+      pointer-events: none;
+      z-index: 0;
+    }
+    h1, .subtitle, .stats-grid, .divider, .route-finder, .table-toolbar, .table-wrap, .footer {
+      position: relative;
+      z-index: 1;
     }
     h1 {
       color: var(--fg);
@@ -68,14 +81,14 @@
     .stats-grid {
       display: block;
       border: 1px solid var(--line);
+      background: rgba(16, 20, 13, 0.78);
     }
     .stat-card {
       padding: 10px 16px;
       border-bottom: 1px solid var(--line);
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
-      gap: 16px;
+      gap: 8px;
     }
     .stat-card:last-child { border-bottom: none; }
     .stat-label {
@@ -84,22 +97,35 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .stat-label::after { content: ' ......................................'; letter-spacing: -1px; }
+    .stat-leader {
+      flex: 1 1 auto;
+      overflow: hidden;
+      white-space: nowrap;
+      color: var(--line);
+      height: 1em;
+    }
+    .stat-leader::after {
+      content: '..................................................................................................................................................................................................................................................................................................';
+      letter-spacing: 2px;
+    }
     .stat-value {
       color: var(--fg);
       font-weight: bold;
       font-size: 0.95em;
-      text-align: right;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .stat-value-small {
       color: var(--amber);
       font-weight: bold;
       font-size: 0.9em;
-      text-align: right;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .route-finder {
       border: 1px solid var(--line);
       padding: 18px 20px;
+      background: rgba(16, 20, 13, 0.78);
     }
     .route-finder h2 {
       color: var(--fg);
@@ -201,6 +227,7 @@
       border: 1px solid var(--line);
       max-height: 70vh;
       overflow: auto;
+      background: rgba(16, 20, 13, 0.78);
     }
     .table-wrap.hidden { display: none; }
     table {
@@ -254,23 +281,27 @@
 </head>
 <body>
   <h1>barter_history --view</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783583442149">09/07/2026 09:50:42</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783584241127">09/07/2026 10:04:01</span></p>
 
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-label">Special barters</div>
+      <div class="stat-leader"></div>
       <div class="stat-value">1</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Pair trades logged</div>
+      <div class="stat-leader"></div>
       <div class="stat-value">6</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Most visited place</div>
-      <div class="stat-value stat-value-small">Haemo Island</div>
+      <div class="stat-leader"></div>
+      <div class="stat-value stat-value-small">Lema Island</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall</div>
+      <div class="stat-leader"></div>
       <div class="stat-value stat-value-small">Grándiha → Starry Midnight Port (2m 35s)</div>
     </div>
   </div>
