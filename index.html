@@ -292,6 +292,69 @@
     }
     .badge-accurate { color: var(--accent); }
     .badge-inaccurate { color: var(--danger); }
+    .details-btn {
+      background: transparent;
+      color: var(--accent);
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: 0.9em;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .details-btn::before { content: '[+] '; }
+    .details-btn:hover { color: var(--amber); }
+    .details-btn.active { color: var(--amber); }
+    .details-btn.active::before { content: '[-] '; }
+    .detail-source { display: none; }
+    .detail-panel {
+      position: fixed;
+      top: 32px;
+      right: 32px;
+      width: 320px;
+      max-height: calc(100vh - 64px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: rgba(16, 20, 13, 0.94);
+      z-index: 5;
+      display: none;
+    }
+    .detail-panel.open { display: block; }
+    .detail-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--amber);
+      font-size: 0.85em;
+    }
+    .detail-panel-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .detail-panel-close {
+      background: transparent;
+      border: none;
+      color: var(--fg-dim);
+      font-size: 1.1em;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 0 0 10px;
+    }
+    .detail-panel-close:hover { color: var(--danger); }
+    .detail-panel-body {
+      padding: 12px 14px;
+      color: var(--fg);
+      line-height: 1.6;
+      font-size: 0.88em;
+    }
+    @media (max-width: 1500px) {
+      .detail-panel {
+        position: static;
+        width: auto;
+        max-height: none;
+        margin-top: 18px;
+      }
+      .detail-panel.open { display: block; }
+    }
     .footer {
       color: var(--fg-dim);
       font-size: 0.78em;
@@ -302,7 +365,14 @@
 </head>
 <body>
   <h1>barter_history --view</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783586004960">09/07/2026 10:33:24</span></p>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783586463549">09/07/2026 10:41:03</span></p>
+  <div id="detailPanel" class="detail-panel">
+    <div class="detail-panel-head">
+      <span class="detail-panel-title" id="detailPanelTitle"># Details</span>
+      <button type="button" class="detail-panel-close" id="detailPanelClose">&times;</button>
+    </div>
+    <div class="detail-panel-body" id="detailPanelBody">Click "Click for details" on a row to see it here.</div>
+  </div>
 
   <div class="stats-grid">
     <div class="stat-card">
@@ -375,7 +445,10 @@
           <td>Haemo Island</td>
           <td>LOML</td>
           <td data-sort="0">0</td>
-          <td><details><summary>Click for details</summary><div class="detail-list">0</div></details></td>
+          <td>
+            <button type="button" class="details-btn" data-detail-target="detail-0" data-item-name="Bave Ricksa's Quest Voucher">Click for details</button>
+            <div id="detail-0" class="detail-source" hidden>0</div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -502,6 +575,38 @@
       updateRouteResult();
     });
 
+    // ---- Details panel (opens in the fixed side panel instead of inline) ----
+    const detailPanel = document.getElementById('detailPanel');
+    const detailPanelTitle = document.getElementById('detailPanelTitle');
+    const detailPanelBody = document.getElementById('detailPanelBody');
+    let activeDetailsBtn = null;
+
+    function closeDetailPanel() {
+      detailPanel.classList.remove('open');
+      if (activeDetailsBtn) {
+        activeDetailsBtn.classList.remove('active');
+        activeDetailsBtn = null;
+      }
+    }
+
+    document.querySelectorAll('.details-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isSame = btn === activeDetailsBtn;
+        if (activeDetailsBtn) activeDetailsBtn.classList.remove('active');
+        if (isSame) {
+          closeDetailPanel();
+          return;
+        }
+        const source = document.getElementById(btn.dataset.detailTarget);
+        detailPanelTitle.textContent = '# ' + (btn.dataset.itemName || 'Details');
+        detailPanelBody.innerHTML = source ? source.innerHTML : '';
+        detailPanel.classList.add('open');
+        btn.classList.add('active');
+        activeDetailsBtn = btn;
+      });
+    });
+    document.getElementById('detailPanelClose').addEventListener('click', closeDetailPanel);
+
     // ---- Tabs ----
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabPanels = { special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs') };
@@ -513,6 +618,7 @@
         tabPanels[btn.dataset.tab].classList.remove('hidden');
         document.getElementById('searchBox').value = '';
         applySearch();
+        closeDetailPanel();
       });
     });
 
