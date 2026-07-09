@@ -34,16 +34,6 @@
     .page {
       max-width: 1100px;
       margin: 0 auto;
-      transition: max-width 0.15s ease;
-    }
-    .page.panel-open {
-      max-width: 1460px;
-    }
-    .page.panel-open .page-columns {
-      display: grid;
-      grid-template-columns: minmax(0, 1100px) 320px;
-      gap: 32px;
-      align-items: start;
     }
     .page-main { min-width: 0; }
     body::before {
@@ -350,14 +340,14 @@
     .details-btn.active::before { content: '[-] '; }
     .detail-source { display: none; }
     .detail-panel {
-      position: sticky;
+      position: fixed;
       top: 32px;
-      width: 100%;
+      width: 320px;
       max-height: calc(100vh - 64px);
       overflow: auto;
       border: 1px solid var(--line);
       background: rgba(16, 20, 13, 0.94);
-      z-index: 1;
+      z-index: 5;
       display: none;
     }
     .detail-panel.open { display: block; }
@@ -388,14 +378,9 @@
       font-size: 0.88em;
     }
     @media (max-width: 1500px) {
-      .page.panel-open {
-        max-width: 1100px;
-      }
-      .page.panel-open .page-columns {
-        display: block;
-      }
       .detail-panel {
-        position: static;
+        position: static !important;
+        left: auto !important;
         width: auto;
         max-height: none;
         margin-top: 18px;
@@ -413,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783587771792">09/07/2026 11:02:51</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783588328378">09/07/2026 11:12:08</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -633,16 +618,27 @@
       updateRouteResult();
     });
 
-    // ---- Details panel (opens in the fixed side panel instead of inline) ----
+    // ---- Details panel (fixed overlay next to the page; page itself never resizes) ----
     const pageEl = document.querySelector('.page');
     const detailPanel = document.getElementById('detailPanel');
     const detailPanelTitle = document.getElementById('detailPanelTitle');
     const detailPanelBody = document.getElementById('detailPanelBody');
     let activeDetailsBtn = null;
 
+    function positionDetailPanel() {
+      if (window.matchMedia('(max-width: 1500px)').matches) {
+        detailPanel.style.left = '';
+        return;
+      }
+      const rect = pageEl.getBoundingClientRect();
+      detailPanel.style.left = (rect.right + 32) + 'px';
+    }
+    window.addEventListener('resize', () => {
+      if (detailPanel.classList.contains('open')) positionDetailPanel();
+    });
+
     function closeDetailPanel() {
       detailPanel.classList.remove('open');
-      pageEl.classList.remove('panel-open');
       if (activeDetailsBtn) {
         activeDetailsBtn.classList.remove('active');
         activeDetailsBtn = null;
@@ -660,8 +656,8 @@
         const source = document.getElementById(btn.dataset.detailTarget);
         detailPanelTitle.textContent = '# ' + (btn.dataset.itemName || 'Details');
         detailPanelBody.innerHTML = source ? source.innerHTML : '';
+        positionDetailPanel();
         detailPanel.classList.add('open');
-        pageEl.classList.add('panel-open');
         btn.classList.add('active');
         activeDetailsBtn = btn;
       });
