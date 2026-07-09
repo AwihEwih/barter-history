@@ -12,99 +12,115 @@
   <meta property="og:image" content="https://AwihEwih.github.io/barter-history/bg.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg:      #0b0e0a;
+      --fg:      #b9c4ae;
+      --fg-dim:  #626e5a;
+      --accent:  #7fae5f;
+      --amber:   #c9a463;
+      --danger:  #b5675a;
+      --line:    #2a3324;
+      --panel:   #10140d;
+    }
     body {
-      background: #14141c url('bg.png') no-repeat center center fixed;
-      background-size: cover;
-      color: #eae7e0;
-      font-family: Verdana, Geneva, sans-serif;
-      padding: 30px;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 10, 14, 0.38);
-      pointer-events: none;
-      z-index: 0;
-    }
-    h1, .subtitle, .stats-grid, table, .footer, .route-finder, .table-toolbar, .table-wrap, .divider {
-      position: relative;
-      z-index: 1;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
     h1 {
-      text-align: center;
-      color: #d9ab6e;
-      font-size: 1.7em;
-      font-weight: bold;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
+      color: var(--fg);
+      font-size: 1.1em;
+      font-weight: normal;
+      margin-bottom: 2px;
     }
+    h1::before { content: '$ '; color: var(--accent); }
+    h1::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      margin-left: 6px;
+      background: var(--accent);
+      vertical-align: -2px;
+      animation: blink 1.1s steps(1) infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      h1::after { animation: none; }
+    }
+    @keyframes blink { 50% { opacity: 0; } }
     .subtitle {
-      text-align: center;
-      color: #a19c92;
-      font-size: 0.78em;
+      color: var(--fg-dim);
+      font-size: 0.82em;
       margin-bottom: 22px;
     }
-    .subtitle span { cursor: default; border-bottom: 1px dotted #7a746a; }
+    .subtitle::before { content: '# '; }
+    .subtitle span { color: var(--fg-dim); border-bottom: 1px dotted var(--line); cursor: default; }
     .divider {
       border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.14);
-      margin: 24px 0;
+      border-top: 1px solid var(--line);
+      margin: 22px 0;
     }
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      border: 1px solid var(--line);
     }
     .stat-card {
-      background: rgba(26, 27, 34, 0.80);
-      padding: 16px 18px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
     }
     .stat-label {
-      color: #a19c92;
-      font-size: 0.68em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      color: var(--fg-dim);
+      font-size: 0.82em;
     }
+    .stat-label::after { content: ' ......................................'; letter-spacing: -1px; }
     .stat-value {
-      color: #eae7e0;
-      font-size: 1.5em;
+      color: var(--fg);
       font-weight: bold;
+      font-size: 0.95em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .stat-value-small {
-      color: #d9ab6e;
-      font-size: 1em;
+      color: var(--amber);
       font-weight: bold;
+      font-size: 0.9em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .route-finder {
-      background: rgba(26, 27, 34, 0.80);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 20px 24px;
+      border: 1px solid var(--line);
+      padding: 18px 20px;
     }
     .route-finder h2 {
-      color: #eae7e0;
-      font-size: 1.05em;
-      letter-spacing: 1px;
-      margin-bottom: 14px;
-      text-align: center;
-      font-weight: bold;
+      color: var(--fg);
+      font-size: 0.9em;
+      font-weight: normal;
+      margin-bottom: 4px;
     }
+    .route-finder h2::before { content: '> '; color: var(--accent); }
     .route-note {
-      text-align: center;
-      color: #a19c92;
-      font-size: 0.76em;
-      margin-top: -8px;
+      color: var(--fg-dim);
+      font-size: 0.78em;
       margin-bottom: 16px;
     }
+    .route-note::before { content: '# '; }
     .route-controls {
       display: flex;
       align-items: flex-end;
-      justify-content: center;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
       margin-bottom: 14px;
     }
@@ -115,40 +131,43 @@
       min-width: 220px;
     }
     .route-field label {
-      color: #a19c92;
-      font-size: 0.76em;
+      color: var(--fg-dim);
+      font-size: 0.78em;
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
+    .route-field label::before { content: '['; color: var(--fg-dim); }
+    .route-field label::after { content: ']'; color: var(--fg-dim); }
     .route-field select {
-      background: #20212b;
-      color: #eae7e0;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 8px 10px;
-      font-family: Verdana, Geneva, sans-serif;
+      background: var(--panel);
+      color: var(--fg);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 7px 9px;
+      font-family: inherit;
       font-size: 0.9em;
     }
     #swapBtn {
-      background: #20212b;
-      color: #d9ab6e;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 8px 12px;
-      font-size: 1.05em;
+      background: var(--panel);
+      color: var(--accent);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 7px 12px;
+      font-size: 1em;
+      font-family: inherit;
       cursor: pointer;
       align-self: center;
     }
-    #swapBtn:hover { background: #2a2b36; }
+    #swapBtn:hover { border-color: var(--accent); }
     .route-result {
-      text-align: center;
-      font-size: 0.95em;
-      color: #c4c0b7;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      font-size: 0.88em;
+      color: var(--fg-dim);
+      padding: 10px 12px;
+      border: 1px solid var(--line);
     }
-    .route-result-found { color: #c4c0b7; }
-    .route-result-found b { color: #d9ab6e; }
-    .route-result-empty { color: #d68a8a; }
+    .route-result::before { content: '=> '; color: var(--fg-dim); }
+    .route-result-found { color: var(--fg); }
+    .route-result-found b { color: var(--amber); font-weight: bold; }
+    .route-result-empty { color: var(--danger); }
     .table-toolbar {
       display: flex;
       align-items: center;
@@ -157,34 +176,32 @@
       gap: 12px;
       margin-bottom: 10px;
     }
-    .tabs { display: flex; gap: 0; }
+    .tabs { display: flex; gap: 14px; }
     .tab-btn {
       background: transparent;
-      color: #a19c92;
+      color: var(--fg-dim);
       border: none;
-      border-bottom: 2px solid transparent;
-      padding: 8px 18px;
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 0.82em;
-      letter-spacing: 0.5px;
+      padding: 4px 0;
+      font-family: inherit;
+      font-size: 0.85em;
       cursor: pointer;
     }
-    .tab-btn.active {
-      color: #eae7e0;
-      border-bottom-color: #d9ab6e;
-    }
+    .tab-btn::before { content: '['; margin-right: 3px; }
+    .tab-btn::after { content: ']'; margin-left: 3px; }
+    .tab-btn.active { color: var(--accent); }
     .search-box {
-      background: #20212b;
-      color: #eae7e0;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 8px 12px;
+      background: var(--panel);
+      color: var(--fg);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 7px 10px;
       font-size: 0.85em;
       min-width: 220px;
-      font-family: Verdana, Geneva, sans-serif;
+      font-family: inherit;
     }
+    .search-box::placeholder { color: var(--fg-dim); }
     .table-wrap {
-      background: rgba(26, 27, 34, 0.80);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid var(--line);
       max-height: 70vh;
       overflow: auto;
     }
@@ -192,65 +209,55 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9em;
+      font-size: 0.88em;
     }
     thead tr {
-      background: #20212b;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
     }
     thead th {
       position: sticky;
       top: 0;
-      background: #20212b;
-      color: #c4c0b7;
-      padding: 10px 16px;
+      background: var(--panel);
+      color: var(--fg-dim);
+      padding: 9px 14px;
       text-align: left;
-      vertical-align: middle;
-      font-size: 0.78em;
-      letter-spacing: 0.5px;
+      font-size: 0.82em;
+      font-weight: normal;
       text-transform: uppercase;
-      font-weight: bold;
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }
-    thead th:hover { color: #d9ab6e; }
-    thead th.sort-asc::after { content: ' \25B2'; font-size: 0.8em; }
-    thead th.sort-desc::after { content: ' \25BC'; font-size: 0.8em; }
-    tbody tr { transition: background 0.1s ease; }
-    tr.even { background: rgba(255, 255, 255, 0.03); }
-    tr.odd  { background: transparent; }
-    tbody tr:hover { background: rgba(255, 255, 255, 0.07); }
+    thead th:hover { color: var(--accent); }
+    thead th.sort-asc::after { content: ' B2'; font-size: 0.8em; }
+    thead th.sort-desc::after { content: ' BC'; font-size: 0.8em; }
+    tbody tr { border-bottom: 1px solid var(--line); }
+    tbody tr:hover { background: var(--panel); }
     td {
-      padding: 9px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 14px;
       vertical-align: top;
       text-align: left;
     }
-    td:first-child { color: #a19c92; font-size: 0.85em; white-space: nowrap; }
-    td:nth-child(2) { color: #d9ab6e; font-weight: bold; }
-    td:nth-child(3), td:nth-child(4) { color: #c4c0b7; }
+    td:first-child { color: var(--fg-dim); font-size: 0.9em; white-space: nowrap; }
+    td:nth-child(2) { color: var(--amber); font-weight: bold; }
+    td:nth-child(3), td:nth-child(4) { color: var(--fg); }
     .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      font-size: 0.75em;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      border: 1px solid currentColor;
+      font-size: 0.85em;
     }
-    .badge-accurate { color: #8fbf9f; }
-    .badge-inaccurate { color: #d68a8a; }
+    .badge-accurate { color: var(--accent); }
+    .badge-inaccurate { color: var(--danger); }
     .footer {
-      text-align: center;
-      color: #7a746a;
-      font-size: 0.75em;
-      margin-top: 24px;
+      color: var(--fg-dim);
+      font-size: 0.78em;
+      margin-top: 22px;
     }
+    .footer::before { content: '# '; }
   </style>
 </head>
 <body>
-  <h1>⚓ Barter History</h1>
-  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783582260123">09/07/2026 09:31:00</span></p>
+  <h1>barter_history --view</h1>
+  <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783582844317">09/07/2026 09:40:44</span></p>
 
   <div class="stats-grid">
     <div class="stat-card">
@@ -342,7 +349,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-inaccurate">≈ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
         </tr>
         <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 starry midnight port lema island lema island">
           <td>[8/07 02:51:35 PM]</td>
@@ -350,7 +357,7 @@
           <td>Starry Midnight Port</td>
           <td>Lema Island</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-accurate">accurate</span></td>
+          <td><span class="badge badge-accurate">[ok]</span></td>
         </tr>
         <tr class="even" data-order="2" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port">
           <td>[8/07 02:40:50 PM]</td>
@@ -358,7 +365,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-accurate">accurate</span></td>
+          <td><span class="badge badge-accurate">[ok]</span></td>
         </tr>
         <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 rameda island grándiha grándiha">
           <td>[8/07 02:38:15 PM]</td>
@@ -366,7 +373,7 @@
           <td>Rameda Island</td>
           <td>Grándiha</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-accurate">accurate</span></td>
+          <td><span class="badge badge-accurate">[ok]</span></td>
         </tr>
         <tr class="even" data-order="4" data-search="5 t4 → 5 t5 marka island rameda island rameda island">
           <td>[8/07 02:34:21 PM]</td>
@@ -374,7 +381,7 @@
           <td>Marka Island</td>
           <td>Rameda Island</td>
           <td data-sort="41520.0">41520.0</td>
-          <td><span class="badge badge-inaccurate">≈ Autre</span></td>
+          <td><span class="badge badge-inaccurate">[~ Autre]</span></td>
         </tr>
         <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingot(s)  marka island marka island">
           <td>[8/07 02:31:33 PM]</td>
@@ -382,7 +389,7 @@
           <td></td>
           <td>Marka Island</td>
           <td data-sort="16608.0">16608.0</td>
-          <td><span class="badge badge-inaccurate">≈ Autre</span></td>
+          <td><span class="badge badge-inaccurate">[~ Autre]</span></td>
         </tr>
       </tbody>
     </table>
