@@ -398,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783865927232">12/07/2026 16:18:47</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783867021327">12/07/2026 16:37:01</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -416,7 +416,7 @@
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (actively)</div>
       <div class="stat-leader"></div>
-      <div class="stat-value stat-value-small">—</div>
+      <div class="stat-value stat-value-small">Wandering Merchant's Ship → Sanctuary Coastal Outpost (6m 9s)</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (auto-path)</div>
@@ -495,10 +495,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="5 t6 → 5 t7  sanctuary coastal outpost sanctuary coastal outpost">
+        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 wandering merchant's ship sanctuary coastal outpost sanctuary coastal outpost">
           <td>[12/07 04:13:53 PM]</td>
           <td>5 T6 → 5 T7</td>
-          <td></td>
+          <td>Wandering Merchant's Ship</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
@@ -525,7 +525,7 @@
   </div>
 
   <script>
-    const ROUTES_DATA = [];
+    const ROUTES_DATA = [{"from": "Wandering Merchant's Ship", "to": "Sanctuary Coastal Outpost", "seconds": 369.0, "display": "6m 9s", "count": 1, "date": "[12/07 04:13:53 PM]"}];
     const placesSet = new Set();
     ROUTES_DATA.forEach(r => { placesSet.add(r.from); placesSet.add(r.to); });
     const places = Array.from(placesSet).sort();
