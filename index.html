@@ -398,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783867490976">12/07/2026 16:44:50</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1783873771944">12/07/2026 18:29:31</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -411,12 +411,12 @@
     <div class="stat-card">
       <div class="stat-label">Pair trades logged</div>
       <div class="stat-leader"></div>
-      <div class="stat-value">1</div>
+      <div class="stat-value">4</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (actively)</div>
       <div class="stat-leader"></div>
-      <div class="stat-value stat-value-small">Wandering Merchant's Ship → Sanctuary Coastal Outpost (6m 9s)</div>
+      <div class="stat-value stat-value-small">Invernen Island → Narvo Island (23s)</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (auto-path)</div>
@@ -496,11 +496,35 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 wandering merchant's ship sanctuary coastal outpost sanctuary coastal outpost">
-          <td>[12/07 04:13:53 PM]</td>
-          <td>5 T6 → 5 T7</td>
-          <td>Wandering Merchant's Ship</td>
-          <td>Sanctuary Coastal Outpost</td>
+        <tr class="even" data-order="0" data-search="2 t5 → 2 brilliant pearl shard(s) narvo island marka island marka island">
+          <td>[12/07 06:20:13 PM]</td>
+          <td>2 T5 → 2 Brilliant Pearl Shard(s)</td>
+          <td>Narvo Island</td>
+          <td>Marka Island</td>
+          <td data-sort="16608.0">16608.0</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+        </tr>
+        <tr class="odd" data-order="1" data-search="5 t4 → 5 t5 invernen island narvo island narvo island">
+          <td>[12/07 06:17:20 PM]</td>
+          <td>5 T4 → 5 T5</td>
+          <td>Invernen Island</td>
+          <td>Narvo Island</td>
+          <td data-sort="41520.0">41520.0</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+        </tr>
+        <tr class="even" data-order="2" data-search="2 t5 → 2 brilliant pearl shard(s) orffs island invernen island invernen island">
+          <td>[12/07 06:11:20 PM]</td>
+          <td>2 T5 → 2 Brilliant Pearl Shard(s)</td>
+          <td>Orffs Island</td>
+          <td>Invernen Island</td>
+          <td data-sort="16608.0">16608.0</td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
+        </tr>
+        <tr class="odd" data-order="3" data-search="5 t4 → 5 t5  orffs island orffs island">
+          <td>[12/07 05:26:57 PM]</td>
+          <td>5 T4 → 5 T5</td>
+          <td></td>
+          <td>Orffs Island</td>
           <td data-sort="41520.0">41520.0</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
         </tr>
@@ -525,19 +549,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="📍 stop at iliya island sanctuary coastal outpost iliya island">
-          <td>[12/07 04:39:06 PM]</td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Sanctuary Coastal Outpost</td>
-          <td>Iliya Island</td>
-          <td>2m 21s</td>
-        </tr>
-        <tr class="odd" data-order="1" data-search="📦 add item: 1126 crow coins  wandering merchant's ship">
-          <td>[12/07 04:07:10 PM]</td>
-          <td>📦 ADD ITEM: 1126 Crow Coins</td>
+        <tr class="even" data-order="0" data-search="📍 stop at tinberra island  tinberra island">
+          <td>[12/07 05:24:03 PM]</td>
+          <td>📍 STOP AT Tinberra Island</td>
           <td>—</td>
-          <td>Wandering Merchant's Ship</td>
-          <td>—</td>
+          <td>Tinberra Island</td>
+          <td>9m 13s</td>
         </tr>
       </tbody>
     </table>
@@ -556,7 +573,7 @@
   </div>
 
   <script>
-    const ROUTES_DATA = [{"from": "Wandering Merchant's Ship", "to": "Sanctuary Coastal Outpost", "seconds": 369.0, "display": "6m 9s", "count": 1, "date": "[12/07 04:13:53 PM]"}];
+    const ROUTES_DATA = [{"from": "Tinberra Island", "to": "Orffs Island", "seconds": 120.0, "display": "2m 0s", "count": 1, "date": "[12/07 05:26:57 PM]"}, {"from": "Invernen Island", "to": "Narvo Island", "seconds": 23.0, "display": "23s", "count": 1, "date": "[12/07 06:17:20 PM]"}, {"from": "Narvo Island", "to": "Marka Island", "seconds": 26.0, "display": "26s", "count": 1, "date": "[12/07 06:20:13 PM]"}];
     const placesSet = new Set();
     ROUTES_DATA.forEach(r => { placesSet.add(r.from); placesSet.add(r.to); });
     const places = Array.from(placesSet).sort();
