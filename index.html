@@ -191,7 +191,6 @@
       padding: 10px 12px;
       border: 1px solid var(--line);
     }
-    .route-result::before { content: '=> '; color: var(--fg-dim); }
     .route-result-found { color: var(--fg); }
     .route-result-found b { color: var(--amber); font-weight: bold; }
     .route-result-empty { color: var(--danger); }
@@ -406,7 +405,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784660393660">21/07/2026 20:59:53</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784662842895">21/07/2026 21:40:42</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -597,10 +596,10 @@
           <td>[21/07 02:45 PM]</td>
           <td><span class="type-badge type-special">🛒 Special Barter</span></td>
           <td>1487 Crow Coins</td>
-          <td>Rameda Island</td>
-          <td>Beiruwa Island</td>
+          <td>—</td>
+          <td>—</td>
           <td data-sort="-1">—</td>
-          <td>Iliya · 30 T6 → 30 T7</td>
+          <td><button type="button" class="details-btn" data-detail-target="detail-ao-0" data-item-name="1487 Crow Coins">Click for details</button><div id="detail-ao-0" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>2 T5 → 2 Brilliant Rock Salt Ingots<br>2 T5 → 2 Brilliant Pearl Shards<br>36 T4 → 36 T5<br>10 T3 → 20 T4<br>3 T3 → 12 Bright Reef Piece(s)</div></td>
         </tr>
         <tr class="odd" data-order="13" data-search="🔁 pair trade 6 t4 → 6 t5 oben island rameda island rameda island volante" data-carrack="volante">
           <td>[21/07 02:41:14 PM]</td>
@@ -885,10 +884,10 @@
           <td>[20/07 11:20 PM]</td>
           <td><span class="type-badge type-special">🛒 Special Barter</span></td>
           <td>1574 Crow Coins</td>
-          <td>Riyed Island</td>
-          <td>Sercal Island</td>
+          <td>—</td>
+          <td>—</td>
           <td data-sort="-1">—</td>
-          <td>Epheria · 30 T6 → 30 T7</td>
+          <td><button type="button" class="details-btn" data-detail-target="detail-ao-1" data-item-name="1574 Crow Coins">Click for details</button><div id="detail-ao-1" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>31 T4 → 31 T5<br>8 T3 → 16 T4<br>14 T2 → 42 T3</div></td>
         </tr>
         <tr class="odd" data-order="45" data-search="🔁 pair trade 8 t3 → 16 t4 iliya island riyed island riyed island volante" data-carrack="volante">
           <td>[20/07 11:16:58 PM]</td>
@@ -1129,9 +1128,9 @@
           <td><span class="type-badge type-special">🛒 Special Barter</span></td>
           <td>3084 Crow Coins</td>
           <td>—</td>
-          <td>Shipwrecked Marine Vessel</td>
-          <td data-sort="-1">—</td>
           <td>—</td>
+          <td data-sort="-1">—</td>
+          <td><button type="button" class="details-btn" data-detail-target="detail-ao-2" data-item-name="3084 Crow Coins">Click for details</button><div id="detail-ao-2" class="detail-source" hidden>—</div></td>
         </tr>
       </tbody>
     </table>
@@ -1987,10 +1986,10 @@
         return;
       }
       let html = '';
-      html += '🏆 Best time (active sailing): ' + (bestMatch
+      html += 'Best time (active sailing): ' + (bestMatch
         ? '<b>' + bestMatch.display + '</b> &nbsp;&middot;&nbsp; ' + bestMatch.count + ' trip(s) &nbsp;·&nbsp; record set ' + bestMatch.date
         : '<i>no data yet</i>');
-      html += '<br>🚗 Auto-path time: ' + (autoMatch
+      html += '<br>Auto-path time: ' + (autoMatch
         ? '<b>' + autoMatch.display + '</b> &nbsp;&middot;&nbsp; ' + autoMatch.count + ' trip(s) &nbsp;·&nbsp; record set ' + autoMatch.date
         : '<i>no data yet</i>');
       resultEl.innerHTML = html;
