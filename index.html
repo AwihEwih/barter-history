@@ -19,7 +19,6 @@
       --accent:  #39ff14;
       --amber:   #c9a463;
       --danger:  #b5675a;
-      --info:    #4aa8ff;
       --line:    #2a3324;
       --panel:   #10140d;
     }
@@ -191,6 +190,7 @@
       padding: 10px 12px;
       border: 1px solid var(--line);
     }
+    .route-result::before { content: '=> '; color: var(--fg-dim); }
     .route-result-found { color: var(--fg); }
     .route-result-found b { color: var(--amber); font-weight: bold; }
     .route-result-empty { color: var(--danger); }
@@ -324,13 +324,6 @@
     }
     .badge-accurate { color: var(--accent); }
     .badge-inaccurate { color: var(--danger); }
-    .type-badge {
-      font-size: 0.85em;
-      white-space: nowrap;
-    }
-    .type-special { color: var(--amber); }
-    .type-pair { color: var(--accent); }
-    .type-random { color: var(--info); }
     .details-btn {
       background: transparent;
       color: var(--accent);
@@ -405,7 +398,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784664258191">21/07/2026 22:04:18</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784708375422">22/07/2026 10:19:35</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -418,12 +411,12 @@
     <div class="stat-card">
       <div class="stat-label">Pair trades logged</div>
       <div class="stat-leader"></div>
-      <div class="stat-value">54</div>
+      <div class="stat-value">65</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (actively)</div>
       <div class="stat-leader"></div>
-      <div class="stat-value stat-value-small">Lema Island → Iliya Island (1m 28s)</div>
+      <div class="stat-value stat-value-small">Invernen Island → Marka Island (34s)</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Fastest route overall (auto-path)</div>
@@ -435,7 +428,7 @@
 <hr class="divider">
 
   <div class="route-finder">
-    <h2>Fastest recorded time</h2>
+    <h2>Route Finder — Fastest recorded time</h2>
     <p class="route-note">Based on accurate-time trips only — entries marked "≈ not accurate" are excluded.</p>
     <div class="route-controls">
       <div class="route-field">
@@ -455,8 +448,7 @@
 
   <div class="table-toolbar">
     <div class="tabs">
-      <button class="tab-btn active" data-tab="allinone">All-in-one</button>
-      <button class="tab-btn" data-tab="special">Special barters</button>
+      <button class="tab-btn active" data-tab="special">Special barters</button>
       <button class="tab-btn" data-tab="pairs">Pair trades</button>
       <button class="tab-btn" data-tab="random">Random Travels</button>
     </div>
@@ -470,705 +462,7 @@
     <input type="text" id="searchBox" class="search-box" placeholder="Search item or place...">
   </div>
 
-  <div class="table-wrap" id="tab-allinone">
-    <table>
-      <thead>
-        <tr>
-          <th data-type="order">Date</th>
-          <th data-type="text">Type</th>
-          <th data-type="text">Item / Pair / Event</th>
-          <th data-type="text">From</th>
-          <th data-type="text">To</th>
-          <th data-type="number">Duration</th>
-          <th data-type="text">Info</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="even" data-order="0" data-search="🔁 pair trade 5 t5 → 5 t6 ancado hakoven island hakoven island volante" data-carrack="volante">
-          <td>[21/07 10:03:36 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Ancado</td>
-          <td>Hakoven Island</td>
-          <td data-sort="194.0">3m 14s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="odd" data-order="1" data-search="📍 random travel 📍 stop at ancado iliya island ancado volante" data-carrack="volante">
-          <td>[21/07 09:59:53 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Ancado</td>
-          <td>Iliya Island</td>
-          <td>Ancado</td>
-          <td data-sort="329.0">5m 29s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="even" data-order="2" data-search="🔁 pair trade 5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
-          <td>[21/07 09:53:04 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Lema Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="88.0">1m 28s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="odd" data-order="3" data-search="🔁 pair trade 5 t6 → 5 t7 haemo island lema island lema island volante" data-carrack="volante">
-          <td>[21/07 07:00:51 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Haemo Island</td>
-          <td>Lema Island</td>
-          <td data-sort="435.0">7m 15s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="even" data-order="4" data-search="🔁 pair trade 5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
-          <td>[21/07 06:53:22 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Dallae Pier</td>
-          <td>Haemo Island</td>
-          <td data-sort="211.0">3m 31s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="odd" data-order="5" data-search="🔁 pair trade 5 t5 → 5 t6 oquilla's eye dallae pier dallae pier volante" data-carrack="volante">
-          <td>[21/07 06:49:14 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Oquilla's Eye</td>
-          <td>Dallae Pier</td>
-          <td data-sort="370.0">6m 10s</td>
-          <td><span class="badge badge-accurate">[Ok]</span></td>
-        </tr>
-        <tr class="even" data-order="6" data-search="📍 random travel 📍 stop at oquilla's eye orffs island oquilla's eye volante" data-carrack="volante">
-          <td>[21/07 03:10:25 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Oquilla's Eye</td>
-          <td>Orffs Island</td>
-          <td>Oquilla's Eye</td>
-          <td data-sort="148.0">2m 28s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="7" data-search="🔁 pair trade 5 t4 → 5 t5 pujara island orffs island orffs island volante" data-carrack="volante">
-          <td>[21/07 03:07:37 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Pujara Island</td>
-          <td>Orffs Island</td>
-          <td data-sort="157.0">2m 37s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="8" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island pujara island pujara island volante" data-carrack="volante">
-          <td>[21/07 03:04:43 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Pujara Island</td>
-          <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="9" data-search="📍 random travel 📍 stop at iliya island al-naha island iliya island volante" data-carrack="volante">
-          <td>[21/07 03:02:48 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Al-Naha Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="57.0">57s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="10" data-search="🔁 pair trade 8 t3 → 16 t4 iliya island al-naha island al-naha island volante" data-carrack="volante">
-          <td>[21/07 03:00:46 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
-          <td>Al-Naha Island</td>
-          <td data-sort="60.0">1m 0s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="11" data-search="📍 random travel 📍 stop at iliya island shasha island iliya island volante" data-carrack="volante">
-          <td>[21/07 02:57:41 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Shasha Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="92.0">1m 32s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="12" data-search="🔁 pair trade 8 t3 → 16 t4 iliya island shasha island shasha island volante" data-carrack="volante">
-          <td>[21/07 02:55:54 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
-          <td>Shasha Island</td>
-          <td data-sort="91.0">1m 31s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="13" data-search="📍 random travel 📍 stop at iliya island epheria iliya island volante" data-carrack="volante">
-          <td>[21/07 02:53:07 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Epheria</td>
-          <td>Iliya Island</td>
-          <td data-sort="258.0">4m 18s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="14" data-search="📍 random travel 📍 stop at epheria rameda island epheria volante" data-carrack="volante">
-          <td>[21/07 02:48:24 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Epheria</td>
-          <td>Rameda Island</td>
-          <td>Epheria</td>
-          <td data-sort="87.0">1m 27s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="15" data-search="🛒 special barter 1487 crow coins beiruwa island iliya" data-carrack="">
-          <td>[21/07 02:45 PM]</td>
-          <td><span class="type-badge type-special">🛒 Special Barter</span></td>
-          <td>1487 Crow Coins</td>
-          <td>—</td>
-          <td>—</td>
-          <td data-sort="-1">—</td>
-          <td><button type="button" class="details-btn" data-detail-target="detail-ao-0" data-item-name="1487 Crow Coins">Click for details</button><div id="detail-ao-0" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>2 T5 → 2 Brilliant Rock Salt Ingots<br>2 T5 → 2 Brilliant Pearl Shards<br>36 T4 → 36 T5<br>10 T3 → 20 T4<br>3 T3 → 12 Bright Reef Piece(s)</div></td>
-        </tr>
-        <tr class="even" data-order="16" data-search="🔁 pair trade 6 t4 → 6 t5 oben island rameda island rameda island volante" data-carrack="volante">
-          <td>[21/07 02:41:14 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>6 T4 → 6 T5</td>
-          <td>Oben Island</td>
-          <td>Rameda Island</td>
-          <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="17" data-search="🔁 pair trade 5 t4 → 5 t5 oben island (quest) oben island oben island volante" data-carrack="volante">
-          <td>[21/07 02:39:21 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Oben Island (quest)</td>
-          <td>Oben Island</td>
-          <td data-sort="25.0">25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="18" data-search="📍 random travel 📍 stop at oben island (quest) narvo island oben island (quest) volante" data-carrack="volante">
-          <td>[21/07 02:38:10 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Oben Island (quest)</td>
-          <td>Narvo Island</td>
-          <td>Oben Island (quest)</td>
-          <td data-sort="79.0">1m 19s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="19" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island narvo island narvo island volante" data-carrack="volante">
-          <td>[21/07 01:24:20 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Narvo Island</td>
-          <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="20" data-search="📍 random travel 📍 stop at iliya island sanctuary coastal outpost iliya island volante" data-carrack="volante">
-          <td>[21/07 01:16:33 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Sanctuary Coastal Outpost</td>
-          <td>Iliya Island</td>
-          <td data-sort="173.0">2m 53s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="21" data-search="🔁 pair trade 5 t6 → 5 t7 sausan garrison wharf sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
-          <td>[21/07 01:13:40 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Sausan Garrison Wharf</td>
-          <td>Sanctuary Coastal Outpost</td>
-          <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="22" data-search="🔁 pair trade 5 t6 → 5 t7 starry midnight port sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
-          <td>[21/07 01:10:31 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Starry Midnight Port</td>
-          <td>Sausan Garrison Wharf</td>
-          <td data-sort="685.0">11m 25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="23" data-search="🔁 pair trade 5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
-          <td>[21/07 12:58:24 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Grándiha</td>
-          <td>Starry Midnight Port</td>
-          <td data-sort="146.0">2m 26s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="24" data-search="🔁 pair trade 5 t5 → 5 t6 marka island grándiha grándiha volante" data-carrack="volante">
-          <td>[21/07 12:55:26 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Marka Island</td>
-          <td>Grándiha</td>
-          <td data-sort="325.0">5m 25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="25" data-search="🔁 pair trade 3 t3 → 12 bright reef piece(s) marka island eberdeen island eberdeen island volante" data-carrack="volante">
-          <td>[21/07 12:49:06 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>3 T3 → 12 Bright Reef Piece(s)</td>
-          <td>Marka Island</td>
-          <td>Eberdeen Island</td>
-          <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="26" data-search="🔁 pair trade 2 t5 → 2 brilliant pearl shards invernen island marka island marka island volante" data-carrack="volante">
-          <td>[21/07 12:46:13 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>2 T5 → 2 Brilliant Pearl Shards</td>
-          <td>Invernen Island</td>
-          <td>Marka Island</td>
-          <td data-sort="38.0">38s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="27" data-search="🔁 pair trade 2 t5 → 2 brilliant rock salt ingots balvege island invernen island invernen island volante" data-carrack="volante">
-          <td>[21/07 12:45:25 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>2 T5 → 2 Brilliant Rock Salt Ingots</td>
-          <td>Balvege Island</td>
-          <td>Invernen Island</td>
-          <td data-sort="26.0">26s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="28" data-search="🔁 pair trade 5 t4 → 5 t5 baremi island balvege island balvege island volante" data-carrack="volante">
-          <td>[21/07 12:44:11 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Baremi Island</td>
-          <td>Balvege Island</td>
-          <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="29" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island baremi island baremi island volante" data-carrack="volante">
-          <td>[21/07 12:42:48 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Baremi Island</td>
-          <td data-sort="54.0">54s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="30" data-search="📍 random travel 📍 stop at iliya island olvia coast iliya island volante" data-carrack="volante">
-          <td>[21/07 12:38:42 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Olvia Coast</td>
-          <td>Iliya Island</td>
-          <td data-sort="113.0">1m 53s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="31" data-search="🔁 pair trade 5 t6 → 5 t7 epheria sentry post olvia coast olvia coast volante" data-carrack="volante">
-          <td>[21/07 12:36:09 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Epheria Sentry Post</td>
-          <td>Olvia Coast</td>
-          <td data-sort="185.0">3m 5s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="32" data-search="🔁 pair trade 5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
-          <td>[21/07 12:32:44 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Haemo Island</td>
-          <td>Epheria Sentry Post</td>
-          <td data-sort="506.0">8m 26s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="33" data-search="🔁 pair trade 5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
-          <td>[21/07 12:23:24 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Dallae Pier</td>
-          <td>Haemo Island</td>
-          <td data-sort="236.0">3m 56s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="34" data-search="🔁 pair trade 5 t5 → 5 t6 ajir island dallae pier dallae pier volante" data-carrack="volante">
-          <td>[21/07 12:19:05 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Ajir Island</td>
-          <td>Dallae Pier</td>
-          <td data-sort="42685.0">11h 51m 25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="35" data-search="🔁 pair trade 5 t4 → 5 t5 pilava island ajir island ajir island volante" data-carrack="volante">
-          <td>[21/07 12:27:24 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Pilava Island</td>
-          <td>Ajir Island</td>
-          <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="36" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island pilava island pilava island volante" data-carrack="volante">
-          <td>[21/07 12:24:34 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Pilava Island</td>
-          <td data-sort="59.0">59s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="37" data-search="📍 random travel 📍 stop at iliya island lema island iliya island volante" data-carrack="volante">
-          <td>[21/07 12:22:19 AM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Lema Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="38" data-search="🔁 pair trade 5 t6 → 5 t7 iliya island lema island lema island volante" data-carrack="volante">
-          <td>[21/07 12:20:14 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Iliya Island</td>
-          <td>Lema Island</td>
-          <td data-sort="114.0">1m 54s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="39" data-search="🔁 pair trade 5 t6 → 5 t7 arehaza iliya island iliya island volante" data-carrack="volante">
-          <td>[21/07 12:17:45 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Arehaza</td>
-          <td>Iliya Island</td>
-          <td data-sort="652.0">10m 52s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="40" data-search="🔁 pair trade 5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
-          <td>[21/07 12:05:18 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Hakoven Island</td>
-          <td>Arehaza</td>
-          <td data-sort="175.0">2m 55s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="41" data-search="🔁 pair trade 5 t5 → 5 t6 iliya island hakoven island hakoven island volante" data-carrack="volante">
-          <td>[21/07 12:02:06 AM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Iliya Island</td>
-          <td>Hakoven Island</td>
-          <td data-sort="555.0">9m 15s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="42" data-search="📍 random travel 📍 stop at iliya island rosevan island iliya island volante" data-carrack="volante">
-          <td>[20/07 11:52:19 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Rosevan Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="96.0">1m 36s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="43" data-search="🔁 pair trade 2 t3 → 4 t4 iliya island rosevan island rosevan island volante" data-carrack="volante">
-          <td>[20/07 11:50:27 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>2 T3 → 4 T4</td>
-          <td>Iliya Island</td>
-          <td>Rosevan Island</td>
-          <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="44" data-search="📍 random travel 📍 stop at iliya island orisha island iliya island volante" data-carrack="volante">
-          <td>[20/07 11:48:07 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Orisha Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
-        </tr>
-        <tr class="odd" data-order="45" data-search="🔁 pair trade 8 t3 → 16 t4 riyed wharf orisha island orisha island volante" data-carrack="volante">
-          <td>[20/07 11:44:57 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>8 T3 → 16 T4</td>
-          <td>Riyed Wharf</td>
-          <td>Orisha Island</td>
-          <td data-sort="499.0">8m 19s</td>
-          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
-        </tr>
-        <tr class="even" data-order="46" data-search="📍 random travel 📍 stop at riyed wharf riyed island riyed wharf volante" data-carrack="volante">
-          <td>[20/07 11:36:25 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Riyed Wharf</td>
-          <td>Riyed Island</td>
-          <td>Riyed Wharf</td>
-          <td data-sort="-1">No data yet</td>
-          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
-        </tr>
-        <tr class="odd" data-order="47" data-search="🛒 special barter 1574 crow coins sercal island epheria" data-carrack="">
-          <td>[20/07 11:20 PM]</td>
-          <td><span class="type-badge type-special">🛒 Special Barter</span></td>
-          <td>1574 Crow Coins</td>
-          <td>—</td>
-          <td>—</td>
-          <td data-sort="-1">—</td>
-          <td><button type="button" class="details-btn" data-detail-target="detail-ao-1" data-item-name="1574 Crow Coins">Click for details</button><div id="detail-ao-1" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>31 T4 → 31 T5<br>8 T3 → 16 T4<br>14 T2 → 42 T3</div></td>
-        </tr>
-        <tr class="even" data-order="48" data-search="🔁 pair trade 8 t3 → 16 t4 iliya island riyed island riyed island volante" data-carrack="volante">
-          <td>[20/07 11:16:58 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
-          <td>Riyed Island</td>
-          <td data-sort="130.0">2m 10s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="49" data-search="📍 random travel 📍 stop at iliya island taramura island iliya island volante" data-carrack="volante">
-          <td>[20/07 11:13:22 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Taramura Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="93.0">1m 33s</td>
-          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
-        </tr>
-        <tr class="even" data-order="50" data-search="🔁 pair trade 10 t2 → 30 t3 iliya island taramura island taramura island volante" data-carrack="volante">
-          <td>[20/07 11:11:42 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>10 T2 → 30 T3</td>
-          <td>Iliya Island</td>
-          <td>Taramura Island</td>
-          <td data-sort="52.0">52s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="51" data-search="📍 random travel 📍 stop at iliya island rameda island iliya island volante" data-carrack="volante">
-          <td>[20/07 11:00:12 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Rameda Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="275.0">4m 35s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="52" data-search="🔁 pair trade 6 t4 → 6 t5 theonil island rameda island rameda island volante" data-carrack="volante">
-          <td>[20/07 10:55:24 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>6 T4 → 6 T5</td>
-          <td>Theonil Island</td>
-          <td>Rameda Island</td>
-          <td data-sort="67.0">1m 7s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="53" data-search="🔁 pair trade 5 t4 → 5 t5 oben island theonil island theonil island volante" data-carrack="volante">
-          <td>[20/07 10:54:03 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Oben Island</td>
-          <td>Theonil Island</td>
-          <td data-sort="62.0">1m 2s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="54" data-search="🔁 pair trade 5 t4 → 5 t5 pujara island oben island oben island volante" data-carrack="volante">
-          <td>[20/07 10:52:44 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Pujara Island</td>
-          <td>Oben Island</td>
-          <td data-sort="282.0">4m 42s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="55" data-search="🔁 pair trade 1 t4 → 1 t5 iliya island pujara island pujara island volante" data-carrack="volante">
-          <td>[20/07 10:47:46 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>1 T4 → 1 T5</td>
-          <td>Iliya Island</td>
-          <td>Pujara Island</td>
-          <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="56" data-search="🔁 pair trade 5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
-          <td>[20/07 10:27:47 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Lema Island</td>
-          <td>Iliya Island</td>
-          <td data-sort="95.0">1m 35s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="57" data-search="🔁 pair trade 5 t6 → 5 t7 starry midnight port lema island lema island volante" data-carrack="volante">
-          <td>[20/07 10:25:24 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Starry Midnight Port</td>
-          <td>Lema Island</td>
-          <td data-sort="660.0">11m 0s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="58" data-search="🔁 pair trade 5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
-          <td>[20/07 10:14:18 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Grándiha</td>
-          <td>Starry Midnight Port</td>
-          <td data-sort="134.0">2m 14s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="59" data-search="🔁 pair trade 5 t5 → 5 t6 narvo island grándiha grándiha volante" data-carrack="volante">
-          <td>[20/07 10:11:34 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Narvo Island</td>
-          <td>Grándiha</td>
-          <td data-sort="385.0">6m 25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="60" data-search="🔁 pair trade 5 t4 → 5 t5 balvege island narvo island narvo island volante" data-carrack="volante">
-          <td>[20/07 10:04:58 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Balvege Island</td>
-          <td>Narvo Island</td>
-          <td data-sort="37.0">37s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="61" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island balvege island balvege island volante" data-carrack="volante">
-          <td>[20/07 10:03:44 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Balvege Island</td>
-          <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="62" data-search="📍 random travel 📍 stop at iliya island epheria sentry post iliya island volante" data-carrack="volante">
-          <td>[20/07 10:00:52 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Epheria Sentry Post</td>
-          <td>Iliya Island</td>
-          <td data-sort="124.0">2m 4s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="63" data-search="🔁 pair trade 5 t6 → 5 t7 epheria sentry post epheria sentry post epheria sentry post volante" data-carrack="volante">
-          <td>[20/07 09:58:28 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Epheria Sentry Post</td>
-          <td>Epheria Sentry Post</td>
-          <td data-sort="199.0">3m 19s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="64" data-search="🔁 pair trade 5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
-          <td>[20/07 09:54:48 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Haemo Island</td>
-          <td>Epheria Sentry Post</td>
-          <td data-sort="468.0">7m 48s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="65" data-search="🔁 pair trade 5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
-          <td>[20/07 09:46:35 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Dallae Pier</td>
-          <td>Haemo Island</td>
-          <td data-sort="247.0">4m 7s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="66" data-search="🔁 pair trade 5 t5 → 5 t6 pujara island dallae pier dallae pier volante" data-carrack="volante">
-          <td>[20/07 09:42:01 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Pujara Island</td>
-          <td>Dallae Pier</td>
-          <td data-sort="630.0">10m 30s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="67" data-search="🔁 pair trade 5 t4 → 5 t5 iliya island pujara island pujara island volante" data-carrack="volante">
-          <td>[20/07 09:30:47 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
-          <td>Pujara Island</td>
-          <td data-sort="63.0">1m 3s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="68" data-search="📍 random travel 📍 stop at iliya island sausan garrison wharf iliya island volante" data-carrack="volante">
-          <td>[20/07 08:58:06 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>Sausan Garrison Wharf</td>
-          <td>Iliya Island</td>
-          <td data-sort="74.0">1m 14s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="69" data-search="🔁 pair trade 5 t6 → 5 t7 sanctuary coastal outpost sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
-          <td>[20/07 08:56:45 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Sanctuary Coastal Outpost</td>
-          <td>Sausan Garrison Wharf</td>
-          <td data-sort="145.0">2m 25s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="70" data-search="🔁 pair trade 5 t6 → 5 t7 arehaza sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
-          <td>[20/07 08:53:56 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T6 → 5 T7</td>
-          <td>Arehaza</td>
-          <td>Sanctuary Coastal Outpost</td>
-          <td data-sort="596.0">9m 56s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="71" data-search="🔁 pair trade 5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
-          <td>[20/07 08:43:22 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Hakoven Island</td>
-          <td>Arehaza</td>
-          <td data-sort="177.0">2m 57s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="72" data-search="🔁 pair trade 5 t5 → 5 t6 iliya island hakoven island hakoven island volante" data-carrack="volante">
-          <td>[20/07 08:40:05 PM]</td>
-          <td><span class="type-badge type-pair">🔁 Pair Trade</span></td>
-          <td>5 T5 → 5 T6</td>
-          <td>Iliya Island</td>
-          <td>Hakoven Island</td>
-          <td data-sort="548.0">9m 8s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="odd" data-order="73" data-search="📍 random travel 📍 stop at iliya island  iliya island " data-carrack="">
-          <td>[20/07 08:30:17 PM]</td>
-          <td><span class="type-badge type-random">📍 Random Travel</span></td>
-          <td>📍 STOP AT Iliya Island</td>
-          <td>—</td>
-          <td>Iliya Island</td>
-          <td data-sort="5.0">5s</td>
-          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
-        </tr>
-        <tr class="even" data-order="74" data-search="🛒 special barter 3084 crow coins shipwrecked marine vessel " data-carrack="">
-          <td>[20/07 08:21 PM]</td>
-          <td><span class="type-badge type-special">🛒 Special Barter</span></td>
-          <td>3084 Crow Coins</td>
-          <td>—</td>
-          <td>—</td>
-          <td data-sort="-1">—</td>
-          <td><button type="button" class="details-btn" data-detail-target="detail-ao-2" data-item-name="3084 Crow Coins">Click for details</button><div id="detail-ao-2" class="detail-source" hidden>—</div></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="pager" id="allinonePager">
-      <span class="pager-info" id="allinonePageInfo">1 / 1</span>
-      <button type="button" class="pager-btn" id="allinonePrevBtn" aria-label="Previous page">&lsaquo;</button>
-      <button type="button" class="pager-btn" id="allinoneNextBtn" aria-label="Next page">&rsaquo;</button>
-    </div>
-  </div>
-
-  <div class="table-wrap hidden" id="tab-special">
+  <div class="table-wrap" id="tab-special">
     <table>
       <thead>
         <tr>
@@ -1176,6 +470,7 @@
           <th data-type="text">Item</th>
           <th data-type="text">Place</th>
           <th data-type="text">Main Place</th>
+          <th data-type="number">Trades until this special barter</th>
           <th data-type="text">Details</th>
         </tr>
       </thead>
@@ -1185,6 +480,7 @@
           <td>1487 Crow Coins</td>
           <td>Beiruwa Island</td>
           <td>Iliya</td>
+          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Rock Salt Ingots, 2 T5 → 2 Brilliant Pearl Shards, 36 T4 → 36 T5, 10 T3 → 20 T4, 3 T3 → 12 Bright Reef Piece(s)">30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Rock Salt Ingots, 2 T5 → 2 Brilliant Pearl Shards, 36 T4 → 36 T5, 10 T3 → 20 T4, 3 T3 → 12 Bright Reef Piece(s)</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-0" data-item-name="1487 Crow Coins">Click for details</button>
             <div id="detail-0" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>2 T5 → 2 Brilliant Rock Salt Ingots<br>2 T5 → 2 Brilliant Pearl Shards<br>36 T4 → 36 T5<br>10 T3 → 20 T4<br>3 T3 → 12 Bright Reef Piece(s)</div>
@@ -1195,6 +491,7 @@
           <td>1574 Crow Coins</td>
           <td>Sercal Island</td>
           <td>Epheria</td>
+          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 31 T4 → 31 T5, 8 T3 → 16 T4, 14 T2 → 42 T3">30 T6 → 30 T7, 30 T5 → 30 T6, 31 T4 → 31 T5, 8 T3 → 16 T4, 14 T2 → 42 T3</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-1" data-item-name="1574 Crow Coins">Click for details</button>
             <div id="detail-1" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>31 T4 → 31 T5<br>8 T3 → 16 T4<br>14 T2 → 42 T3</div>
@@ -1205,6 +502,7 @@
           <td>3084 Crow Coins</td>
           <td>Shipwrecked Marine Vessel</td>
           <td></td>
+          <td data-sort="0">0</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-2" data-item-name="3084 Crow Coins">Click for details</button>
             <div id="detail-2" class="detail-source" hidden>—</div>
@@ -1234,17 +532,127 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="5 t5 → 5 t6 ancado hakoven island hakoven island volante" data-carrack="volante">
+        <tr class="even" data-order="0" data-search="5 t6 → 5 t7 sausan garrison wharf sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
+          <td>[22/07 10:13:56 AM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Sausan Garrison Wharf</td>
+          <td>Sanctuary Coastal Outpost</td>
+          <td data-sort="137.0">2m 17s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 starry midnight port sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
+          <td>[22/07 10:11:07 AM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Starry Midnight Port</td>
+          <td>Sausan Garrison Wharf</td>
+          <td data-sort="585.0">9m 45s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="2" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
+          <td>[22/07 10:00:37 AM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Grándiha</td>
+          <td>Starry Midnight Port</td>
+          <td data-sort="118.0">1m 58s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 padix island grándiha grándiha volante" data-carrack="volante">
+          <td>[22/07 09:57:11 AM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Padix Island</td>
+          <td>Grándiha</td>
+          <td data-sort="350.0">5m 50s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="4" data-search="5 t4 → 5 t5 marka island padix island padix island volante" data-carrack="volante">
+          <td>[22/07 09:51:08 AM]</td>
+          <td>5 T4 → 5 T5</td>
+          <td>Marka Island</td>
+          <td>Padix Island</td>
+          <td data-sort="83.0">1m 23s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="5" data-search="2 t5 → 2 brilliant rock salt ingots invernen island marka island marka island volante" data-carrack="volante">
+          <td>[22/07 09:49:32 AM]</td>
+          <td>2 T5 → 2 Brilliant Rock Salt Ingots</td>
+          <td>Invernen Island</td>
+          <td>Marka Island</td>
+          <td data-sort="34.0">34s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="6" data-search="2 t5 → 2 brilliant pearl shards balvege island invernen island invernen island volante" data-carrack="volante">
+          <td>[22/07 09:48:41 AM]</td>
+          <td>2 T5 → 2 Brilliant Pearl Shards</td>
+          <td>Balvege Island</td>
+          <td>Invernen Island</td>
+          <td data-sort="31.0">31s</td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="7" data-search="5 t4 → 5 t5 epheria balvege island balvege island volante" data-carrack="volante">
+          <td>[22/07 09:46:33 AM]</td>
+          <td>5 T4 → 5 T5</td>
+          <td>Epheria</td>
+          <td>Balvege Island</td>
+          <td data-sort="93.0">1m 33s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="8" data-search="5 t6 → 5 t7 olvia coast epheria epheria volante" data-carrack="volante">
+          <td>[21/07 10:22:57 PM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Olvia Coast</td>
+          <td>Epheria</td>
+          <td data-sort="157.0">2m 37s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="9" data-search="5 t6 → 5 t7 arehaza olvia coast olvia coast volante" data-carrack="volante">
+          <td>[21/07 10:19:13 PM]</td>
+          <td>5 T6 → 5 T7</td>
+          <td>Arehaza</td>
+          <td>Olvia Coast</td>
+          <td data-sort="641.0">10m 41s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="10" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
+          <td>[21/07 10:06:50 PM]</td>
+          <td>5 T5 → 5 T6</td>
+          <td>Hakoven Island</td>
+          <td>Arehaza</td>
+          <td data-sort="154.0">2m 34s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="11" data-search="5 t5 → 5 t6 iliya island hakoven island hakoven island volante" data-carrack="volante">
           <td>[21/07 10:03:36 PM]</td>
           <td>5 T5 → 5 T6</td>
-          <td>Ancado</td>
+          <td>Iliya Island</td>
           <td>Hakoven Island</td>
           <td data-sort="194.0">3m 14s</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="1" data-search="5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="12" data-search="5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
           <td>[21/07 09:53:04 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Lema Island</td>
@@ -1254,7 +662,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="2" data-search="5 t6 → 5 t7 haemo island lema island lema island volante" data-carrack="volante">
+        <tr class="odd" data-order="13" data-search="5 t6 → 5 t7 haemo island lema island lema island volante" data-carrack="volante">
           <td>[21/07 07:00:51 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Haemo Island</td>
@@ -1264,7 +672,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="3" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
+        <tr class="even" data-order="14" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
           <td>[21/07 06:53:22 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Dallae Pier</td>
@@ -1274,17 +682,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="4" data-search="5 t5 → 5 t6 oquilla's eye dallae pier dallae pier volante" data-carrack="volante">
+        <tr class="odd" data-order="15" data-search="5 t5 → 5 t6 orffs island dallae pier dallae pier volante" data-carrack="volante">
           <td>[21/07 06:49:14 PM]</td>
           <td>5 T5 → 5 T6</td>
-          <td>Oquilla's Eye</td>
+          <td>Orffs Island</td>
           <td>Dallae Pier</td>
           <td data-sort="370.0">6m 10s</td>
           <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="5" data-search="5 t4 → 5 t5 pujara island orffs island orffs island volante" data-carrack="volante">
+        <tr class="even" data-order="16" data-search="5 t4 → 5 t5 pujara island orffs island orffs island volante" data-carrack="volante">
           <td>[21/07 03:07:37 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Pujara Island</td>
@@ -1294,37 +702,37 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="6" data-search="5 t4 → 5 t5 iliya island pujara island pujara island volante" data-carrack="volante">
+        <tr class="odd" data-order="17" data-search="5 t4 → 5 t5 al-naha island pujara island pujara island volante" data-carrack="volante">
           <td>[21/07 03:04:43 PM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Al-Naha Island</td>
           <td>Pujara Island</td>
           <td data-sort="64.0">1m 4s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="7" data-search="8 t3 → 16 t4 iliya island al-naha island al-naha island volante" data-carrack="volante">
+        <tr class="even" data-order="18" data-search="8 t3 → 16 t4 shasha island al-naha island al-naha island volante" data-carrack="volante">
           <td>[21/07 03:00:46 PM]</td>
           <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
+          <td>Shasha Island</td>
           <td>Al-Naha Island</td>
           <td data-sort="60.0">1m 0s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="8" data-search="8 t3 → 16 t4 iliya island shasha island shasha island volante" data-carrack="volante">
+        <tr class="odd" data-order="19" data-search="8 t3 → 16 t4 beiruwa island shasha island shasha island volante" data-carrack="volante">
           <td>[21/07 02:55:54 PM]</td>
           <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
+          <td>Beiruwa Island</td>
           <td>Shasha Island</td>
           <td data-sort="91.0">1m 31s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="9" data-search="6 t4 → 6 t5 oben island rameda island rameda island volante" data-carrack="volante">
+        <tr class="even" data-order="20" data-search="6 t4 → 6 t5 oben island rameda island rameda island volante" data-carrack="volante">
           <td>[21/07 02:41:14 PM]</td>
           <td>6 T4 → 6 T5</td>
           <td>Oben Island</td>
@@ -1334,7 +742,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="10" data-search="5 t4 → 5 t5 oben island (quest) oben island oben island volante" data-carrack="volante">
+        <tr class="odd" data-order="21" data-search="5 t4 → 5 t5 oben island (quest) oben island oben island volante" data-carrack="volante">
           <td>[21/07 02:39:21 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Oben Island (quest)</td>
@@ -1344,17 +752,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="11" data-search="5 t4 → 5 t5 iliya island narvo island narvo island volante" data-carrack="volante">
+        <tr class="even" data-order="22" data-search="5 t4 → 5 t5 sanctuary coastal outpost narvo island narvo island volante" data-carrack="volante">
           <td>[21/07 01:24:20 PM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Sanctuary Coastal Outpost</td>
           <td>Narvo Island</td>
           <td data-sort="154.0">2m 34s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="12" data-search="5 t6 → 5 t7 sausan garrison wharf sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
+        <tr class="odd" data-order="23" data-search="5 t6 → 5 t7 sausan garrison wharf sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
           <td>[21/07 01:13:40 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Sausan Garrison Wharf</td>
@@ -1364,7 +772,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="13" data-search="5 t6 → 5 t7 starry midnight port sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
+        <tr class="even" data-order="24" data-search="5 t6 → 5 t7 starry midnight port sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
           <td>[21/07 01:10:31 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Starry Midnight Port</td>
@@ -1374,7 +782,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="14" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
+        <tr class="odd" data-order="25" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
           <td>[21/07 12:58:24 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Grándiha</td>
@@ -1384,17 +792,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="15" data-search="5 t5 → 5 t6 marka island grándiha grándiha volante" data-carrack="volante">
+        <tr class="even" data-order="26" data-search="5 t5 → 5 t6 eberdeen island grándiha grándiha volante" data-carrack="volante">
           <td>[21/07 12:55:26 PM]</td>
           <td>5 T5 → 5 T6</td>
-          <td>Marka Island</td>
+          <td>Eberdeen Island</td>
           <td>Grándiha</td>
           <td data-sort="325.0">5m 25s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="16" data-search="3 t3 → 12 bright reef piece(s) marka island eberdeen island eberdeen island volante" data-carrack="volante">
+        <tr class="odd" data-order="27" data-search="3 t3 → 12 bright reef piece(s) marka island eberdeen island eberdeen island volante" data-carrack="volante">
           <td>[21/07 12:49:06 PM]</td>
           <td>3 T3 → 12 Bright Reef Piece(s)</td>
           <td>Marka Island</td>
@@ -1404,7 +812,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="17" data-search="2 t5 → 2 brilliant pearl shards invernen island marka island marka island volante" data-carrack="volante">
+        <tr class="even" data-order="28" data-search="2 t5 → 2 brilliant pearl shards invernen island marka island marka island volante" data-carrack="volante">
           <td>[21/07 12:46:13 PM]</td>
           <td>2 T5 → 2 Brilliant Pearl Shards</td>
           <td>Invernen Island</td>
@@ -1414,7 +822,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="18" data-search="2 t5 → 2 brilliant rock salt ingots balvege island invernen island invernen island volante" data-carrack="volante">
+        <tr class="odd" data-order="29" data-search="2 t5 → 2 brilliant rock salt ingots balvege island invernen island invernen island volante" data-carrack="volante">
           <td>[21/07 12:45:25 PM]</td>
           <td>2 T5 → 2 Brilliant Rock Salt Ingots</td>
           <td>Balvege Island</td>
@@ -1424,7 +832,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="19" data-search="5 t4 → 5 t5 baremi island balvege island balvege island volante" data-carrack="volante">
+        <tr class="even" data-order="30" data-search="5 t4 → 5 t5 baremi island balvege island balvege island volante" data-carrack="volante">
           <td>[21/07 12:44:11 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Baremi Island</td>
@@ -1434,17 +842,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="20" data-search="5 t4 → 5 t5 iliya island baremi island baremi island volante" data-carrack="volante">
+        <tr class="odd" data-order="31" data-search="5 t4 → 5 t5 olvia coast baremi island baremi island volante" data-carrack="volante">
           <td>[21/07 12:42:48 PM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Olvia Coast</td>
           <td>Baremi Island</td>
           <td data-sort="54.0">54s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="21" data-search="5 t6 → 5 t7 epheria sentry post olvia coast olvia coast volante" data-carrack="volante">
+        <tr class="even" data-order="32" data-search="5 t6 → 5 t7 epheria sentry post olvia coast olvia coast volante" data-carrack="volante">
           <td>[21/07 12:36:09 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Epheria Sentry Post</td>
@@ -1454,7 +862,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="22" data-search="5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
+        <tr class="odd" data-order="33" data-search="5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
           <td>[21/07 12:32:44 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Haemo Island</td>
@@ -1464,7 +872,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="23" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
+        <tr class="even" data-order="34" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
           <td>[21/07 12:23:24 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Dallae Pier</td>
@@ -1474,7 +882,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="24" data-search="5 t5 → 5 t6 ajir island dallae pier dallae pier volante" data-carrack="volante">
+        <tr class="odd" data-order="35" data-search="5 t5 → 5 t6 ajir island dallae pier dallae pier volante" data-carrack="volante">
           <td>[21/07 12:19:05 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Ajir Island</td>
@@ -1484,7 +892,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="25" data-search="5 t4 → 5 t5 pilava island ajir island ajir island volante" data-carrack="volante">
+        <tr class="even" data-order="36" data-search="5 t4 → 5 t5 pilava island ajir island ajir island volante" data-carrack="volante">
           <td>[21/07 12:27:24 AM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Pilava Island</td>
@@ -1494,17 +902,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="26" data-search="5 t4 → 5 t5 iliya island pilava island pilava island volante" data-carrack="volante">
+        <tr class="odd" data-order="37" data-search="5 t4 → 5 t5 lema island pilava island pilava island volante" data-carrack="volante">
           <td>[21/07 12:24:34 AM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Lema Island</td>
           <td>Pilava Island</td>
           <td data-sort="59.0">59s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="27" data-search="5 t6 → 5 t7 iliya island lema island lema island volante" data-carrack="volante">
+        <tr class="even" data-order="38" data-search="5 t6 → 5 t7 iliya island lema island lema island volante" data-carrack="volante">
           <td>[21/07 12:20:14 AM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Iliya Island</td>
@@ -1514,7 +922,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="28" data-search="5 t6 → 5 t7 arehaza iliya island iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="39" data-search="5 t6 → 5 t7 arehaza iliya island iliya island volante" data-carrack="volante">
           <td>[21/07 12:17:45 AM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Arehaza</td>
@@ -1524,7 +932,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="29" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
+        <tr class="even" data-order="40" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
           <td>[21/07 12:05:18 AM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Hakoven Island</td>
@@ -1534,57 +942,57 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="30" data-search="5 t5 → 5 t6 iliya island hakoven island hakoven island volante" data-carrack="volante">
+        <tr class="odd" data-order="41" data-search="5 t5 → 5 t6 rosevan island hakoven island hakoven island volante" data-carrack="volante">
           <td>[21/07 12:02:06 AM]</td>
           <td>5 T5 → 5 T6</td>
-          <td>Iliya Island</td>
+          <td>Rosevan Island</td>
           <td>Hakoven Island</td>
           <td data-sort="555.0">9m 15s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="31" data-search="2 t3 → 4 t4 iliya island rosevan island rosevan island volante" data-carrack="volante">
+        <tr class="even" data-order="42" data-search="2 t3 → 4 t4 orisha island rosevan island rosevan island volante" data-carrack="volante">
           <td>[20/07 11:50:27 PM]</td>
           <td>2 T3 → 4 T4</td>
-          <td>Iliya Island</td>
+          <td>Orisha Island</td>
           <td>Rosevan Island</td>
           <td data-sort="100.0">1m 40s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="32" data-search="8 t3 → 16 t4 riyed wharf orisha island orisha island volante" data-carrack="volante">
+        <tr class="odd" data-order="43" data-search="8 t3 → 16 t4 sercal island orisha island orisha island volante" data-carrack="volante">
           <td>[20/07 11:44:57 PM]</td>
           <td>8 T3 → 16 T4</td>
-          <td>Riyed Wharf</td>
+          <td>Sercal Island</td>
           <td>Orisha Island</td>
           <td data-sort="499.0">8m 19s</td>
           <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="33" data-search="8 t3 → 16 t4 iliya island riyed island riyed island volante" data-carrack="volante">
+        <tr class="even" data-order="44" data-search="8 t3 → 16 t4 taramura island riyed island riyed island volante" data-carrack="volante">
           <td>[20/07 11:16:58 PM]</td>
           <td>8 T3 → 16 T4</td>
-          <td>Iliya Island</td>
+          <td>Taramura Island</td>
           <td>Riyed Island</td>
           <td data-sort="130.0">2m 10s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="34" data-search="10 t2 → 30 t3 iliya island taramura island taramura island volante" data-carrack="volante">
+        <tr class="odd" data-order="45" data-search="10 t2 → 30 t3 rameda island taramura island taramura island volante" data-carrack="volante">
           <td>[20/07 11:11:42 PM]</td>
           <td>10 T2 → 30 T3</td>
-          <td>Iliya Island</td>
+          <td>Rameda Island</td>
           <td>Taramura Island</td>
           <td data-sort="52.0">52s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="35" data-search="6 t4 → 6 t5 theonil island rameda island rameda island volante" data-carrack="volante">
+        <tr class="even" data-order="46" data-search="6 t4 → 6 t5 theonil island rameda island rameda island volante" data-carrack="volante">
           <td>[20/07 10:55:24 PM]</td>
           <td>6 T4 → 6 T5</td>
           <td>Theonil Island</td>
@@ -1594,7 +1002,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="36" data-search="5 t4 → 5 t5 oben island theonil island theonil island volante" data-carrack="volante">
+        <tr class="odd" data-order="47" data-search="5 t4 → 5 t5 oben island theonil island theonil island volante" data-carrack="volante">
           <td>[20/07 10:54:03 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Oben Island</td>
@@ -1604,7 +1012,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="37" data-search="5 t4 → 5 t5 pujara island oben island oben island volante" data-carrack="volante">
+        <tr class="even" data-order="48" data-search="5 t4 → 5 t5 pujara island oben island oben island volante" data-carrack="volante">
           <td>[20/07 10:52:44 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Pujara Island</td>
@@ -1614,7 +1022,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="38" data-search="1 t4 → 1 t5 iliya island pujara island pujara island volante" data-carrack="volante">
+        <tr class="odd" data-order="49" data-search="1 t4 → 1 t5 iliya island pujara island pujara island volante" data-carrack="volante">
           <td>[20/07 10:47:46 PM]</td>
           <td>1 T4 → 1 T5</td>
           <td>Iliya Island</td>
@@ -1624,7 +1032,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="39" data-search="5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="50" data-search="5 t6 → 5 t7 lema island iliya island iliya island volante" data-carrack="volante">
           <td>[20/07 10:27:47 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Lema Island</td>
@@ -1634,7 +1042,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="40" data-search="5 t6 → 5 t7 starry midnight port lema island lema island volante" data-carrack="volante">
+        <tr class="odd" data-order="51" data-search="5 t6 → 5 t7 starry midnight port lema island lema island volante" data-carrack="volante">
           <td>[20/07 10:25:24 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Starry Midnight Port</td>
@@ -1644,7 +1052,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="41" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
+        <tr class="even" data-order="52" data-search="5 t5 → 5 t6 grándiha starry midnight port starry midnight port volante" data-carrack="volante">
           <td>[20/07 10:14:18 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Grándiha</td>
@@ -1654,7 +1062,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="42" data-search="5 t5 → 5 t6 narvo island grándiha grándiha volante" data-carrack="volante">
+        <tr class="odd" data-order="53" data-search="5 t5 → 5 t6 narvo island grándiha grándiha volante" data-carrack="volante">
           <td>[20/07 10:11:34 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Narvo Island</td>
@@ -1664,7 +1072,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="43" data-search="5 t4 → 5 t5 balvege island narvo island narvo island volante" data-carrack="volante">
+        <tr class="even" data-order="54" data-search="5 t4 → 5 t5 balvege island narvo island narvo island volante" data-carrack="volante">
           <td>[20/07 10:04:58 PM]</td>
           <td>5 T4 → 5 T5</td>
           <td>Balvege Island</td>
@@ -1674,17 +1082,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="44" data-search="5 t4 → 5 t5 iliya island balvege island balvege island volante" data-carrack="volante">
+        <tr class="odd" data-order="55" data-search="5 t4 → 5 t5 epheria sentry post balvege island balvege island volante" data-carrack="volante">
           <td>[20/07 10:03:44 PM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Epheria Sentry Post</td>
           <td>Balvege Island</td>
           <td data-sort="100.0">1m 40s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="45" data-search="5 t6 → 5 t7 epheria sentry post epheria sentry post epheria sentry post volante" data-carrack="volante">
+        <tr class="even" data-order="56" data-search="5 t6 → 5 t7 epheria sentry post epheria sentry post epheria sentry post volante" data-carrack="volante">
           <td>[20/07 09:58:28 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Epheria Sentry Post</td>
@@ -1694,7 +1102,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="46" data-search="5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
+        <tr class="odd" data-order="57" data-search="5 t6 → 5 t7 haemo island epheria sentry post epheria sentry post volante" data-carrack="volante">
           <td>[20/07 09:54:48 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Haemo Island</td>
@@ -1704,7 +1112,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="47" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
+        <tr class="even" data-order="58" data-search="5 t5 → 5 t6 dallae pier haemo island haemo island volante" data-carrack="volante">
           <td>[20/07 09:46:35 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Dallae Pier</td>
@@ -1714,7 +1122,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="48" data-search="5 t5 → 5 t6 pujara island dallae pier dallae pier volante" data-carrack="volante">
+        <tr class="odd" data-order="59" data-search="5 t5 → 5 t6 pujara island dallae pier dallae pier volante" data-carrack="volante">
           <td>[20/07 09:42:01 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Pujara Island</td>
@@ -1724,17 +1132,17 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="49" data-search="5 t4 → 5 t5 iliya island pujara island pujara island volante" data-carrack="volante">
+        <tr class="even" data-order="60" data-search="5 t4 → 5 t5 sausan garrison wharf pujara island pujara island volante" data-carrack="volante">
           <td>[20/07 09:30:47 PM]</td>
           <td>5 T4 → 5 T5</td>
-          <td>Iliya Island</td>
+          <td>Sausan Garrison Wharf</td>
           <td>Pujara Island</td>
           <td data-sort="63.0">1m 3s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="50" data-search="5 t6 → 5 t7 sanctuary coastal outpost sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
+        <tr class="odd" data-order="61" data-search="5 t6 → 5 t7 sanctuary coastal outpost sausan garrison wharf sausan garrison wharf volante" data-carrack="volante">
           <td>[20/07 08:56:45 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Sanctuary Coastal Outpost</td>
@@ -1744,7 +1152,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="51" data-search="5 t6 → 5 t7 arehaza sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
+        <tr class="even" data-order="62" data-search="5 t6 → 5 t7 arehaza sanctuary coastal outpost sanctuary coastal outpost volante" data-carrack="volante">
           <td>[20/07 08:53:56 PM]</td>
           <td>5 T6 → 5 T7</td>
           <td>Arehaza</td>
@@ -1754,7 +1162,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="52" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
+        <tr class="odd" data-order="63" data-search="5 t5 → 5 t6 hakoven island arehaza arehaza volante" data-carrack="volante">
           <td>[20/07 08:43:22 PM]</td>
           <td>5 T5 → 5 T6</td>
           <td>Hakoven Island</td>
@@ -1764,10 +1172,10 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="53" data-search="5 t5 → 5 t6 iliya island hakoven island hakoven island volante" data-carrack="volante">
+        <tr class="even" data-order="64" data-search="5 t5 → 5 t6  hakoven island hakoven island volante" data-carrack="volante">
           <td>[20/07 08:40:05 PM]</td>
           <td>5 T5 → 5 T6</td>
-          <td>Iliya Island</td>
+          <td></td>
           <td>Hakoven Island</td>
           <td data-sort="548.0">9m 8s</td>
           <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
@@ -1798,7 +1206,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="even" data-order="0" data-search="📍 stop at ancado iliya island ancado volante" data-carrack="volante">
+        <tr class="even" data-order="0" data-search="📍 stop at iliya island sanctuary coastal outpost iliya island volante" data-carrack="volante">
+          <td>[22/07 10:16:36 AM]</td>
+          <td>📍 STOP AT Iliya Island</td>
+          <td>Sanctuary Coastal Outpost</td>
+          <td>Iliya Island</td>
+          <td data-sort="146.0">2m 26s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="odd" data-order="1" data-search="📍 stop at iliya island epheria iliya island volante" data-carrack="volante">
+          <td>[21/07 10:26:32 PM]</td>
+          <td>📍 STOP AT Iliya Island</td>
+          <td>Epheria</td>
+          <td>Iliya Island</td>
+          <td data-sort="215.0">3m 35s</td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
+          <td>Volante</td>
+          <td>217%</td>
+        </tr>
+        <tr class="even" data-order="2" data-search="📍 stop at ancado iliya island ancado volante" data-carrack="volante">
           <td>[21/07 09:59:53 PM]</td>
           <td>📍 STOP AT Ancado</td>
           <td>Iliya Island</td>
@@ -1808,7 +1236,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="1" data-search="📍 stop at oquilla's eye orffs island oquilla's eye volante" data-carrack="volante">
+        <tr class="odd" data-order="3" data-search="📍 stop at oquilla's eye orffs island oquilla's eye volante" data-carrack="volante">
           <td>[21/07 03:10:25 PM]</td>
           <td>📍 STOP AT Oquilla's Eye</td>
           <td>Orffs Island</td>
@@ -1818,7 +1246,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="2" data-search="📍 stop at iliya island al-naha island iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="4" data-search="📍 stop at iliya island al-naha island iliya island volante" data-carrack="volante">
           <td>[21/07 03:02:48 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Al-Naha Island</td>
@@ -1828,7 +1256,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="3" data-search="📍 stop at iliya island shasha island iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="5" data-search="📍 stop at iliya island shasha island iliya island volante" data-carrack="volante">
           <td>[21/07 02:57:41 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Shasha Island</td>
@@ -1838,7 +1266,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="4" data-search="📍 stop at iliya island epheria iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="6" data-search="📍 stop at iliya island epheria iliya island volante" data-carrack="volante">
           <td>[21/07 02:53:07 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Epheria</td>
@@ -1848,7 +1276,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="5" data-search="📍 stop at epheria rameda island epheria volante" data-carrack="volante">
+        <tr class="odd" data-order="7" data-search="📍 stop at epheria rameda island epheria volante" data-carrack="volante">
           <td>[21/07 02:48:24 PM]</td>
           <td>📍 STOP AT Epheria</td>
           <td>Rameda Island</td>
@@ -1858,7 +1286,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="6" data-search="📍 stop at oben island (quest) narvo island oben island (quest) volante" data-carrack="volante">
+        <tr class="even" data-order="8" data-search="📍 stop at oben island (quest) narvo island oben island (quest) volante" data-carrack="volante">
           <td>[21/07 02:38:10 PM]</td>
           <td>📍 STOP AT Oben Island (quest)</td>
           <td>Narvo Island</td>
@@ -1868,7 +1296,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="7" data-search="📍 stop at iliya island sanctuary coastal outpost iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="9" data-search="📍 stop at iliya island sanctuary coastal outpost iliya island volante" data-carrack="volante">
           <td>[21/07 01:16:33 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Sanctuary Coastal Outpost</td>
@@ -1878,7 +1306,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="8" data-search="📍 stop at iliya island olvia coast iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="10" data-search="📍 stop at iliya island olvia coast iliya island volante" data-carrack="volante">
           <td>[21/07 12:38:42 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Olvia Coast</td>
@@ -1888,7 +1316,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="9" data-search="📍 stop at iliya island lema island iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="11" data-search="📍 stop at iliya island lema island iliya island volante" data-carrack="volante">
           <td>[21/07 12:22:19 AM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Lema Island</td>
@@ -1898,7 +1326,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="10" data-search="📍 stop at iliya island rosevan island iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="12" data-search="📍 stop at iliya island rosevan island iliya island volante" data-carrack="volante">
           <td>[20/07 11:52:19 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Rosevan Island</td>
@@ -1908,7 +1336,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="11" data-search="📍 stop at iliya island orisha island iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="13" data-search="📍 stop at iliya island orisha island iliya island volante" data-carrack="volante">
           <td>[20/07 11:48:07 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Orisha Island</td>
@@ -1918,7 +1346,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="12" data-search="📍 stop at riyed wharf riyed island riyed wharf volante" data-carrack="volante">
+        <tr class="even" data-order="14" data-search="📍 stop at riyed wharf riyed island riyed wharf volante" data-carrack="volante">
           <td>[20/07 11:36:25 PM]</td>
           <td>📍 STOP AT Riyed Wharf</td>
           <td>Riyed Island</td>
@@ -1928,7 +1356,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="13" data-search="📍 stop at iliya island taramura island iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="15" data-search="📍 stop at iliya island taramura island iliya island volante" data-carrack="volante">
           <td>[20/07 11:13:22 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Taramura Island</td>
@@ -1938,7 +1366,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="14" data-search="📍 stop at iliya island rameda island iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="16" data-search="📍 stop at iliya island rameda island iliya island volante" data-carrack="volante">
           <td>[20/07 11:00:12 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Rameda Island</td>
@@ -1948,7 +1376,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="15" data-search="📍 stop at iliya island epheria sentry post iliya island volante" data-carrack="volante">
+        <tr class="odd" data-order="17" data-search="📍 stop at iliya island epheria sentry post iliya island volante" data-carrack="volante">
           <td>[20/07 10:00:52 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Epheria Sentry Post</td>
@@ -1958,7 +1386,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="even" data-order="16" data-search="📍 stop at iliya island sausan garrison wharf iliya island volante" data-carrack="volante">
+        <tr class="even" data-order="18" data-search="📍 stop at iliya island sausan garrison wharf iliya island volante" data-carrack="volante">
           <td>[20/07 08:58:06 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>Sausan Garrison Wharf</td>
@@ -1968,7 +1396,7 @@
           <td>Volante</td>
           <td>217%</td>
         </tr>
-        <tr class="odd" data-order="17" data-search="📍 stop at iliya island  iliya island " data-carrack="">
+        <tr class="odd" data-order="19" data-search="📍 stop at iliya island  iliya island " data-carrack="">
           <td>[20/07 08:30:17 PM]</td>
           <td>📍 STOP AT Iliya Island</td>
           <td>—</td>
@@ -2000,11 +1428,9 @@
   </div>
 
   <script>
-    const ROUTES_DATA = [{"from": "Oquilla's Eye", "to": "Dallae Pier", "seconds": 370.0, "display": "6m 10s", "count": 1, "date": "[21/07 06:49:14 PM]"}, {"from": "Dallae Pier", "to": "Haemo Island", "seconds": 211.0, "display": "3m 31s", "count": 1, "date": "[21/07 06:53:22 PM]"}, {"from": "Haemo Island", "to": "Lema Island", "seconds": 435.0, "display": "7m 15s", "count": 1, "date": "[21/07 07:00:51 PM]"}, {"from": "Lema Island", "to": "Iliya Island", "seconds": 88.0, "display": "1m 28s", "count": 1, "date": "[21/07 09:53:04 PM]"}, {"from": "Iliya Island", "to": "Ancado", "seconds": 329.0, "display": "5m 29s", "count": 1, "date": "[21/07 09:59:53 PM]"}, {"from": "Ancado", "to": "Hakoven Island", "seconds": 194.0, "display": "3m 14s", "count": 1, "date": "[21/07 10:03:36 PM]"}];
-    const AUTOPATH_ROUTES_DATA = [{"from": "Iliya Island", "to": "Hakoven Island", "seconds": 548.0, "display": "9m 8s", "count": 2, "date": "[20/07 08:40:05 PM]"}, {"from": "Hakoven Island", "to": "Arehaza", "seconds": 175.0, "display": "2m 55s", "count": 2, "date": "[21/07 12:05:18 AM]"}, {"from": "Arehaza", "to": "Sanctuary Coastal Outpost", "seconds": 596.0, "display": "9m 56s", "count": 1, "date": "[20/07 08:53:56 PM]"}, {"from": "Sanctuary Coastal Outpost", "to": "Sausan Garrison Wharf", "seconds": 145.0, "display": "2m 25s", "count": 1, "date": "[20/07 08:56:45 PM]"}, {"from": "Sausan Garrison Wharf", "to": "Iliya Island", "seconds": 74.0, "display": "1m 14s", "count": 1, "date": "[20/07 08:58:06 PM]"}, {"from": "Iliya Island", "to": "Pujara Island", "seconds": 63.0, "display": "1m 3s", "count": 3, "date": "[20/07 09:30:47 PM]"}, {"from": "Pujara Island", "to": "Dallae Pier", "seconds": 630.0, "display": "10m 30s", "count": 1, "date": "[20/07 09:42:01 PM]"}, {"from": "Dallae Pier", "to": "Haemo Island", "seconds": 236.0, "display": "3m 56s", "count": 2, "date": "[21/07 12:23:24 PM]"}, {"from": "Haemo Island", "to": "Epheria Sentry Post", "seconds": 468.0, "display": "7m 48s", "count": 2, "date": "[20/07 09:54:48 PM]"}, {"from": "Epheria Sentry Post", "to": "Iliya Island", "seconds": 124.0, "display": "2m 4s", "count": 1, "date": "[20/07 10:00:52 PM]"}, {"from": "Iliya Island", "to": "Balvege Island", "seconds": 100.0, "display": "1m 40s", "count": 1, "date": "[20/07 10:03:44 PM]"}, {"from": "Balvege Island", "to": "Narvo Island", "seconds": 37.0, "display": "37s", "count": 1, "date": "[20/07 10:04:58 PM]"}, {"from": "Narvo Island", "to": "Grándiha", "seconds": 385.0, "display": "6m 25s", "count": 1, "date": "[20/07 10:11:34 PM]"}, {"from": "Grándiha", "to": "Starry Midnight Port", "seconds": 134.0, "display": "2m 14s", "count": 2, "date": "[20/07 10:14:18 PM]"}, {"from": "Starry Midnight Port", "to": "Lema Island", "seconds": 660.0, "display": "11m 0s", "count": 1, "date": "[20/07 10:25:24 PM]"}, {"from": "Lema Island", "to": "Iliya Island", "seconds": 95.0, "display": "1m 35s", "count": 1, "date": "[20/07 10:27:47 PM]"}, {"from": "Pujara Island", "to": "Oben Island", "seconds": 282.0, "display": "4m 42s", "count": 1, "date": "[20/07 10:52:44 PM]"}, {"from": "Oben Island", "to": "Theonil Island", "seconds": 62.0, "display": "1m 2s", "count": 1, "date": "[20/07 10:54:03 PM]"}, {"from": "Theonil Island", "to": "Rameda Island", "seconds": 67.0, "display": "1m 7s", "count": 1, "date": "[20/07 10:55:24 PM]"}, {"from": "Rameda Island", "to": "Iliya Island", "seconds": 275.0, "display": "4m 35s", "count": 1, "date": "[20/07 11:00:12 PM]"}, {"from": "Iliya Island", "to": "Taramura Island", "seconds": 52.0, "display": "52s", "count": 1, "date": "[20/07 11:11:42 PM]"}, {"from": "Iliya Island", "to": "Riyed Island", "seconds": 130.0, "display": "2m 10s", "count": 1, "date": "[20/07 11:16:58 PM]"}, {"from": "Iliya Island", "to": "Rosevan Island", "seconds": 100.0, "display": "1m 40s", "count": 1, "date": "[20/07 11:50:27 PM]"}, {"from": "Rosevan Island", "to": "Iliya Island", "seconds": 96.0, "display": "1m 36s", "count": 1, "date": "[20/07 11:52:19 PM]"}, {"from": "Arehaza", "to": "Iliya Island", "seconds": 652.0, "display": "10m 52s", "count": 1, "date": "[21/07 12:17:45 AM]"}, {"from": "Iliya Island", "to": "Lema Island", "seconds": 114.0, "display": "1m 54s", "count": 1, "date": "[21/07 12:20:14 AM]"}, {"from": "Iliya Island", "to": "Pilava Island", "seconds": 59.0, "display": "59s", "count": 1, "date": "[21/07 12:24:34 AM]"}, {"from": "Pilava Island", "to": "Ajir Island", "seconds": 149.0, "display": "2m 29s", "count": 1, "date": "[21/07 12:27:24 AM]"}, {"from": "Ajir Island", "to": "Dallae Pier", "seconds": 42685.0, "display": "11h 51m 25s", "count": 1, "date": "[21/07 12:19:05 PM]"}, {"from": "Epheria Sentry Post", "to": "Olvia Coast", "seconds": 185.0, "display": "3m 5s", "count": 1, "date": "[21/07 12:36:09 PM]"}, {"from": "Olvia Coast", "to": "Iliya Island", "seconds": 113.0, "display": "1m 53s", "count": 1, "date": "[21/07 12:38:42 PM]"}, {"from": "Iliya Island", "to": "Baremi Island", "seconds": 54.0, "display": "54s", "count": 1, "date": "[21/07 12:42:48 PM]"}, {"from": "Baremi Island", "to": "Balvege Island", "seconds": 55.0, "display": "55s", "count": 1, "date": "[21/07 12:44:11 PM]"}, {"from": "Balvege Island", "to": "Invernen Island", "seconds": 26.0, "display": "26s", "count": 1, "date": "[21/07 12:45:25 PM]"}, {"from": "Invernen Island", "to": "Marka Island", "seconds": 38.0, "display": "38s", "count": 1, "date": "[21/07 12:46:13 PM]"}, {"from": "Marka Island", "to": "Grándiha", "seconds": 325.0, "display": "5m 25s", "count": 1, "date": "[21/07 12:55:26 PM]"}, {"from": "Starry Midnight Port", "to": "Sausan Garrison Wharf", "seconds": 685.0, "display": "11m 25s", "count": 1, "date": "[21/07 01:10:31 PM]"}, {"from": "Sausan Garrison Wharf", "to": "Sanctuary Coastal Outpost", "seconds": 154.0, "display": "2m 34s", "count": 1, "date": "[21/07 01:13:40 PM]"}, {"from": "Sanctuary Coastal Outpost", "to": "Iliya Island", "seconds": 173.0, "display": "2m 53s", "count": 1, "date": "[21/07 01:16:33 PM]"}, {"from": "Iliya Island", "to": "Narvo Island", "seconds": 154.0, "display": "2m 34s", "count": 1, "date": "[21/07 01:24:20 PM]"}, {"from": "Narvo Island", "to": "Oben Island (quest)", "seconds": 79.0, "display": "1m 19s", "count": 1, "date": "[21/07 02:38:10 PM]"}, {"from": "Oben Island (quest)", "to": "Oben Island", "seconds": 25.0, "display": "25s", "count": 1, "date": "[21/07 02:39:21 PM]"}, {"from": "Oben Island", "to": "Rameda Island", "seconds": 55.0, "display": "55s", "count": 1, "date": "[21/07 02:41:14 PM]"}, {"from": "Rameda Island", "to": "Epheria", "seconds": 87.0, "display": "1m 27s", "count": 1, "date": "[21/07 02:48:24 PM]"}, {"from": "Epheria", "to": "Iliya Island", "seconds": 258.0, "display": "4m 18s", "count": 1, "date": "[21/07 02:53:07 PM]"}, {"from": "Iliya Island", "to": "Shasha Island", "seconds": 91.0, "display": "1m 31s", "count": 1, "date": "[21/07 02:55:54 PM]"}, {"from": "Shasha Island", "to": "Iliya Island", "seconds": 92.0, "display": "1m 32s", "count": 1, "date": "[21/07 02:57:41 PM]"}, {"from": "Iliya Island", "to": "Al-Naha Island", "seconds": 60.0, "display": "1m 0s", "count": 1, "date": "[21/07 03:00:46 PM]"}, {"from": "Al-Naha Island", "to": "Iliya Island", "seconds": 57.0, "display": "57s", "count": 1, "date": "[21/07 03:02:48 PM]"}, {"from": "Pujara Island", "to": "Orffs Island", "seconds": 157.0, "display": "2m 37s", "count": 1, "date": "[21/07 03:07:37 PM]"}, {"from": "Orffs Island", "to": "Oquilla's Eye", "seconds": 148.0, "display": "2m 28s", "count": 1, "date": "[21/07 03:10:25 PM]"}];
+    const ROUTES_DATA = [{"from": "Oquilla's Eye", "to": "Dallae Pier", "seconds": 370.0, "display": "6m 10s", "count": 1, "date": "[21/07 06:49:14 PM]"}, {"from": "Dallae Pier", "to": "Haemo Island", "seconds": 211.0, "display": "3m 31s", "count": 1, "date": "[21/07 06:53:22 PM]"}, {"from": "Haemo Island", "to": "Lema Island", "seconds": 435.0, "display": "7m 15s", "count": 1, "date": "[21/07 07:00:51 PM]"}, {"from": "Lema Island", "to": "Iliya Island", "seconds": 88.0, "display": "1m 28s", "count": 1, "date": "[21/07 09:53:04 PM]"}, {"from": "Ancado", "to": "Hakoven Island", "seconds": 194.0, "display": "3m 14s", "count": 1, "date": "[21/07 10:03:36 PM]"}, {"from": "Hakoven Island", "to": "Arehaza", "seconds": 154.0, "display": "2m 34s", "count": 1, "date": "[21/07 10:06:50 PM]"}, {"from": "Arehaza", "to": "Olvia Coast", "seconds": 641.0, "display": "10m 41s", "count": 1, "date": "[21/07 10:19:13 PM]"}, {"from": "Olvia Coast", "to": "Epheria", "seconds": 157.0, "display": "2m 37s", "count": 1, "date": "[21/07 10:22:57 PM]"}, {"from": "Iliya Island", "to": "Balvege Island", "seconds": 93.0, "display": "1m 33s", "count": 1, "date": "[22/07 09:46:33 AM]"}, {"from": "Invernen Island", "to": "Marka Island", "seconds": 34.0, "display": "34s", "count": 1, "date": "[22/07 09:49:32 AM]"}, {"from": "Marka Island", "to": "Padix Island", "seconds": 83.0, "display": "1m 23s", "count": 1, "date": "[22/07 09:51:08 AM]"}, {"from": "Padix Island", "to": "Grándiha", "seconds": 350.0, "display": "5m 50s", "count": 1, "date": "[22/07 09:57:11 AM]"}, {"from": "Grándiha", "to": "Starry Midnight Port", "seconds": 118.0, "display": "1m 58s", "count": 1, "date": "[22/07 10:00:37 AM]"}, {"from": "Starry Midnight Port", "to": "Sausan Garrison Wharf", "seconds": 585.0, "display": "9m 45s", "count": 1, "date": "[22/07 10:11:07 AM]"}, {"from": "Sausan Garrison Wharf", "to": "Sanctuary Coastal Outpost", "seconds": 137.0, "display": "2m 17s", "count": 1, "date": "[22/07 10:13:56 AM]"}];
     const placesSet = new Set();
     ROUTES_DATA.forEach(r => { placesSet.add(r.from); placesSet.add(r.to); });
-    AUTOPATH_ROUTES_DATA.forEach(r => { placesSet.add(r.from); placesSet.add(r.to); });
     const places = Array.from(placesSet).sort();
 
     const fromSelect = document.getElementById('fromSelect');
@@ -2035,21 +1461,14 @@
         resultEl.className = 'route-result route-result-empty';
         return;
       }
-      const bestMatch = ROUTES_DATA.find(r => r.from === from && r.to === to);
-      const autoMatch = AUTOPATH_ROUTES_DATA.find(r => r.from === from && r.to === to);
-      if (!bestMatch && !autoMatch) {
+      const match = ROUTES_DATA.find(r => r.from === from && r.to === to);
+      if (!match) {
         resultEl.innerHTML = 'No recorded trip yet from <b>' + from + '</b> to <b>' + to + '</b>.';
         resultEl.className = 'route-result route-result-empty';
         return;
       }
-      let html = '';
-      html += 'Best time (active sailing): ' + (bestMatch
-        ? '<b>' + bestMatch.display + '</b> &nbsp;&middot;&nbsp; ' + bestMatch.count + ' trip(s) &nbsp;·&nbsp; record set ' + bestMatch.date
-        : '<i>no data yet</i>');
-      html += '<br>Auto-path time: ' + (autoMatch
-        ? '<b>' + autoMatch.display + '</b> &nbsp;&middot;&nbsp; ' + autoMatch.count + ' trip(s) &nbsp;·&nbsp; record set ' + autoMatch.date
-        : '<i>no data yet</i>');
-      resultEl.innerHTML = html;
+      resultEl.innerHTML = 'Fastest: <b>' + match.display + '</b> &nbsp;&middot;&nbsp; ' +
+        match.count + ' trip(s) logged &nbsp;·&nbsp; record set ' + match.date;
       resultEl.className = 'route-result route-result-found';
     }
 
@@ -2117,7 +1536,7 @@
     });
     document.getElementById('detailPanelClose').addEventListener('click', closeDetailPanel);
 
-    // ---- Pagination (All-in-one, Special barters, Pair trades, Random Travels — 5 rows per page) ----
+    // ---- Pagination (Special barters, Pair trades, Random Travels — 5 rows per page) ----
     const PAGE_SIZE = 5;
 
     function makePager(tabId, prefix) {
@@ -2149,7 +1568,6 @@
     }
 
     const pagers = {
-      allinone: makePager('tab-allinone', 'allinone'),
       special: makePager('tab-special', 'special'),
       pairs: makePager('tab-pairs', 'pairs'),
       random: makePager('tab-random', 'random')
@@ -2183,7 +1601,7 @@
 
     // ---- Tabs ----
     const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabPanels = { allinone: document.getElementById('tab-allinone'), special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs'), random: document.getElementById('tab-random') };
+    const tabPanels = { special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs'), random: document.getElementById('tab-random') };
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         tabButtons.forEach(b => b.classList.remove('active'));
@@ -2227,7 +1645,6 @@
       });
     });
 
-    pagers.allinone.render();
     pagers.special.render();
     pagers.pairs.render();
     pagers.random.render();
