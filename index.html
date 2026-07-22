@@ -339,14 +339,25 @@
     .details-btn.active { color: var(--amber); }
     .details-btn.active::before { content: '[-] '; }
     .detail-source { display: none; }
+    .detail-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 3, 0.72);
+      z-index: 4;
+    }
+    .detail-backdrop.open { display: block; }
     .detail-panel {
       position: fixed;
-      top: 32px;
-      width: 320px;
-      max-height: calc(100vh - 64px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(480px, 92vw);
+      max-height: min(600px, 84vh);
       overflow: auto;
       border: 1px solid var(--line);
-      background: rgba(16, 20, 13, 0.94);
+      background: rgba(16, 20, 13, 0.98);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
       z-index: 5;
       display: none;
     }
@@ -377,16 +388,6 @@
       line-height: 1.6;
       font-size: 0.88em;
     }
-    @media (max-width: 1500px) {
-      .detail-panel {
-        position: static !important;
-        left: auto !important;
-        width: auto;
-        max-height: none;
-        margin-top: 18px;
-      }
-      .detail-panel.open { display: block; }
-    }
     .footer {
       color: var(--fg-dim);
       font-size: 0.78em;
@@ -398,7 +399,7 @@
 <body>
   <div class="page">
     <h1>barter_history --view</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784750518706">22/07/2026 22:01:58</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784750665042">22/07/2026 22:04:25</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -2069,7 +2070,6 @@
           <th data-type="text">Item</th>
           <th data-type="text">Place</th>
           <th data-type="text">Main Place</th>
-          <th data-type="number">Trades until this special barter</th>
           <th data-type="text">Details</th>
         </tr>
       </thead>
@@ -2079,7 +2079,6 @@
           <td>1 Bave Ricksa's Quest Voucher</td>
           <td>Marlene Island</td>
           <td>Lema</td>
-          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 30 T4 → 30 T5, 3 T4 → 15 Great Ocean Dark Iron(s), 16 T3 → 32 T4, 9 T2 → 27 T3">30 T6 → 30 T7, 30 T5 → 30 T6, 30 T4 → 30 T5, 3 T4 → 15 Great Ocean Dark Iron(s), 16 T3 → 32 T4, 9 T2 → 27 T3</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-0" data-item-name="1 Bave Ricksa's Quest Voucher">Click for details</button>
             <div id="detail-0" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>30 T4 → 30 T5<br>3 T4 → 15 Great Ocean Dark Iron(s)<br>16 T3 → 32 T4<br>9 T2 → 27 T3</div>
@@ -2090,7 +2089,6 @@
           <td>1740 Crow Coins</td>
           <td>Padix Island</td>
           <td>Epheria</td>
-          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Pearl Shards, 2 T5 → 2 Brilliant Rock Salt Ingots, 31 T4 → 31 T5, 24 T3 → 48 T4">30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Pearl Shards, 2 T5 → 2 Brilliant Rock Salt Ingots, 31 T4 → 31 T5, 24 T3 → 48 T4</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-1" data-item-name="1740 Crow Coins">Click for details</button>
             <div id="detail-1" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>2 T5 → 2 Brilliant Pearl Shards<br>2 T5 → 2 Brilliant Rock Salt Ingots<br>31 T4 → 31 T5<br>24 T3 → 48 T4</div>
@@ -2101,7 +2099,6 @@
           <td>1487 Crow Coins</td>
           <td>Beiruwa Island</td>
           <td>Iliya</td>
-          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Rock Salt Ingots, 2 T5 → 2 Brilliant Pearl Shards, 36 T4 → 36 T5, 10 T3 → 20 T4, 3 T3 → 12 Bright Reef Piece(s)">30 T6 → 30 T7, 30 T5 → 30 T6, 2 T5 → 2 Brilliant Rock Salt Ingots, 2 T5 → 2 Brilliant Pearl Shards, 36 T4 → 36 T5, 10 T3 → 20 T4, 3 T3 → 12 Bright Reef Piece(s)</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-2" data-item-name="1487 Crow Coins">Click for details</button>
             <div id="detail-2" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>2 T5 → 2 Brilliant Rock Salt Ingots<br>2 T5 → 2 Brilliant Pearl Shards<br>36 T4 → 36 T5<br>10 T3 → 20 T4<br>3 T3 → 12 Bright Reef Piece(s)</div>
@@ -2112,7 +2109,6 @@
           <td>1574 Crow Coins</td>
           <td>Sercal Island</td>
           <td>Epheria</td>
-          <td data-sort="30 T6 → 30 T7, 30 T5 → 30 T6, 31 T4 → 31 T5, 8 T3 → 16 T4, 14 T2 → 42 T3">30 T6 → 30 T7, 30 T5 → 30 T6, 31 T4 → 31 T5, 8 T3 → 16 T4, 14 T2 → 42 T3</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-3" data-item-name="1574 Crow Coins">Click for details</button>
             <div id="detail-3" class="detail-source" hidden>30 T6 → 30 T7<br>30 T5 → 30 T6<br>31 T4 → 31 T5<br>8 T3 → 16 T4<br>14 T2 → 42 T3</div>
@@ -2123,7 +2119,6 @@
           <td>3084 Crow Coins</td>
           <td>Shipwrecked Marine Vessel</td>
           <td></td>
-          <td data-sort="0">0</td>
           <td>
             <button type="button" class="details-btn" data-detail-target="detail-4" data-item-name="3084 Crow Coins">Click for details</button>
             <div id="detail-4" class="detail-source" hidden>—</div>
@@ -3575,6 +3570,7 @@
         </div>
         <div class="detail-panel-body" id="detailPanelBody">Click "Click for details" on a row to see it here.</div>
       </aside>
+      <div id="detailBackdrop" class="detail-backdrop"></div>
     </div>
   </div>
 
@@ -3645,41 +3641,12 @@
       updateRouteResult();
     });
 
-    // ---- Details panel (fixed overlay next to the page; page itself never resizes) ----
-    const pageEl = document.querySelector('.page');
+    // ---- Details panel (centered modal overlay, always inside the viewport) ----
     const detailPanel = document.getElementById('detailPanel');
+    const detailBackdrop = document.getElementById('detailBackdrop');
     const detailPanelTitle = document.getElementById('detailPanelTitle');
     const detailPanelBody = document.getElementById('detailPanelBody');
-    const alignAnchorEl = document.querySelector('.stats-grid') || pageEl;
     let activeDetailsBtn = null;
-
-    function positionDetailPanel() {
-      if (window.matchMedia('(max-width: 1500px)').matches) {
-        detailPanel.style.left = '';
-        detailPanel.style.top = '';
-        return;
-      }
-      const pageRect = pageEl.getBoundingClientRect();
-      const anchorRect = alignAnchorEl.getBoundingClientRect();
-      const maxTop = window.innerHeight - 80;
-      const top = Math.min(Math.max(anchorRect.top, 16), maxTop);
-      detailPanel.style.left = (pageRect.right + 32) + 'px';
-      detailPanel.style.top = top + 'px';
-    }
-    window.addEventListener('resize', () => {
-      if (detailPanel.classList.contains('open')) positionDetailPanel();
-    });
-    window.addEventListener('scroll', () => {
-      if (detailPanel.classList.contains('open')) positionDetailPanel();
-    }, { passive: true });
-
-    function closeDetailPanel() {
-      detailPanel.classList.remove('open');
-      if (activeDetailsBtn) {
-        activeDetailsBtn.classList.remove('active');
-        activeDetailsBtn = null;
-      }
-    }
 
     document.querySelectorAll('.details-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -3692,13 +3659,26 @@
         const source = document.getElementById(btn.dataset.detailTarget);
         detailPanelTitle.textContent = '# ' + (btn.dataset.itemName || 'Details');
         detailPanelBody.innerHTML = source ? source.innerHTML : '';
-        positionDetailPanel();
         detailPanel.classList.add('open');
+        detailBackdrop.classList.add('open');
         btn.classList.add('active');
         activeDetailsBtn = btn;
       });
     });
     document.getElementById('detailPanelClose').addEventListener('click', closeDetailPanel);
+    detailBackdrop.addEventListener('click', closeDetailPanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDetailPanel();
+    });
+
+    function closeDetailPanel() {
+      detailPanel.classList.remove('open');
+      detailBackdrop.classList.remove('open');
+      if (activeDetailsBtn) {
+        activeDetailsBtn.classList.remove('active');
+        activeDetailsBtn = null;
+      }
+    }
 
     // ---- Pagination (Special barters, Pair trades, Random Travels — 5 rows per page) ----
     const PAGE_SIZE = 5;
