@@ -13,24 +13,23 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg:      #0e120d;
-      --fg:      #e7e9e3;
-      --fg-dim:  #8b9186;
-      --accent:  #6fae66;
+      --bg:      #0b0e0a;
+      --fg:      #b9c4ae;
+      --fg-dim:  #626e5a;
+      --accent:  #39ff14;
       --amber:   #c9a463;
-      --danger:  #c07668;
-      --line:    #2a2f26;
-      --panel:   #161b13;
-      --radius:  8px;
+      --danger:  #b5675a;
+      --line:    #2a3324;
+      --panel:   #10140d;
     }
     body {
       background: var(--bg) url('bg.png') no-repeat center center fixed;
       background-size: cover;
       color: var(--fg);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
       font-size: 14px;
-      line-height: 1.6;
-      padding: 40px 32px;
+      line-height: 1.5;
+      padding: 32px;
     }
     .page {
       width: 96%;
@@ -42,7 +41,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(9, 12, 8, 0.82);
+      background: rgba(11, 14, 10, 0.86);
       pointer-events: none;
       z-index: 0;
     }
@@ -52,81 +51,99 @@
     }
     h1 {
       color: var(--fg);
-      font-size: 1.5em;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 4px;
+      font-size: 1.1em;
+      font-weight: normal;
+      margin-bottom: 2px;
     }
+    h1::before { content: '$ '; color: var(--accent); }
+    h1::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      margin-left: 6px;
+      background: var(--accent);
+      vertical-align: -2px;
+      animation: blink 1.1s steps(1) infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      h1::after { animation: none; }
+    }
+    @keyframes blink { 50% { opacity: 0; } }
     .subtitle {
       color: var(--fg-dim);
-      font-size: 0.85em;
-      margin-bottom: 26px;
+      font-size: 0.82em;
+      margin-bottom: 22px;
     }
-    .subtitle span { color: var(--fg-dim); }
+    .subtitle::before { content: '# '; }
+    .subtitle span { color: var(--fg-dim); border-bottom: 1px dotted var(--line); cursor: default; }
     .divider {
       border: none;
       border-top: 1px solid var(--line);
-      margin: 26px 0;
+      margin: 22px 0;
     }
     .stats-grid {
       display: block;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(20, 24, 17, 0.7);
-      overflow: hidden;
+      background: rgba(16, 20, 13, 0.78);
     }
     .stat-card {
-      padding: 14px 20px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
+      gap: 8px;
     }
     .stat-card:last-child { border-bottom: none; }
     .stat-label {
       color: var(--fg-dim);
-      font-size: 0.85em;
+      font-size: 0.82em;
       white-space: nowrap;
       flex-shrink: 0;
     }
     .stat-leader {
       flex: 1 1 auto;
+      overflow: hidden;
+      white-space: nowrap;
+      color: var(--line);
       height: 1em;
+    }
+    .stat-leader::after {
+      content: '..................................................................................................................................................................................................................................................................................................';
+      letter-spacing: 2px;
     }
     .stat-value {
       color: var(--fg);
-      font-weight: 600;
+      font-weight: bold;
       font-size: 0.95em;
       flex-shrink: 0;
       white-space: nowrap;
-      text-align: right;
     }
     .stat-value-small {
       color: var(--amber);
-      font-weight: 600;
+      font-weight: bold;
       font-size: 0.9em;
       flex-shrink: 0;
       white-space: nowrap;
-      text-align: right;
     }
     .route-finder {
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px 24px;
-      background: rgba(20, 24, 17, 0.7);
+      padding: 18px 20px;
+      background: rgba(16, 20, 13, 0.78);
     }
     .route-finder h2 {
       color: var(--fg);
-      font-size: 1.05em;
-      font-weight: 600;
-      margin-bottom: 6px;
+      font-size: 0.9em;
+      font-weight: normal;
+      margin-bottom: 4px;
     }
+    .route-finder h2::before { content: '> '; color: var(--accent); }
     .route-note {
       color: var(--fg-dim);
-      font-size: 0.82em;
-      margin-bottom: 18px;
+      font-size: 0.78em;
+      margin-bottom: 16px;
     }
+    .route-note::before { content: '# '; }
     .route-controls {
       display: flex;
       align-items: flex-end;
@@ -137,21 +154,22 @@
     .route-field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       min-width: 220px;
     }
     .route-field label {
       color: var(--fg-dim);
       font-size: 0.78em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
+    .route-field label::before { content: '['; color: var(--fg-dim); }
+    .route-field label::after { content: ']'; color: var(--fg-dim); }
     .route-field select {
       background: var(--panel);
       color: var(--fg);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 8px 10px;
+      border-radius: 0;
+      padding: 7px 9px;
       font-family: inherit;
       font-size: 0.9em;
     }
@@ -159,8 +177,8 @@
       background: var(--panel);
       color: var(--accent);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 8px 14px;
+      border-radius: 0;
+      padding: 7px 12px;
       font-size: 1em;
       font-family: inherit;
       cursor: pointer;
@@ -168,14 +186,13 @@
     }
     #swapBtn:hover { border-color: var(--accent); }
     .route-result {
-      font-size: 0.9em;
+      font-size: 0.88em;
       color: var(--fg-dim);
-      padding: 12px 14px;
+      padding: 10px 12px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
     }
     .route-result-found { color: var(--fg); }
-    .route-result-found b { color: var(--amber); font-weight: 600; }
+    .route-result-found b { color: var(--amber); font-weight: bold; }
     .route-result-empty { color: var(--danger); }
     .table-toolbar {
       display: flex;
@@ -183,26 +200,27 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-    .tabs { display: flex; gap: 22px; }
+    .tabs { display: flex; gap: 14px; }
     .tab-btn {
       background: transparent;
       color: var(--fg-dim);
       border: none;
-      border-bottom: 2px solid transparent;
-      padding: 4px 0 8px;
+      padding: 4px 0;
       font-family: inherit;
-      font-size: 0.9em;
+      font-size: 0.85em;
       cursor: pointer;
     }
-    .tab-btn.active { color: var(--fg); border-bottom-color: var(--accent); }
+    .tab-btn::before { content: '['; margin-right: 3px; }
+    .tab-btn::after { content: ']'; margin-left: 3px; }
+    .tab-btn.active { color: var(--accent); }
     .search-box {
       background: var(--panel);
       color: var(--fg);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 8px 12px;
+      border-radius: 0;
+      padding: 7px 10px;
       font-size: 0.85em;
       min-width: 220px;
       font-family: inherit;
@@ -210,10 +228,9 @@
     .search-box::placeholder { color: var(--fg-dim); }
     .table-wrap {
       border: 1px solid var(--line);
-      border-radius: var(--radius);
       max-height: 70vh;
       overflow: auto;
-      background: rgba(20, 24, 17, 0.7);
+      background: rgba(16, 20, 13, 0.78);
     }
     .table-wrap.hidden { display: none; }
     .pager {
@@ -223,32 +240,32 @@
       justify-content: flex-end;
       align-items: center;
       gap: 10px;
-      padding: 10px 16px;
+      padding: 8px 14px;
       background: var(--panel);
       border-top: 1px solid var(--line);
     }
     .pager-info {
       color: var(--fg-dim);
-      font-size: 0.8em;
+      font-size: 0.78em;
       margin-right: 4px;
     }
     .pager-btn {
       background: transparent;
-      color: var(--fg);
+      color: var(--accent);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 3px 12px;
+      border-radius: 0;
+      padding: 2px 11px;
       font-family: inherit;
       font-size: 0.95em;
       line-height: 1.4;
       cursor: pointer;
     }
-    .pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--amber); }
     .pager-btn:disabled { color: var(--fg-dim); border-color: var(--line); opacity: 0.5; cursor: default; }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9em;
+      font-size: 0.88em;
     }
     thead tr {
       background: var(--panel);
@@ -259,28 +276,27 @@
       top: 0;
       background: var(--panel);
       color: var(--fg-dim);
-      padding: 11px 16px;
+      padding: 9px 14px;
       text-align: left;
-      font-size: 0.78em;
-      font-weight: 600;
+      font-size: 0.82em;
+      font-weight: normal;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
       cursor: pointer;
       user-select: none;
       white-space: nowrap;
     }
-    thead th:hover { color: var(--fg); }
+    thead th:hover { color: var(--accent); }
     thead th.sort-asc::after { content: ' B2'; font-size: 0.8em; }
     thead th.sort-desc::after { content: ' BC'; font-size: 0.8em; }
     tbody tr { border-bottom: 1px solid var(--line); }
     tbody tr:hover { background: var(--panel); }
     td {
-      padding: 10px 16px;
+      padding: 8px 14px;
       vertical-align: top;
       text-align: left;
     }
     td:first-child { color: var(--fg-dim); font-size: 0.9em; white-space: nowrap; }
-    td:nth-child(2) { color: var(--amber); font-weight: 600; }
+    td:nth-child(2) { color: var(--amber); font-weight: bold; }
     td:nth-child(3), td:nth-child(4) { color: var(--fg); }
     details {
       font-size: 0.9em;
@@ -292,12 +308,13 @@
       white-space: nowrap;
     }
     summary::-webkit-details-marker { display: none; }
+    summary::before { content: '[+] '; }
+    details[open] summary::before { content: '[-] '; }
     details[open] summary { color: var(--amber); }
     .detail-list {
-      margin-top: 8px;
-      padding: 10px 12px;
+      margin-top: 6px;
+      padding: 8px 10px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
       color: var(--fg);
       line-height: 1.6;
       white-space: normal;
@@ -316,16 +333,17 @@
       font-size: 0.9em;
       cursor: pointer;
       white-space: nowrap;
-      text-decoration: underline;
-      text-underline-offset: 2px;
     }
-    .details-btn:hover, .details-btn.active { color: var(--amber); }
+    .details-btn::before { content: '[+] '; }
+    .details-btn:hover { color: var(--amber); }
+    .details-btn.active { color: var(--amber); }
+    .details-btn.active::before { content: '[-] '; }
     .detail-source { display: none; }
     .detail-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 3, 0.6);
+      background: rgba(4, 6, 3, 0.72);
       z-index: 4;
     }
     .detail-backdrop.open { display: block; }
@@ -338,9 +356,8 @@
       max-height: min(600px, 84vh);
       overflow: auto;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(20, 24, 17, 0.98);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      background: rgba(16, 20, 13, 0.98);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
       z-index: 5;
       display: none;
     }
@@ -349,40 +366,40 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--line);
       color: var(--amber);
-      font-size: 0.9em;
-      font-weight: 600;
+      font-size: 0.85em;
     }
     .detail-panel-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .detail-panel-close {
       background: transparent;
       border: none;
       color: var(--fg-dim);
-      font-size: 1.2em;
+      font-size: 1.1em;
       line-height: 1;
       cursor: pointer;
       padding: 0 0 0 10px;
     }
     .detail-panel-close:hover { color: var(--danger); }
     .detail-panel-body {
-      padding: 14px 16px;
+      padding: 12px 14px;
       color: var(--fg);
       line-height: 1.6;
       font-size: 0.88em;
     }
     .footer {
       color: var(--fg-dim);
-      font-size: 0.8em;
-      margin-top: 26px;
+      font-size: 0.78em;
+      margin-top: 22px;
     }
+    .footer::before { content: '# '; }
   </style>
 </head>
 <body>
   <div class="page">
-    <h1>Barter History</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784787003052">23/07/2026 08:10:03</span></p>
+    <h1>barter_history --view</h1>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784787510123">23/07/2026 08:18:30</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -470,7 +487,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="147.0">2m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -481,7 +498,7 @@
           <td>Olvia Coast</td>
           <td>Hakoven Island</td>
           <td data-sort="425.0">7m 5s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -492,7 +509,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="99.0">1m 39s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -503,7 +520,7 @@
           <td>Epheria</td>
           <td>Olvia Coast</td>
           <td data-sort="144.0">2m 24s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -514,7 +531,7 @@
           <td>Haemo Island</td>
           <td>Epheria</td>
           <td data-sort="430.0">7m 10s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -525,7 +542,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="217.0">3m 37s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -536,7 +553,7 @@
           <td>Orffs Island</td>
           <td>Dallae Pier</td>
           <td data-sort="418.0">6m 58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -547,7 +564,7 @@
           <td>Ajir Island</td>
           <td>Orffs Island</td>
           <td data-sort="58.0">58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -558,7 +575,7 @@
           <td>Tulu Island</td>
           <td>Ajir Island</td>
           <td data-sort="47.0">47s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -569,7 +586,7 @@
           <td>Tulu Island</td>
           <td>Iliya Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -580,7 +597,7 @@
           <td>Al-Naha Island</td>
           <td>Tulu Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
@@ -591,7 +608,7 @@
           <td>Al-Naha Island</td>
           <td>Iliya Island</td>
           <td data-sort="56.0">56s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -602,7 +619,7 @@
           <td>Shasha Island</td>
           <td>Al-Naha Island</td>
           <td data-sort="71.0">1m 11s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -613,7 +630,7 @@
           <td>Shasha Island</td>
           <td>Iliya Island</td>
           <td data-sort="72.0">1m 12s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -624,7 +641,7 @@
           <td>Marlene Island</td>
           <td>Shasha Island</td>
           <td data-sort="107.0">1m 47s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -635,7 +652,7 @@
           <td>Shirna Island</td>
           <td>Shakatu Wharf</td>
           <td data-sort="75.0">1m 15s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -657,7 +674,7 @@
           <td>Rameda Island</td>
           <td>Shirna Island</td>
           <td data-sort="126.0">2m 6s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -668,7 +685,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="246.0">4m 6s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -679,7 +696,7 @@
           <td>Theonil Island</td>
           <td>Rameda Island</td>
           <td data-sort="40.0">40s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -690,7 +707,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Theonil Island</td>
           <td data-sort="296.0">4m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -701,7 +718,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="176.0">2m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -712,7 +729,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="150.0">2m 30s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -723,7 +740,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="692.0">11m 32s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -734,7 +751,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="161.0">2m 41s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -745,7 +762,7 @@
           <td>Oben Island</td>
           <td>Grándiha</td>
           <td data-sort="25423.0">7h 3m 43s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -756,7 +773,7 @@
           <td>Narvo Island</td>
           <td>Oben Island</td>
           <td data-sort="99.0">1m 39s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -767,7 +784,7 @@
           <td>Marka Island</td>
           <td>Epheria</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -778,7 +795,7 @@
           <td>Marka Island</td>
           <td>Narvo Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -789,7 +806,7 @@
           <td>Lema Island</td>
           <td>Marka Island</td>
           <td data-sort="124.0">2m 4s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -800,7 +817,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="90.0">1m 30s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -811,7 +828,7 @@
           <td>Iliya Island</td>
           <td>Lema Island</td>
           <td data-sort="87.0">1m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -822,7 +839,7 @@
           <td>Arehaza</td>
           <td>Iliya Island</td>
           <td data-sort="565.0">9m 25s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -833,7 +850,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="150.0">2m 30s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -844,7 +861,7 @@
           <td>Olvia Coast</td>
           <td>Hakoven Island</td>
           <td data-sort="173.0">2m 53s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -855,7 +872,7 @@
           <td>Iliya Island</td>
           <td>Ancado</td>
           <td data-sort="288.0">4m 48s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -866,7 +883,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="102.0">1m 42s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -877,7 +894,7 @@
           <td>Epheria</td>
           <td>Olvia Coast</td>
           <td data-sort="147.0">2m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -888,7 +905,7 @@
           <td>Haemo Island</td>
           <td>Epheria</td>
           <td data-sort="424.0">7m 4s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -899,7 +916,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="226.0">3m 46s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -910,7 +927,7 @@
           <td>Balvege Island</td>
           <td>Dallae Pier</td>
           <td data-sort="406.0">6m 46s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -921,7 +938,7 @@
           <td>Balvege Island</td>
           <td>Oquilla's Eye</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -932,7 +949,7 @@
           <td>Ajir Island</td>
           <td>Balvege Island</td>
           <td data-sort="80.0">1m 20s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -943,7 +960,7 @@
           <td>Kanvera Island</td>
           <td>Ajir Island</td>
           <td data-sort="45.0">45s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -954,7 +971,7 @@
           <td>Kanvera Island</td>
           <td>Iliya Island</td>
           <td data-sort="81.0">1m 21s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -965,7 +982,7 @@
           <td>Tulu Island</td>
           <td>Kanvera Island</td>
           <td data-sort="44.0">44s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -976,7 +993,7 @@
           <td>Tulu Island</td>
           <td>Iliya Island</td>
           <td data-sort="95.0">1m 35s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -987,7 +1004,7 @@
           <td>Padix Island</td>
           <td>Tulu Island</td>
           <td data-sort="115.0">1m 55s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -998,7 +1015,7 @@
           <td>Tinberra Island</td>
           <td>Iliya Island</td>
           <td data-sort="123.0">2m 3s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1009,7 +1026,7 @@
           <td>Rosevan Island</td>
           <td>Tinberra Island</td>
           <td data-sort="-1">No data yet</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1031,7 +1048,7 @@
           <td>Rameda Island</td>
           <td>Rosevan Island</td>
           <td data-sort="94.0">1m 34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1042,7 +1059,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="271.0">4m 31s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1053,7 +1070,7 @@
           <td>Oben Island</td>
           <td>Rameda Island</td>
           <td data-sort="49.0">49s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1064,7 +1081,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Oben Island</td>
           <td data-sort="206.0">3m 26s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
@@ -1075,7 +1092,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="146.0">2m 26s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1086,7 +1103,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="137.0">2m 17s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1097,7 +1114,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="585.0">9m 45s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1108,7 +1125,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="118.0">1m 58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1119,7 +1136,7 @@
           <td>Padix Island</td>
           <td>Grándiha</td>
           <td data-sort="350.0">5m 50s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1130,7 +1147,7 @@
           <td>Marka Island</td>
           <td>Padix Island</td>
           <td data-sort="83.0">1m 23s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1141,7 +1158,7 @@
           <td>Invernen Island</td>
           <td>Marka Island</td>
           <td data-sort="34.0">34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1152,7 +1169,7 @@
           <td>Balvege Island</td>
           <td>Invernen Island</td>
           <td data-sort="31.0">31s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1163,7 +1180,7 @@
           <td>Epheria</td>
           <td>Balvege Island</td>
           <td data-sort="93.0">1m 33s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1174,7 +1191,7 @@
           <td>Epheria</td>
           <td>Iliya Island</td>
           <td data-sort="215.0">3m 35s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1185,7 +1202,7 @@
           <td>Olvia Coast</td>
           <td>Epheria</td>
           <td data-sort="157.0">2m 37s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1196,7 +1213,7 @@
           <td>Arehaza</td>
           <td>Olvia Coast</td>
           <td data-sort="641.0">10m 41s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1207,7 +1224,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1218,7 +1235,7 @@
           <td>Iliya Island</td>
           <td>Hakoven Island</td>
           <td data-sort="194.0">3m 14s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1229,7 +1246,7 @@
           <td>Iliya Island</td>
           <td>Ancado</td>
           <td data-sort="329.0">5m 29s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1240,7 +1257,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="88.0">1m 28s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1251,7 +1268,7 @@
           <td>Haemo Island</td>
           <td>Lema Island</td>
           <td data-sort="435.0">7m 15s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1262,7 +1279,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="211.0">3m 31s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1273,7 +1290,7 @@
           <td>Orffs Island</td>
           <td>Dallae Pier</td>
           <td data-sort="370.0">6m 10s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1284,7 +1301,7 @@
           <td>Orffs Island</td>
           <td>Oquilla's Eye</td>
           <td data-sort="148.0">2m 28s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1295,7 +1312,7 @@
           <td>Pujara Island</td>
           <td>Orffs Island</td>
           <td data-sort="157.0">2m 37s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1306,7 +1323,7 @@
           <td>Al-Naha Island</td>
           <td>Pujara Island</td>
           <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1317,7 +1334,7 @@
           <td>Al-Naha Island</td>
           <td>Iliya Island</td>
           <td data-sort="57.0">57s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1328,7 +1345,7 @@
           <td>Shasha Island</td>
           <td>Al-Naha Island</td>
           <td data-sort="60.0">1m 0s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1339,7 +1356,7 @@
           <td>Shasha Island</td>
           <td>Iliya Island</td>
           <td data-sort="92.0">1m 32s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1350,7 +1367,7 @@
           <td>Beiruwa Island</td>
           <td>Shasha Island</td>
           <td data-sort="91.0">1m 31s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1361,7 +1378,7 @@
           <td>Epheria</td>
           <td>Iliya Island</td>
           <td data-sort="258.0">4m 18s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1372,7 +1389,7 @@
           <td>Rameda Island</td>
           <td>Epheria</td>
           <td data-sort="87.0">1m 27s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1394,7 +1411,7 @@
           <td>Oben Island</td>
           <td>Rameda Island</td>
           <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1405,7 +1422,7 @@
           <td>Oben Island (quest)</td>
           <td>Oben Island</td>
           <td data-sort="25.0">25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1416,7 +1433,7 @@
           <td>Narvo Island</td>
           <td>Oben Island (quest)</td>
           <td data-sort="79.0">1m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1427,7 +1444,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Narvo Island</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1438,7 +1455,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="173.0">2m 53s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1449,7 +1466,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1460,7 +1477,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="685.0">11m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1471,7 +1488,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="146.0">2m 26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1482,7 +1499,7 @@
           <td>Eberdeen Island</td>
           <td>Grándiha</td>
           <td data-sort="325.0">5m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1493,7 +1510,7 @@
           <td>Marka Island</td>
           <td>Eberdeen Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1504,7 +1521,7 @@
           <td>Invernen Island</td>
           <td>Marka Island</td>
           <td data-sort="38.0">38s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1515,7 +1532,7 @@
           <td>Balvege Island</td>
           <td>Invernen Island</td>
           <td data-sort="26.0">26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1526,7 +1543,7 @@
           <td>Baremi Island</td>
           <td>Balvege Island</td>
           <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1537,7 +1554,7 @@
           <td>Olvia Coast</td>
           <td>Baremi Island</td>
           <td data-sort="54.0">54s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1548,7 +1565,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="113.0">1m 53s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1559,7 +1576,7 @@
           <td>Epheria Sentry Post</td>
           <td>Olvia Coast</td>
           <td data-sort="185.0">3m 5s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1570,7 +1587,7 @@
           <td>Haemo Island</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="506.0">8m 26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1581,7 +1598,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="236.0">3m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1592,7 +1609,7 @@
           <td>Ajir Island</td>
           <td>Dallae Pier</td>
           <td data-sort="42685.0">11h 51m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1603,7 +1620,7 @@
           <td>Pilava Island</td>
           <td>Ajir Island</td>
           <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1614,7 +1631,7 @@
           <td>Lema Island</td>
           <td>Pilava Island</td>
           <td data-sort="59.0">59s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1625,7 +1642,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1636,7 +1653,7 @@
           <td>Iliya Island</td>
           <td>Lema Island</td>
           <td data-sort="114.0">1m 54s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1647,7 +1664,7 @@
           <td>Arehaza</td>
           <td>Iliya Island</td>
           <td data-sort="652.0">10m 52s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1658,7 +1675,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="175.0">2m 55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1669,7 +1686,7 @@
           <td>Rosevan Island</td>
           <td>Hakoven Island</td>
           <td data-sort="555.0">9m 15s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1680,7 +1697,7 @@
           <td>Rosevan Island</td>
           <td>Iliya Island</td>
           <td data-sort="96.0">1m 36s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1691,7 +1708,7 @@
           <td>Orisha Island</td>
           <td>Rosevan Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1702,7 +1719,7 @@
           <td>Orisha Island</td>
           <td>Iliya Island</td>
           <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1713,7 +1730,7 @@
           <td>Sercal Island</td>
           <td>Orisha Island</td>
           <td data-sort="499.0">8m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1724,7 +1741,7 @@
           <td>Riyed Island</td>
           <td>Riyed Wharf</td>
           <td data-sort="-1">No data yet</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1746,7 +1763,7 @@
           <td>Taramura Island</td>
           <td>Riyed Island</td>
           <td data-sort="130.0">2m 10s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1757,7 +1774,7 @@
           <td>Taramura Island</td>
           <td>Iliya Island</td>
           <td data-sort="93.0">1m 33s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1768,7 +1785,7 @@
           <td>Rameda Island</td>
           <td>Taramura Island</td>
           <td data-sort="52.0">52s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1779,7 +1796,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="275.0">4m 35s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1790,7 +1807,7 @@
           <td>Theonil Island</td>
           <td>Rameda Island</td>
           <td data-sort="67.0">1m 7s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1801,7 +1818,7 @@
           <td>Oben Island</td>
           <td>Theonil Island</td>
           <td data-sort="62.0">1m 2s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1812,7 +1829,7 @@
           <td>Pujara Island</td>
           <td>Oben Island</td>
           <td data-sort="282.0">4m 42s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1823,7 +1840,7 @@
           <td>Iliya Island</td>
           <td>Pujara Island</td>
           <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1834,7 +1851,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="95.0">1m 35s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1845,7 +1862,7 @@
           <td>Starry Midnight Port</td>
           <td>Lema Island</td>
           <td data-sort="660.0">11m 0s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1856,7 +1873,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="134.0">2m 14s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1867,7 +1884,7 @@
           <td>Narvo Island</td>
           <td>Grándiha</td>
           <td data-sort="385.0">6m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1878,7 +1895,7 @@
           <td>Balvege Island</td>
           <td>Narvo Island</td>
           <td data-sort="37.0">37s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1889,7 +1906,7 @@
           <td>Epheria Sentry Post</td>
           <td>Balvege Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1900,7 +1917,7 @@
           <td>Epheria Sentry Post</td>
           <td>Iliya Island</td>
           <td data-sort="124.0">2m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1911,7 +1928,7 @@
           <td>Epheria Sentry Post</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="199.0">3m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1922,7 +1939,7 @@
           <td>Haemo Island</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="468.0">7m 48s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1933,7 +1950,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="247.0">4m 7s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1944,7 +1961,7 @@
           <td>Pujara Island</td>
           <td>Dallae Pier</td>
           <td data-sort="630.0">10m 30s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1955,7 +1972,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Pujara Island</td>
           <td data-sort="63.0">1m 3s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1966,7 +1983,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Iliya Island</td>
           <td data-sort="74.0">1m 14s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1977,7 +1994,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="145.0">2m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1988,7 +2005,7 @@
           <td>Arehaza</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="596.0">9m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -1999,7 +2016,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="177.0">2m 57s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2010,7 +2027,7 @@
           <td></td>
           <td>Hakoven Island</td>
           <td data-sort="548.0">9m 8s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2021,7 +2038,7 @@
           <td>—</td>
           <td>Iliya Island</td>
           <td data-sort="5.0">5s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
@@ -2137,7 +2154,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="147.0">2m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2147,7 +2164,7 @@
           <td>Olvia Coast</td>
           <td>Hakoven Island</td>
           <td data-sort="425.0">7m 5s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2157,7 +2174,7 @@
           <td>Epheria</td>
           <td>Olvia Coast</td>
           <td data-sort="144.0">2m 24s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2167,7 +2184,7 @@
           <td>Haemo Island</td>
           <td>Epheria</td>
           <td data-sort="430.0">7m 10s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2177,7 +2194,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="217.0">3m 37s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2187,7 +2204,7 @@
           <td>Orffs Island</td>
           <td>Dallae Pier</td>
           <td data-sort="418.0">6m 58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2197,7 +2214,7 @@
           <td>Ajir Island</td>
           <td>Orffs Island</td>
           <td data-sort="58.0">58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2207,7 +2224,7 @@
           <td>Tulu Island</td>
           <td>Ajir Island</td>
           <td data-sort="47.0">47s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2217,7 +2234,7 @@
           <td>Al-Naha Island</td>
           <td>Tulu Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
@@ -2227,7 +2244,7 @@
           <td>Shasha Island</td>
           <td>Al-Naha Island</td>
           <td data-sort="71.0">1m 11s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2237,7 +2254,7 @@
           <td>Marlene Island</td>
           <td>Shasha Island</td>
           <td data-sort="107.0">1m 47s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2247,7 +2264,7 @@
           <td>Rameda Island</td>
           <td>Shirna Island</td>
           <td data-sort="126.0">2m 6s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2257,7 +2274,7 @@
           <td>Theonil Island</td>
           <td>Rameda Island</td>
           <td data-sort="40.0">40s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2267,7 +2284,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Theonil Island</td>
           <td data-sort="296.0">4m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2277,7 +2294,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="150.0">2m 30s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2287,7 +2304,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="692.0">11m 32s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2297,7 +2314,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="161.0">2m 41s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2307,7 +2324,7 @@
           <td>Oben Island</td>
           <td>Grándiha</td>
           <td data-sort="25423.0">7h 3m 43s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2317,7 +2334,7 @@
           <td>Narvo Island</td>
           <td>Oben Island</td>
           <td data-sort="99.0">1m 39s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2327,7 +2344,7 @@
           <td>Marka Island</td>
           <td>Narvo Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2337,7 +2354,7 @@
           <td>Lema Island</td>
           <td>Marka Island</td>
           <td data-sort="124.0">2m 4s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2347,7 +2364,7 @@
           <td>Iliya Island</td>
           <td>Lema Island</td>
           <td data-sort="87.0">1m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2357,7 +2374,7 @@
           <td>Arehaza</td>
           <td>Iliya Island</td>
           <td data-sort="565.0">9m 25s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2367,7 +2384,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="150.0">2m 30s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2377,7 +2394,7 @@
           <td>Olvia Coast</td>
           <td>Hakoven Island</td>
           <td data-sort="173.0">2m 53s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2387,7 +2404,7 @@
           <td>Epheria</td>
           <td>Olvia Coast</td>
           <td data-sort="147.0">2m 27s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2397,7 +2414,7 @@
           <td>Haemo Island</td>
           <td>Epheria</td>
           <td data-sort="424.0">7m 4s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2407,7 +2424,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="226.0">3m 46s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2417,7 +2434,7 @@
           <td>Balvege Island</td>
           <td>Dallae Pier</td>
           <td data-sort="406.0">6m 46s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2427,7 +2444,7 @@
           <td>Ajir Island</td>
           <td>Balvege Island</td>
           <td data-sort="80.0">1m 20s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2437,7 +2454,7 @@
           <td>Kanvera Island</td>
           <td>Ajir Island</td>
           <td data-sort="45.0">45s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2447,7 +2464,7 @@
           <td>Tulu Island</td>
           <td>Kanvera Island</td>
           <td data-sort="44.0">44s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2457,7 +2474,7 @@
           <td>Padix Island</td>
           <td>Tulu Island</td>
           <td data-sort="115.0">1m 55s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2467,7 +2484,7 @@
           <td>Rameda Island</td>
           <td>Rosevan Island</td>
           <td data-sort="94.0">1m 34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2477,7 +2494,7 @@
           <td>Oben Island</td>
           <td>Rameda Island</td>
           <td data-sort="49.0">49s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2487,7 +2504,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Oben Island</td>
           <td data-sort="206.0">3m 26s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
@@ -2497,7 +2514,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="137.0">2m 17s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2507,7 +2524,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="585.0">9m 45s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2517,7 +2534,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="118.0">1m 58s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2527,7 +2544,7 @@
           <td>Padix Island</td>
           <td>Grándiha</td>
           <td data-sort="350.0">5m 50s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2537,7 +2554,7 @@
           <td>Marka Island</td>
           <td>Padix Island</td>
           <td data-sort="83.0">1m 23s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2547,7 +2564,7 @@
           <td>Invernen Island</td>
           <td>Marka Island</td>
           <td data-sort="34.0">34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2557,7 +2574,7 @@
           <td>Balvege Island</td>
           <td>Invernen Island</td>
           <td data-sort="31.0">31s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2567,7 +2584,7 @@
           <td>Epheria</td>
           <td>Balvege Island</td>
           <td data-sort="93.0">1m 33s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2577,7 +2594,7 @@
           <td>Olvia Coast</td>
           <td>Epheria</td>
           <td data-sort="157.0">2m 37s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2587,7 +2604,7 @@
           <td>Arehaza</td>
           <td>Olvia Coast</td>
           <td data-sort="641.0">10m 41s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2597,7 +2614,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2607,7 +2624,7 @@
           <td>Iliya Island</td>
           <td>Hakoven Island</td>
           <td data-sort="194.0">3m 14s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2617,7 +2634,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="88.0">1m 28s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2627,7 +2644,7 @@
           <td>Haemo Island</td>
           <td>Lema Island</td>
           <td data-sort="435.0">7m 15s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2637,7 +2654,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="211.0">3m 31s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2647,7 +2664,7 @@
           <td>Orffs Island</td>
           <td>Dallae Pier</td>
           <td data-sort="370.0">6m 10s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2657,7 +2674,7 @@
           <td>Pujara Island</td>
           <td>Orffs Island</td>
           <td data-sort="157.0">2m 37s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2667,7 +2684,7 @@
           <td>Al-Naha Island</td>
           <td>Pujara Island</td>
           <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2677,7 +2694,7 @@
           <td>Shasha Island</td>
           <td>Al-Naha Island</td>
           <td data-sort="60.0">1m 0s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2687,7 +2704,7 @@
           <td>Beiruwa Island</td>
           <td>Shasha Island</td>
           <td data-sort="91.0">1m 31s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2697,7 +2714,7 @@
           <td>Oben Island</td>
           <td>Rameda Island</td>
           <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2707,7 +2724,7 @@
           <td>Oben Island (quest)</td>
           <td>Oben Island</td>
           <td data-sort="25.0">25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2717,7 +2734,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Narvo Island</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2727,7 +2744,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="154.0">2m 34s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2737,7 +2754,7 @@
           <td>Starry Midnight Port</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="685.0">11m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2747,7 +2764,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="146.0">2m 26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2757,7 +2774,7 @@
           <td>Eberdeen Island</td>
           <td>Grándiha</td>
           <td data-sort="325.0">5m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2767,7 +2784,7 @@
           <td>Marka Island</td>
           <td>Eberdeen Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2777,7 +2794,7 @@
           <td>Invernen Island</td>
           <td>Marka Island</td>
           <td data-sort="38.0">38s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2787,7 +2804,7 @@
           <td>Balvege Island</td>
           <td>Invernen Island</td>
           <td data-sort="26.0">26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2797,7 +2814,7 @@
           <td>Baremi Island</td>
           <td>Balvege Island</td>
           <td data-sort="55.0">55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2807,7 +2824,7 @@
           <td>Olvia Coast</td>
           <td>Baremi Island</td>
           <td data-sort="54.0">54s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2817,7 +2834,7 @@
           <td>Epheria Sentry Post</td>
           <td>Olvia Coast</td>
           <td data-sort="185.0">3m 5s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2827,7 +2844,7 @@
           <td>Haemo Island</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="506.0">8m 26s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2837,7 +2854,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="236.0">3m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2847,7 +2864,7 @@
           <td>Ajir Island</td>
           <td>Dallae Pier</td>
           <td data-sort="42685.0">11h 51m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2857,7 +2874,7 @@
           <td>Pilava Island</td>
           <td>Ajir Island</td>
           <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2867,7 +2884,7 @@
           <td>Lema Island</td>
           <td>Pilava Island</td>
           <td data-sort="59.0">59s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2877,7 +2894,7 @@
           <td>Iliya Island</td>
           <td>Lema Island</td>
           <td data-sort="114.0">1m 54s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2887,7 +2904,7 @@
           <td>Arehaza</td>
           <td>Iliya Island</td>
           <td data-sort="652.0">10m 52s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2897,7 +2914,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="175.0">2m 55s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2907,7 +2924,7 @@
           <td>Rosevan Island</td>
           <td>Hakoven Island</td>
           <td data-sort="555.0">9m 15s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2917,7 +2934,7 @@
           <td>Orisha Island</td>
           <td>Rosevan Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2927,7 +2944,7 @@
           <td>Sercal Island</td>
           <td>Orisha Island</td>
           <td data-sort="499.0">8m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2937,7 +2954,7 @@
           <td>Taramura Island</td>
           <td>Riyed Island</td>
           <td data-sort="130.0">2m 10s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2947,7 +2964,7 @@
           <td>Rameda Island</td>
           <td>Taramura Island</td>
           <td data-sort="52.0">52s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2957,7 +2974,7 @@
           <td>Theonil Island</td>
           <td>Rameda Island</td>
           <td data-sort="67.0">1m 7s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2967,7 +2984,7 @@
           <td>Oben Island</td>
           <td>Theonil Island</td>
           <td data-sort="62.0">1m 2s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2977,7 +2994,7 @@
           <td>Pujara Island</td>
           <td>Oben Island</td>
           <td data-sort="282.0">4m 42s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2987,7 +3004,7 @@
           <td>Iliya Island</td>
           <td>Pujara Island</td>
           <td data-sort="64.0">1m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -2997,7 +3014,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="95.0">1m 35s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3007,7 +3024,7 @@
           <td>Starry Midnight Port</td>
           <td>Lema Island</td>
           <td data-sort="660.0">11m 0s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3017,7 +3034,7 @@
           <td>Grándiha</td>
           <td>Starry Midnight Port</td>
           <td data-sort="134.0">2m 14s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3027,7 +3044,7 @@
           <td>Narvo Island</td>
           <td>Grándiha</td>
           <td data-sort="385.0">6m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3037,7 +3054,7 @@
           <td>Balvege Island</td>
           <td>Narvo Island</td>
           <td data-sort="37.0">37s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3047,7 +3064,7 @@
           <td>Epheria Sentry Post</td>
           <td>Balvege Island</td>
           <td data-sort="100.0">1m 40s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3057,7 +3074,7 @@
           <td>Epheria Sentry Post</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="199.0">3m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3067,7 +3084,7 @@
           <td>Haemo Island</td>
           <td>Epheria Sentry Post</td>
           <td data-sort="468.0">7m 48s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3077,7 +3094,7 @@
           <td>Dallae Pier</td>
           <td>Haemo Island</td>
           <td data-sort="247.0">4m 7s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3087,7 +3104,7 @@
           <td>Pujara Island</td>
           <td>Dallae Pier</td>
           <td data-sort="630.0">10m 30s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3097,7 +3114,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Pujara Island</td>
           <td data-sort="63.0">1m 3s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3107,7 +3124,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Sausan Garrison Wharf</td>
           <td data-sort="145.0">2m 25s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3117,7 +3134,7 @@
           <td>Arehaza</td>
           <td>Sanctuary Coastal Outpost</td>
           <td data-sort="596.0">9m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3127,7 +3144,7 @@
           <td>Hakoven Island</td>
           <td>Arehaza</td>
           <td data-sort="177.0">2m 57s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3137,7 +3154,7 @@
           <td></td>
           <td>Hakoven Island</td>
           <td data-sort="548.0">9m 8s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3171,7 +3188,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="99.0">1m 39s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3181,7 +3198,7 @@
           <td>Tulu Island</td>
           <td>Iliya Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3191,7 +3208,7 @@
           <td>Al-Naha Island</td>
           <td>Iliya Island</td>
           <td data-sort="56.0">56s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3201,7 +3218,7 @@
           <td>Shasha Island</td>
           <td>Iliya Island</td>
           <td data-sort="72.0">1m 12s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3211,7 +3228,7 @@
           <td>Shirna Island</td>
           <td>Shakatu Wharf</td>
           <td data-sort="75.0">1m 15s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3221,7 +3238,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="246.0">4m 6s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3231,7 +3248,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="176.0">2m 56s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3241,7 +3258,7 @@
           <td>Marka Island</td>
           <td>Epheria</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3251,7 +3268,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="90.0">1m 30s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3261,7 +3278,7 @@
           <td>Iliya Island</td>
           <td>Ancado</td>
           <td data-sort="288.0">4m 48s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3271,7 +3288,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="102.0">1m 42s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3281,7 +3298,7 @@
           <td>Balvege Island</td>
           <td>Oquilla's Eye</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3291,7 +3308,7 @@
           <td>Kanvera Island</td>
           <td>Iliya Island</td>
           <td data-sort="81.0">1m 21s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3301,7 +3318,7 @@
           <td>Tulu Island</td>
           <td>Iliya Island</td>
           <td data-sort="95.0">1m 35s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3311,7 +3328,7 @@
           <td>Tinberra Island</td>
           <td>Iliya Island</td>
           <td data-sort="123.0">2m 3s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3321,7 +3338,7 @@
           <td>Rosevan Island</td>
           <td>Tinberra Island</td>
           <td data-sort="-1">No data yet</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3331,7 +3348,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="271.0">4m 31s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3341,7 +3358,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="146.0">2m 26s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3351,7 +3368,7 @@
           <td>Epheria</td>
           <td>Iliya Island</td>
           <td data-sort="215.0">3m 35s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3361,7 +3378,7 @@
           <td>Iliya Island</td>
           <td>Ancado</td>
           <td data-sort="329.0">5m 29s</td>
-          <td><span class="badge badge-accurate">Ok</span></td>
+          <td><span class="badge badge-accurate">[Ok]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3371,7 +3388,7 @@
           <td>Orffs Island</td>
           <td>Oquilla's Eye</td>
           <td data-sort="148.0">2m 28s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3381,7 +3398,7 @@
           <td>Al-Naha Island</td>
           <td>Iliya Island</td>
           <td data-sort="57.0">57s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3391,7 +3408,7 @@
           <td>Shasha Island</td>
           <td>Iliya Island</td>
           <td data-sort="92.0">1m 32s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3401,7 +3418,7 @@
           <td>Epheria</td>
           <td>Iliya Island</td>
           <td data-sort="258.0">4m 18s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3411,7 +3428,7 @@
           <td>Rameda Island</td>
           <td>Epheria</td>
           <td data-sort="87.0">1m 27s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3421,7 +3438,7 @@
           <td>Narvo Island</td>
           <td>Oben Island (quest)</td>
           <td data-sort="79.0">1m 19s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3431,7 +3448,7 @@
           <td>Sanctuary Coastal Outpost</td>
           <td>Iliya Island</td>
           <td data-sort="173.0">2m 53s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3441,7 +3458,7 @@
           <td>Olvia Coast</td>
           <td>Iliya Island</td>
           <td data-sort="113.0">1m 53s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3451,7 +3468,7 @@
           <td>Lema Island</td>
           <td>Iliya Island</td>
           <td data-sort="-1">—</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3461,7 +3478,7 @@
           <td>Rosevan Island</td>
           <td>Iliya Island</td>
           <td data-sort="96.0">1m 36s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3471,7 +3488,7 @@
           <td>Orisha Island</td>
           <td>Iliya Island</td>
           <td data-sort="149.0">2m 29s</td>
-          <td><span class="badge badge-inaccurate">~ Other</span></td>
+          <td><span class="badge badge-inaccurate">[~ Other]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3481,7 +3498,7 @@
           <td>Riyed Island</td>
           <td>Riyed Wharf</td>
           <td data-sort="-1">No data yet</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3491,7 +3508,7 @@
           <td>Taramura Island</td>
           <td>Iliya Island</td>
           <td data-sort="93.0">1m 33s</td>
-          <td><span class="badge badge-inaccurate">~ Overweight</span></td>
+          <td><span class="badge badge-inaccurate">[~ Overweight]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3501,7 +3518,7 @@
           <td>Rameda Island</td>
           <td>Iliya Island</td>
           <td data-sort="275.0">4m 35s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3511,7 +3528,7 @@
           <td>Epheria Sentry Post</td>
           <td>Iliya Island</td>
           <td data-sort="124.0">2m 4s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3521,7 +3538,7 @@
           <td>Sausan Garrison Wharf</td>
           <td>Iliya Island</td>
           <td data-sort="74.0">1m 14s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>Volante</td>
           <td>217%</td>
         </tr>
@@ -3531,7 +3548,7 @@
           <td>—</td>
           <td>Iliya Island</td>
           <td data-sort="5.0">5s</td>
-          <td><span class="badge badge-inaccurate">~ Auto-path</span></td>
+          <td><span class="badge badge-inaccurate">[~ Auto-path]</span></td>
           <td>—</td>
           <td>—</td>
         </tr>
