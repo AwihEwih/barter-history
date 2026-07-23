@@ -307,6 +307,53 @@
     }
     .badge-accurate { color: var(--accent); }
     .badge-inaccurate { color: var(--danger); }
+    .refresh-list {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .empty-note {
+      color: var(--fg-dim);
+      font-size: 0.88em;
+      padding: 6px 2px;
+    }
+    .refresh-cycle {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(20, 24, 17, 0.55);
+      padding: 12px 16px;
+      font-size: 0.9em;
+    }
+    .refresh-cycle summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      white-space: normal;
+    }
+    .refresh-cycle-range { color: var(--fg); font-weight: 600; }
+    .refresh-cycle-total { margin-left: auto; color: var(--fg); font-weight: 600; }
+    .refresh-legs {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .refresh-leg {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(20, 24, 17, 0.4);
+      font-size: 0.88em;
+    }
+    .refresh-leg-ts { color: var(--fg-dim); white-space: nowrap; font-size: 0.9em; }
+    .refresh-leg-route { color: var(--fg); flex: 1 1 auto; }
+    .refresh-leg-dur { color: var(--amber); font-weight: 600; white-space: nowrap; margin-left: auto; }
     .details-btn {
       background: transparent;
       color: var(--accent);
@@ -382,7 +429,7 @@
 <body>
   <div class="page">
     <h1>Barter History</h1>
-    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784802084324">23/07/2026 12:21:24</span></p>
+    <p class="subtitle">Last updated: <span id="lastUpdated" data-epoch="1784802447714">23/07/2026 12:27:27</span></p>
     <div class="page-columns">
       <div class="page-main">
 
@@ -436,6 +483,7 @@
       <button class="tab-btn" data-tab="special">Special barters</button>
       <button class="tab-btn" data-tab="pairs">Pair trades</button>
       <button class="tab-btn" data-tab="random">Random Travels</button>
+      <button class="tab-btn" data-tab="refreshes">Barter Refreshes</button>
     </div>
     <select id="carrackFilter" class="search-box" style="max-width: 160px;">
       <option value="">All carracks</option>
@@ -975,7 +1023,7 @@
           <td>5 T5 → 5 T6</td>
           <td>Oben Island</td>
           <td>Grándiha</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Not accurate</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -1239,7 +1287,7 @@
           <td>📍 STOP AT Tinberra Island</td>
           <td>Rosevan Island</td>
           <td>Tinberra Island</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Not accurate</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -1954,7 +2002,7 @@
           <td>📍 STOP AT Riyed Wharf</td>
           <td>Riyed Island</td>
           <td>Riyed Wharf</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Overweight</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -2687,7 +2735,7 @@
           <td>5 T5 → 5 T6</td>
           <td>Oben Island</td>
           <td>Grándiha</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Not accurate</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -3761,7 +3809,7 @@
           <td>📍 STOP AT Tinberra Island</td>
           <td>Rosevan Island</td>
           <td>Tinberra Island</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Not accurate</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -3921,7 +3969,7 @@
           <td>📍 STOP AT Riyed Wharf</td>
           <td>Riyed Island</td>
           <td>Riyed Wharf</td>
-          <td data-sort="-1">No data yet</td>
+          <td data-sort="-1">Not accurate</td>
           <td><span class="badge badge-inaccurate">~ Overweight</span></td>
           <td>Volante</td>
           <td>217%</td>
@@ -3982,6 +4030,768 @@
       <span class="pager-info" id="randomPageInfo">1 / 1</span>
       <button type="button" class="pager-btn" id="randomPrevBtn" aria-label="Previous page">&lsaquo;</button>
       <button type="button" class="pager-btn" id="randomNextBtn" aria-label="Next page">&rsaquo;</button>
+    </div>
+  </div>
+
+  <div class="table-wrap hidden" id="tab-refreshes">
+    <div class="refresh-list">
+
+      <details class="refresh-cycle" open>
+        <summary>
+          <span class="refresh-cycle-range">[22/07 08:56:30 PM] → [23/07 10:00:12 AM]</span>
+          <span class="refresh-cycle-total">Total: 1h 26m 23s</span>
+        </summary>
+        <div class="refresh-legs">
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:26:58 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Ajir Island)</span>
+          <span class="refresh-leg-dur">47s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:27:56 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Ajir Island → Orffs Island)</span>
+          <span class="refresh-leg-dur">58s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:34:54 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Orffs Island → Dallae Pier)</span>
+          <span class="refresh-leg-dur">6m 58s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:38:48 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Dallae Pier → Haemo Island)</span>
+          <span class="refresh-leg-dur">3m 37s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:46:22 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Haemo Island → Epheria)</span>
+          <span class="refresh-leg-dur">7m 10s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:49:12 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Epheria → Olvia Coast)</span>
+          <span class="refresh-leg-dur">2m 24s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:51:11 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Olvia Coast → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 39s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:58:53 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Iliya Island → Hakoven Island)</span>
+          <span class="refresh-leg-dur">7m 5s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:01:34 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Hakoven Island → Arehaza)</span>
+          <span class="refresh-leg-dur">2m 27s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:27:56 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Arehaza → Iliya Island)</span>
+          <span class="refresh-leg-dur">9m 0s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:36:48 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Iliya Island → Lema Island)</span>
+          <span class="refresh-leg-dur">1m 26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:40:11 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Lema Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 22s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:43:14 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Balvege Island)</span>
+          <span class="refresh-leg-dur">1m 33s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:43:58 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Balvege Island → Narvo Island)</span>
+          <span class="refresh-leg-dur">31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:45:29 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Oben Island (quest)&nbsp;&nbsp;(Narvo Island → Oben Island (quest))</span>
+          <span class="refresh-leg-dur">1m 17s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:47:16 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">3 T3 → 3 Pure Pearl Crystal(s)&nbsp;&nbsp;(Oben Island (quest) → Eberdeen Island)</span>
+          <span class="refresh-leg-dur">1m 7s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:51:56 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Eberdeen Island → Grándiha)</span>
+          <span class="refresh-leg-dur">4m 15s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 08:54:12 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Grándiha → Starry Midnight Port)</span>
+          <span class="refresh-leg-dur">1m 59s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:04:12 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Starry Midnight Port → Sausan Garrison Wharf)</span>
+          <span class="refresh-leg-dur">9m 37s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:10:13 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Sausan Garrison Wharf → Sanctuary Coastal Outpost)</span>
+          <span class="refresh-leg-dur">2m 14s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:12:48 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Sanctuary Coastal Outpost → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 18s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:18:50 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">6 T4 → 6 T5&nbsp;&nbsp;(Iliya Island → Padix Island)</span>
+          <span class="refresh-leg-dur">3m 5s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:32:36 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Padix Island → Oben Island)</span>
+          <span class="refresh-leg-dur">1m 3s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:36:41 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Oben Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">3m 37s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:50:08 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">10 T2 → 30 T3&nbsp;&nbsp;(Iliya Island → Marlene Island)</span>
+          <span class="refresh-leg-dur">1m 18s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:53:40 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Marlene Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 28s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:56:11 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Orisha Island)</span>
+          <span class="refresh-leg-dur">1m 49s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 09:57:58 AM]</span>
+          <span class="badge badge-inaccurate">~ Overweight</span>
+          <span class="refresh-leg-route">STOP AT Shakatu Wharf&nbsp;&nbsp;(Orisha Island → Shakatu Wharf)</span>
+          <span class="refresh-leg-dur">1m 31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[23/07 10:00:01 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Shakatu Wharf → Shasha Island)</span>
+          <span class="refresh-leg-dur">1m 48s</span>
+        </div>
+      </div>
+      </details>
+      <details class="refresh-cycle">
+        <summary>
+          <span class="refresh-cycle-range">[21/07 03:01:39 PM] → [22/07 08:56:30 PM]</span>
+          <span class="refresh-cycle-total">Total: 3h 7m 29s</span>
+        </summary>
+        <div class="refresh-legs">
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 03:02:48 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Al-Naha Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">57s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 03:04:43 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Pujara Island)</span>
+          <span class="refresh-leg-dur">1m 4s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 03:07:37 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Pujara Island → Orffs Island)</span>
+          <span class="refresh-leg-dur">2m 37s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 03:10:25 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Oquilla's Eye&nbsp;&nbsp;(Orffs Island → Oquilla's Eye)</span>
+          <span class="refresh-leg-dur">2m 28s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 06:49:14 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Oquilla's Eye → Dallae Pier)</span>
+          <span class="refresh-leg-dur">6m 10s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 06:53:22 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Dallae Pier → Haemo Island)</span>
+          <span class="refresh-leg-dur">3m 31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 07:00:51 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Haemo Island → Lema Island)</span>
+          <span class="refresh-leg-dur">7m 15s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 09:53:04 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Lema Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 28s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 09:59:53 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Ancado&nbsp;&nbsp;(Iliya Island → Ancado)</span>
+          <span class="refresh-leg-dur">5m 29s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 10:03:36 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Ancado → Hakoven Island)</span>
+          <span class="refresh-leg-dur">3m 14s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 10:06:50 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Hakoven Island → Arehaza)</span>
+          <span class="refresh-leg-dur">2m 34s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 10:19:13 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Arehaza → Olvia Coast)</span>
+          <span class="refresh-leg-dur">10m 41s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 10:22:57 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Olvia Coast → Epheria)</span>
+          <span class="refresh-leg-dur">2m 37s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 10:26:32 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Epheria → Iliya Island)</span>
+          <span class="refresh-leg-dur">3m 35s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:46:33 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Balvege Island)</span>
+          <span class="refresh-leg-dur">1m 33s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:48:41 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">2 T5 → 2 Brilliant Pearl Shards&nbsp;&nbsp;(Balvege Island → Invernen Island)</span>
+          <span class="refresh-leg-dur">31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:49:32 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">2 T5 → 2 Brilliant Rock Salt Ingots&nbsp;&nbsp;(Invernen Island → Marka Island)</span>
+          <span class="refresh-leg-dur">34s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:51:08 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Marka Island → Padix Island)</span>
+          <span class="refresh-leg-dur">1m 23s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 09:57:11 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Padix Island → Grándiha)</span>
+          <span class="refresh-leg-dur">5m 50s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:00:37 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Grándiha → Starry Midnight Port)</span>
+          <span class="refresh-leg-dur">1m 58s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:11:07 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Starry Midnight Port → Sausan Garrison Wharf)</span>
+          <span class="refresh-leg-dur">9m 45s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:13:56 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Sausan Garrison Wharf → Sanctuary Coastal Outpost)</span>
+          <span class="refresh-leg-dur">2m 17s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:16:36 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Sanctuary Coastal Outpost → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:22:45 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">6 T4 → 6 T5&nbsp;&nbsp;(Iliya Island → Oben Island)</span>
+          <span class="refresh-leg-dur">3m 26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:24:18 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Oben Island → Rameda Island)</span>
+          <span class="refresh-leg-dur">49s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:29:00 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Rameda Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">4m 31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:37:49 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Rosevan Island)</span>
+          <span class="refresh-leg-dur">1m 34s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 10:52:09 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">STOP AT Tinberra Island&nbsp;&nbsp;(Rosevan Island → Tinberra Island)</span>
+          <span class="refresh-leg-dur">Not accurate</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:29:42 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Tinberra Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 3s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:32:47 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Tulu Island)</span>
+          <span class="refresh-leg-dur">1m 55s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:34:35 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Tulu Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 35s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:36:06 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">9 T2 → 27 T3&nbsp;&nbsp;(Iliya Island → Kanvera Island)</span>
+          <span class="refresh-leg-dur">44s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:37:40 AM]</span>
+          <span class="badge badge-inaccurate">~ Overweight</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Kanvera Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 21s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:41:58 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Ajir Island)</span>
+          <span class="refresh-leg-dur">45s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:43:28 AM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Ajir Island → Balvege Island)</span>
+          <span class="refresh-leg-dur">1m 20s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:55:34 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Oquilla's Eye → Dallae Pier)</span>
+          <span class="refresh-leg-dur">6m 46s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 11:59:32 AM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Dallae Pier → Haemo Island)</span>
+          <span class="refresh-leg-dur">3m 46s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:06:59 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Haemo Island → Epheria)</span>
+          <span class="refresh-leg-dur">7m 4s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:10:02 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Epheria → Olvia Coast)</span>
+          <span class="refresh-leg-dur">2m 27s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:11:57 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Olvia Coast → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 42s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:17:18 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Ancado&nbsp;&nbsp;(Iliya Island → Ancado)</span>
+          <span class="refresh-leg-dur">4m 48s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:21:20 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Ancado → Hakoven Island)</span>
+          <span class="refresh-leg-dur">2m 53s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:24:13 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Hakoven Island → Arehaza)</span>
+          <span class="refresh-leg-dur">2m 30s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:34:01 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Arehaza → Iliya Island)</span>
+          <span class="refresh-leg-dur">9m 25s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:36:40 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Iliya Island → Lema Island)</span>
+          <span class="refresh-leg-dur">1m 27s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:38:33 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Lema Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 30s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:41:45 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">3 T4 → 15 Great Ocean Dark Iron(s)&nbsp;&nbsp;(Iliya Island → Marka Island)</span>
+          <span class="refresh-leg-dur">2m 4s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 12:47:30 PM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Epheria → Oben Island)</span>
+          <span class="refresh-leg-dur">1m 39s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 07:52:13 PM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Oben Island → Grándiha)</span>
+          <span class="refresh-leg-dur">Not accurate</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 07:55:15 PM]</span>
+          <span class="badge badge-inaccurate">~ Not accurate</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Grándiha → Starry Midnight Port)</span>
+          <span class="refresh-leg-dur">2m 41s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:10:43 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Starry Midnight Port → Sausan Garrison Wharf)</span>
+          <span class="refresh-leg-dur">11m 32s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:13:45 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Sausan Garrison Wharf → Sanctuary Coastal Outpost)</span>
+          <span class="refresh-leg-dur">2m 30s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:16:54 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Sanctuary Coastal Outpost → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 56s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:24:50 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Theonil Island)</span>
+          <span class="refresh-leg-dur">4m 56s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:25:35 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Theonil Island → Rameda Island)</span>
+          <span class="refresh-leg-dur">40s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:29:44 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Rameda Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">4m 6s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:36:35 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Shirna Island)</span>
+          <span class="refresh-leg-dur">2m 6s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:45:47 PM]</span>
+          <span class="badge badge-inaccurate">~ Overweight</span>
+          <span class="refresh-leg-route">STOP AT Shakatu Wharf&nbsp;&nbsp;(Shirna Island → Shakatu Wharf)</span>
+          <span class="refresh-leg-dur">1m 15s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:48:35 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Shakatu Wharf → Shasha Island)</span>
+          <span class="refresh-leg-dur">1m 47s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:49:47 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Shasha Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 12s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:52:59 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Al-Naha Island)</span>
+          <span class="refresh-leg-dur">1m 11s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:54:07 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Al-Naha Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">56s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[22/07 08:56:20 PM]</span>
+          <span class="badge badge-accurate">Accurate</span>
+          <span class="refresh-leg-route">3 T3 → 6 T4&nbsp;&nbsp;(Iliya Island → Tulu Island)</span>
+          <span class="refresh-leg-dur">1m 40s</span>
+        </div>
+      </div>
+      </details>
+      <details class="refresh-cycle">
+        <summary>
+          <span class="refresh-cycle-range">[20/07 11:50:50 PM] → [21/07 03:01:39 PM]</span>
+          <span class="refresh-cycle-total">Total: 13h 21m 22s</span>
+        </summary>
+        <div class="refresh-legs">
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[20/07 11:52:19 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Rosevan Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 36s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:02:06 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Iliya Island → Hakoven Island)</span>
+          <span class="refresh-leg-dur">9m 15s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:05:18 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Hakoven Island → Arehaza)</span>
+          <span class="refresh-leg-dur">2m 55s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:17:45 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Arehaza → Iliya Island)</span>
+          <span class="refresh-leg-dur">10m 52s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:20:14 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Iliya Island → Lema Island)</span>
+          <span class="refresh-leg-dur">1m 54s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:24:34 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Pilava Island)</span>
+          <span class="refresh-leg-dur">59s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:27:24 AM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Pilava Island → Ajir Island)</span>
+          <span class="refresh-leg-dur">2m 29s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:19:05 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Ajir Island → Dallae Pier)</span>
+          <span class="refresh-leg-dur">11h 51m 25s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:23:24 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Dallae Pier → Haemo Island)</span>
+          <span class="refresh-leg-dur">3m 56s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:32:44 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Haemo Island → Epheria Sentry Post)</span>
+          <span class="refresh-leg-dur">8m 26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:36:09 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Epheria Sentry Post → Olvia Coast)</span>
+          <span class="refresh-leg-dur">3m 5s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:38:42 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Olvia Coast → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 53s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:42:48 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Baremi Island)</span>
+          <span class="refresh-leg-dur">54s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:44:11 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Baremi Island → Balvege Island)</span>
+          <span class="refresh-leg-dur">55s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:45:25 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">2 T5 → 2 Brilliant Rock Salt Ingots&nbsp;&nbsp;(Balvege Island → Invernen Island)</span>
+          <span class="refresh-leg-dur">26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:46:13 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">2 T5 → 2 Brilliant Pearl Shards&nbsp;&nbsp;(Invernen Island → Marka Island)</span>
+          <span class="refresh-leg-dur">38s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:55:26 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Marka Island → Grándiha)</span>
+          <span class="refresh-leg-dur">5m 25s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 12:58:24 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T5 → 5 T6&nbsp;&nbsp;(Grándiha → Starry Midnight Port)</span>
+          <span class="refresh-leg-dur">2m 26s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 01:10:31 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Starry Midnight Port → Sausan Garrison Wharf)</span>
+          <span class="refresh-leg-dur">11m 25s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 01:13:40 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T6 → 5 T7&nbsp;&nbsp;(Sausan Garrison Wharf → Sanctuary Coastal Outpost)</span>
+          <span class="refresh-leg-dur">2m 34s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 01:16:33 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Sanctuary Coastal Outpost → Iliya Island)</span>
+          <span class="refresh-leg-dur">2m 53s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 01:24:20 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Iliya Island → Narvo Island)</span>
+          <span class="refresh-leg-dur">2m 34s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:38:10 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Oben Island (quest)&nbsp;&nbsp;(Narvo Island → Oben Island (quest))</span>
+          <span class="refresh-leg-dur">1m 19s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:39:21 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">5 T4 → 5 T5&nbsp;&nbsp;(Oben Island (quest) → Oben Island)</span>
+          <span class="refresh-leg-dur">25s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:41:14 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">6 T4 → 6 T5&nbsp;&nbsp;(Oben Island → Rameda Island)</span>
+          <span class="refresh-leg-dur">55s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:48:24 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Epheria&nbsp;&nbsp;(Rameda Island → Epheria)</span>
+          <span class="refresh-leg-dur">1m 27s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:53:07 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Epheria → Iliya Island)</span>
+          <span class="refresh-leg-dur">4m 18s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:55:54 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Shasha Island)</span>
+          <span class="refresh-leg-dur">1m 31s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 02:57:41 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">STOP AT Iliya Island&nbsp;&nbsp;(Shasha Island → Iliya Island)</span>
+          <span class="refresh-leg-dur">1m 32s</span>
+        </div>
+        <div class="refresh-leg">
+          <span class="refresh-leg-ts">[21/07 03:00:46 PM]</span>
+          <span class="badge badge-inaccurate">~ Auto-path</span>
+          <span class="refresh-leg-route">8 T3 → 16 T4&nbsp;&nbsp;(Iliya Island → Al-Naha Island)</span>
+          <span class="refresh-leg-dur">1m 0s</span>
+        </div>
+      </div>
+      </details>
     </div>
   </div>
 
@@ -4170,7 +4980,7 @@
 
     // ---- Tabs ----
     const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabPanels = { allinone: document.getElementById('tab-allinone'), special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs'), random: document.getElementById('tab-random') };
+    const tabPanels = { allinone: document.getElementById('tab-allinone'), special: document.getElementById('tab-special'), pairs: document.getElementById('tab-pairs'), random: document.getElementById('tab-random'), refreshes: document.getElementById('tab-refreshes') };
     tabButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         tabButtons.forEach(b => b.classList.remove('active'));
